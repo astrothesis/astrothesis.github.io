@@ -1,183 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>astrothesis - forum</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Yeseva One', serif;
-    background: #fef9f4;
-    color: black;
-  }
-  nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: rgba(255,255,255,0.9);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-  }
-  nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
-  nav ul { list-style: none; display: flex; gap: 1.5rem; }
-  nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
-  nav a:hover { color: #ff6d4d; }
-  .forum-container { display: flex; margin-top: 6rem; min-height: 80vh; }
-  .sidebar { width: 200px; padding: 1rem; border-right: 1px solid #ccc; }
-  .sidebar h3 { margin-bottom: 1rem; font-family: 'DM Serif Text', serif; }
-  .sidebar ul { list-style: none; }
-  .sidebar li { margin-bottom: 0.5rem; cursor: pointer; color: black; }
-  .sidebar li:hover { color: #ff6d4d; }
-  .posts { flex: 1; padding: 1rem; display: flex; flex-direction: column; gap: 1rem; }
-  .post-card { border: 1px solid #ccc; padding: 1rem; border-radius: 10px; background: white; }
-  .post-title { font-family: 'DM Serif Text', serif; font-weight: bold; font-size: 1.3rem; margin-bottom: 0.5rem; }
-  .post-date { font-size: 0.85rem; color: #555; margin-bottom: 0.5rem; }
-  .post-content { margin-bottom: 0.5rem; }
-  .post-actions { display: flex; gap: 1rem; font-size: 0.9rem; cursor: pointer; }
-  .replies { margin-top: 0.5rem; padding-left: 1rem; border-left: 2px solid #eee; }
-  .reply { margin-bottom: 0.3rem; }
-  .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content:center; align-items:center; }
-  .modal-content { background:white; padding:1rem; border-radius:10px; width:300px; }
-  .modal-content input, .modal-content textarea { width: 100%; margin-bottom:0.5rem; padding:0.5rem; }
-  .modal-content button { width: 100%; padding:0.5rem; background:#ff6d4d; border:none; color:white; cursor:pointer; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4;
+      color: black;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    nav .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color: black;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #ff6d4d; }
+
+    .container {
+      display: flex;
+      width: 100%;
+      margin-top: 6rem; /* space for navbar */
+    }
+
+    .sidebar {
+      width: 200px;
+      padding: 2rem;
+      background: rgba(255,255,255,0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      min-height: calc(100vh - 6rem);
+    }
+
+    .sidebar button {
+      padding: 0.5rem;
+      border: none;
+      background: #ff6d4d;
+      color: white;
+      font-family: 'Yeseva One', serif;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sidebar button:hover { background: #e55b3b; }
+
+    .posts {
+      flex-grow: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .post-card {
+      background: rgba(255,255,255,0.95);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .post-card h3 {
+      font-family: 'DM Serif Text', serif;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-card p {
+      margin-bottom: 0.5rem;
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-actions span {
+      cursor: pointer;
+      margin-right: 1rem;
+      color: #ff6d4d;
+    }
+
+    /* Modal styling */
+    .modal {
+      display: none;
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fef9f4;
+      padding: 2rem;
+      border-radius: 10px;
+      min-width: 300px;
+    }
+
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      font-family: 'Yeseva One', serif;
+      font-size: 1rem;
+    }
+
+    .modal-content button {
+      padding: 0.5rem 1rem;
+      font-family: 'Yeseva One', serif;
+      background: #ff6d4d;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .modal-content button:hover { background: #e55b3b; }
+  </style>
 </head>
 <body>
-<nav>
-  <div class="logo">astrothesis</div>
-  <ul>
-    <li><a href="index.html">home</a></li>
-    <li><a href="about.html">about</a></li>
-    <li><a href="contact.html">contact</a></li>
-    <li><a href="blog.html">blog</a></li>
-    <li><a href="forum.html">forum</a></li>
-  </ul>
-</nav>
 
-<div class="forum-container">
-  <div class="sidebar">
-    <h3>Forums</h3>
+  <nav>
+    <div class="logo">astrothesis</div>
     <ul>
-      <li onclick="filterCategory('General')">General</li>
-      <li onclick="filterCategory('Questions')">Questions</li>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
     </ul>
-    <button onclick="openModal('post')">New Post</button>
+    <div id="userDisplay"></div>
+  </nav>
+
+  <div class="container">
+    <div class="sidebar">
+      <button onclick="selectCategory('General')">General</button>
+      <button onclick="selectCategory('Questions')">Questions</button>
+      <button onclick="checkLogin('post')">New Post</button>
+    </div>
+
+    <div class="posts" id="postContainer">
+      <!-- Posts will render here -->
+    </div>
   </div>
 
-  <div class="posts" id="postsContainer">
-    <!-- Posts will render here -->
+  <!-- Post Modal -->
+  <div class="modal" id="postModal">
+    <div class="modal-content">
+      <h3>New Post</h3>
+      <input type="text" id="postTitle" placeholder="Title" />
+      <textarea id="postContent" rows="5" placeholder="Write your post..."></textarea>
+      <button onclick="submitPost()">Submit</button>
+    </div>
   </div>
-</div>
 
-<!-- Post Modal -->
-<div class="modal" id="postModal">
-  <div class="modal-content">
-    <h3>New Post</h3>
-    <input type="text" id="postTitle" placeholder="Post title" />
-    <textarea id="postContent" placeholder="Write your post..." rows="4"></textarea>
-    <select id="postCategory">
-      <option value="General">General</option>
-      <option value="Questions">Questions</option>
-    </select>
-    <button onclick="addPost()">Post</button>
-    <button onclick="closeModal('post')">Cancel</button>
+  <!-- Reply Modal -->
+  <div class="modal" id="replyModal">
+    <div class="modal-content">
+      <h3>Reply</h3>
+      <textarea id="replyContent" rows="4" placeholder="Write your reply..."></textarea>
+      <button onclick="submitReply()">Submit Reply</button>
+    </div>
   </div>
-</div>
 
-<script>
-let posts = JSON.parse(localStorage.getItem('forumPosts')) || [
-  {id:1, category:'General', title:'Welcome!', date:'August 22, 2025', content:'This is the first post in General. Stay tuned for more!', likes:0, replies:[]},
-  {id:2, category:'Questions', title:'Ask Anything', date:'August 22, 2025', content:'Have questions? Post them here!', likes:0, replies:[]}
-];
-let currentCategory = 'General';
+  <!-- Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <h3>Login</h3>
+      <input type="text" id="usernameInput" placeholder="Enter your username" />
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
 
-function savePosts() {
-  localStorage.setItem('forumPosts', JSON.stringify(posts));
-}
+  <script>
+    let posts = JSON.parse(localStorage.getItem('forumPosts')) || [];
+    let selectedCategory = 'General';
+    let currentReplyPostId = null;
 
-function renderPosts() {
-  const container = document.getElementById('postsContainer');
-  container.innerHTML = '';
-  posts.filter(p=>p.category===currentCategory).forEach(post=>{
-    const div = document.createElement('div');
-    div.className='post-card';
-    div.innerHTML = `
-      <div class="post-title">${post.title}</div>
-      <div class="post-date">${post.date}</div>
-      <div class="post-content">${post.content}</div>
-      <div class="post-actions">
-        <span onclick="likePost(${post.id})">❤️ ${post.likes}</span>
-        <span onclick="openReply(${post.id})">Reply</span>
-      </div>
-      <div class="replies" id="replies-${post.id}">
-        ${post.replies.map(r=>`<div class="reply">${r}</div>`).join('')}
-      </div>
-    `;
-    container.appendChild(div);
-  });
-}
+    function savePosts() {
+      localStorage.setItem('forumPosts', JSON.stringify(posts));
+    }
 
-function filterCategory(cat) {
-  currentCategory = cat;
-  renderPosts();
-}
+    function renderPosts() {
+      const container = document.getElementById('postContainer');
+      container.innerHTML = '';
+      const filtered = posts.filter(p => p.category === selectedCategory);
+      filtered.forEach(post => {
+        const card = document.createElement('div');
+        card.className = 'post-card';
+        card.innerHTML = `
+          <h3>${post.title}</h3>
+          <div class="post-meta">${post.date}</div>
+          <p>${post.content}</p>
+          <div class="post-actions">
+            <span onclick="likePost(${post.id})">Like (${post.likes})</span>
+            <span onclick="checkLogin('reply', ${post.id})">Reply</span>
+          </div>
+          ${post.replies.map(r => `<div style="margin-left:1rem; margin-top:0.5rem;">${r}</div>`).join('')}
+        `;
+        container.appendChild(card);
+      });
+    }
 
-function likePost(id) {
-  const post = posts.find(p=>p.id===id);
-  post.likes++;
-  savePosts();
-  renderPosts();
-}
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      renderPosts();
+    }
 
-function openModal(type) {
-  document.getElementById(type+'Modal').style.display='flex';
-}
+    function openModal(id) { document.getElementById(id+'Modal').style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id+'Modal').style.display = 'none'; }
 
-function closeModal(type) {
-  document.getElementById(type+'Modal').style.display='none';
-}
+    function checkLogin(action, postId=null){
+      const username = localStorage.getItem('forumUser');
+      if(!username){
+        openModal('login');
+      } else {
+        if(action==='reply' && postId!==null){
+          currentReplyPostId = postId;
+          openModal('reply');
+        } else if(action==='post'){
+          openModal('post');
+        }
+      }
+    }
 
-function addPost() {
-  const title = document.getElementById('postTitle').value;
-  const content = document.getElementById('postContent').value;
-  const category = document.getElementById('postCategory').value;
-  if(title && content){
-    posts.push({
-      id: Date.now(),
-      category: category,
-      title: title,
-      date: new Date().toLocaleDateString(),
-      content: content,
-      likes: 0,
-      replies: []
-    });
-    savePosts();
+    function login(){
+      const username = document.getElementById('usernameInput').value;
+      if(username){
+        localStorage.setItem('forumUser', username);
+        closeModal('login');
+        showUser();
+        alert('Logged in as ' + username);
+      } else {
+        alert('Please enter a username');
+      }
+    }
+
+    function submitPost(){
+      const title = document.getElementById('postTitle').value;
+      const content = document.getElementById('postContent').value;
+      const username = localStorage.getItem('forumUser');
+      if(title && content && username){
+        const newPost = {
+          id: Date.now(),
+          category: selectedCategory,
+          title,
+          content,
+          date: new Date().toLocaleDateString(),
+          likes: 0,
+          replies: []
+        };
+        posts.unshift(newPost);
+        savePosts();
+        renderPosts();
+        closeModal('post');
+        document.getElementById('postTitle').value = '';
+        document.getElementById('postContent').value = '';
+      }
+    }
+
+    function likePost(id){
+      const post = posts.find(p => p.id === id);
+      if(post){ post.likes +=1; savePosts(); renderPosts(); }
+    }
+
+    function openReply(postId){
+      currentReplyPostId = postId;
+      openModal('reply');
+    }
+
+    function submitReply(){
+      const content = document.getElementById('replyContent').value;
+      const username = localStorage.getItem('forumUser');
+      if(content && username){
+        const post = posts.find(p => p.id === currentReplyPostId);
+        if(post){
+          post.replies.push(username + ': ' + content);
+          savePosts();
+          renderPosts();
+          closeModal('reply');
+          document.getElementById('replyContent').value = '';
+        }
+      }
+    }
+
+    function showUser(){
+      const username = localStorage.getItem('forumUser');
+      document.getElementById('userDisplay').innerText = username ? 'Logged in as ' + username : '';
+    }
+
     renderPosts();
-    closeModal('post');
-    document.getElementById('postTitle').value='';
-    document.getElementById('postContent').value='';
-  } else {
-    alert('Please enter title and content');
-  }
-}
-
-function openReply(postId){
-  const reply = prompt('Enter your reply:');
-  if(reply){
-    const post = posts.find(p=>p.id===postId);
-    post.replies.push(reply);
-    savePosts();
-    renderPosts();
-  }
-}
-
-renderPosts();
-</script>
+    showUser();
+  </script>
 </body>
 </html>
