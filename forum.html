@@ -1,225 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>astrothesis - forum</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Yeseva One', serif;
-      background: #fef9f4;
-      color: black;
-      overflow-x: hidden;
-      padding-top: 6rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    nav {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(255,255,255,0.9);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-    }
-    nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
-    nav ul { list-style: none; display: flex; gap: 1.5rem; }
-    nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
-    nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
-    .post-card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 1rem;
-      background: white;
-    }
-    .post-card.admin {
-      border: 2px solid #0E0066;
-      background: #f0f0ff;
-    }
-    .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
-    .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
-    .post-content { font-size: 1rem; }
-    #post-section input, #post-section textarea { padding:0.5rem; font-size:1rem; border-radius:4px; border:1px solid #ccc; }
-    #post-section button { background:#0E0066; color:white; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer; }
-    .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; }
-    #profile-container { display:flex; align-items:center; gap:0.5rem; }
-    #profile-container img { width:40px; height:40px; border-radius:50%; object-fit:cover; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mock Forum</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fef9f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 200px;
+    background: #0E0066;
+    color: white;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .sidebar h2 { margin-bottom: 1rem; font-size: 1.2rem; }
+  .sidebar button {
+    background: white; color: #0E0066; border: none; padding: 0.5rem; cursor: pointer; border-radius: 4px;
+  }
+  .main {
+    flex: 1;
+    padding: 2rem;
+  }
+  .nav {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;
+  }
+  .profile {
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .profile img { width: 40px; height: 40px; border-radius: 50%; display: none; }
+  .post-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background: white;
+  }
+  .post-card.pinned { background: #ffeedd; border: 2px solid #0E0066; }
+  .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
+  .post-date { font-size: 0.8rem; color: #555; margin-bottom: 0.5rem; }
+  .post-content { font-size: 1rem; margin-bottom: 0.5rem; }
+  .interact button { margin-right: 0.5rem; }
+  #login-section button { margin-right: 0.5rem; }
+</style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">astrothesis</div>
-    <ul>
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
-    </ul>
-    <div id="profile-container">
-      <button class="login-btn">Login</button>
-      <button class="signup-btn">Sign Up</button>
-    </div>
-  </nav>
+<div class="sidebar">
+  <h2>Forums</h2>
+  <button onclick="switchForum('general')">General</button>
+  <button onclick="switchForum('questions')">Questions</button>
+</div>
 
-  <div class="forum-container" id="forum-container">
-    <!-- Posts will load here -->
+<div class="main">
+  <div class="nav">
+    <div id="login-section">
+      <button onclick="fakeLogin()">Login</button>
+      <button onclick="fakeSignup()">Sign Up</button>
+    </div>
+    <div class="profile">
+      <span id="username"></span>
+      <img id="profile-pic" src="https://via.placeholder.com/40">
+    </div>
   </div>
 
-  <div id="post-section" style="margin-top:2rem;"></div>
+  <div id="posts-container"></div>
+</div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import { getFirestore, collection, addDoc, getDocs, setDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-    import { firebaseConfig } from './firebaseConfig.js';
+<script>
+  let currentUser = null;
+  let currentForum = 'general';
 
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth();
-    const db = getFirestore();
-    const forumContainer = document.getElementById('forum-container');
-    const profileContainer = document.getElementById('profile-container');
+  const fakePosts = {
+    general: [
+      { title: "Welcome to the General Forum", content: "This is a place to chat about anything!", date: "2025-08-22", likes: 2, comments: [], pinned: true, author: "admin" },
+      { title: "General Discussion Post", content: "Feel free to post your thoughts here.", date: "2025-08-21", likes: 1, comments: [], pinned: false, author: "user" }
+    ],
+    questions: [
+      { title: "How do I start with JavaScript?", content: "I am new to programming. Any tips?", date: "2025-08-22", likes: 3, comments: [], pinned: false, author: "user" }
+    ]
+  };
 
-    const googleProvider = new GoogleAuthProvider();
+  const verifiedStars = ["starUser"]; // Example of verified users whose posts get pinned
 
-    // Login Buttons
-    document.querySelector('.login-btn').addEventListener('click', async () => {
-      const result = await signInWithPopup(auth, googleProvider);
-    });
-    document.querySelector('.signup-btn').addEventListener('click', async () => {
-      const email = prompt('Enter email:');
-      const password = prompt('Enter password:');
-      if(email && password) await createUserWithEmailAndPassword(auth, email, password);
-    });
+  function renderPosts() {
+    const container = document.getElementById('posts-container');
+    container.innerHTML = '';
 
-    // Log Out
-    function addLogoutBtn() {
-      const btn = document.createElement('button');
-      btn.textContent = 'Logout';
-      btn.style.background = '#ff6d4d';
-      btn.style.color = 'white';
-      btn.style.border = 'none';
-      btn.style.padding = '0.3rem 0.6rem';
-      btn.style.borderRadius = '4px';
-      btn.style.cursor = 'pointer';
-      btn.addEventListener('click', async () => { await signOut(auth); });
-      profileContainer.appendChild(btn);
-    }
+    // Sort pinned posts to the top
+    const sortedPosts = [...fakePosts[currentForum]].sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
 
-    // Show Post Form
-    function showPostForm(user) {
-      const postSection = document.getElementById('post-section');
-      postSection.innerHTML = '';
-      if(!user) return;
-
-      const form = document.createElement('div');
-      form.innerHTML = `
-        <h3>Create a Post</h3>
-        <input type="text" id="post-title" placeholder="Post Title" style="width:100%; margin-bottom:0.5rem;"/>
-        <textarea id="post-content" placeholder="Write your post..." style="width:100%; margin-bottom:0.5rem;"></textarea>
-        <button id="submit-post">Post</button>
+    sortedPosts.forEach((post, index) => {
+      const card = document.createElement('div');
+      card.className = 'post-card' + (post.pinned ? ' pinned' : '');
+      card.innerHTML = `
+        <div class="post-title">${post.title} ${post.pinned ? '⭐' : ''}</div>
+        <div class="post-date">${post.date} | by ${post.author}</div>
+        <div class="post-content">${post.content}</div>
+        <div class="interact">
+          Likes: <span>${post.likes}</span>
+          <button onclick="likePost(${index})">Like</button>
+          <button onclick="commentPost(${index})">Comment</button>
+        </div>
+        <div class="comments">
+          ${post.comments.map(c => `<div>${c.user}: ${c.text}</div>`).join('')}
+        </div>
       `;
-      postSection.appendChild(form);
-
-      document.getElementById('submit-post').addEventListener('click', async () => {
-        const title = document.getElementById('post-title').value.trim();
-        const content = document.getElementById('post-content').value.trim();
-        if(!title || !content) return alert('Enter title and content');
-
-        await addDoc(collection(db, "posts"), {
-          title,
-          content,
-          date: new Date().toLocaleString(),
-          uid: user.uid,
-          admin: user.email === "YOUR_EMAIL@gmail.com",
-          star: false,
-          likes: 0,
-          comments: []
-        });
-        document.getElementById('post-title').value = '';
-        document.getElementById('post-content').value = '';
-      });
-    }
-
-    // Load Posts
-    function loadPosts() {
-      onSnapshot(collection(db, "posts"), (snapshot) => {
-        forumContainer.innerHTML = '';
-        snapshot.forEach(docSnap => {
-          const post = docSnap.data();
-          const postCard = document.createElement('div');
-          postCard.classList.add('post-card');
-          if(post.admin || post.star) postCard.classList.add('admin');
-          postCard.innerHTML = `
-            <div class="post-title">${post.title}</div>
-            <div class="post-date">${post.date}</div>
-            <div class="post-content">${post.content}</div>
-            <div class="interact" style="margin-top:0.5rem;">
-              <span class="likes">Likes: ${post.likes || 0}</span>
-              <button class="like-btn">Like</button>
-              <button class="comment-btn">Comment</button>
-              <div class="comments-container"></div>
-            </div>
-          `;
-          forumContainer.appendChild(postCard);
-
-          const likeBtn = postCard.querySelector('.like-btn');
-          const commentBtn = postCard.querySelector('.comment-btn');
-          const commentsContainer = postCard.querySelector('.comments-container');
-
-          (post.comments || []).forEach(c => {
-            const div = document.createElement('div');
-            div.textContent = `${c.userName}: ${c.text}`;
-            commentsContainer.appendChild(div);
-          });
-
-          likeBtn.addEventListener('click', async () => {
-            if(!auth.currentUser) return alert('Login to like posts');
-            const postRef = doc(db, 'posts', docSnap.id);
-            await setDoc(postRef, { likes: (post.likes || 0) + 1 }, { merge: true });
-          });
-
-          commentBtn.addEventListener('click', async () => {
-            if(!auth.currentUser) return alert('Login to comment');
-            const text = prompt('Enter your comment:');
-            if(!text) return;
-            const postRef = doc(db, 'posts', docSnap.id);
-            const updatedComments = post.comments || [];
-            updatedComments.push({ userName: auth.currentUser.displayName || auth.currentUser.email, text });
-            await setDoc(postRef, { comments: updatedComments }, { merge: true });
-          });
-        });
-      });
-    }
-
-    // Auth state changes
-    onAuthStateChanged(auth, user => {
-      profileContainer.innerHTML = '';
-      if(user) {
-        const img = document.createElement('img');
-        img.src = user.photoURL || 'https://via.placeholder.com/40';
-        profileContainer.appendChild(img);
-        addLogoutBtn();
-      } else {
-        profileContainer.appendChild(document.querySelector('.login-btn'));
-        profileContainer.appendChild(document.querySelector('.signup-btn'));
-      }
-      showPostForm(user);
+      container.appendChild(card);
     });
+  }
 
-    loadPosts();
-  </script>
+  function likePost(index) {
+    if(!currentUser) return alert('Login to like posts');
+    fakePosts[currentForum][index].likes++;
+    renderPosts();
+  }
+
+  function commentPost(index) {
+    if(!currentUser) return alert('Login to comment');
+    const text = prompt('Enter your comment:');
+    if(text) {
+      fakePosts[currentForum][index].comments.push({ user: currentUser.name, text });
+      renderPosts();
+    }
+  }
+
+  function fakeLogin() {
+    const name = prompt('Enter your name to login');
+    if(name) {
+      currentUser = { name, pic: 'https://via.placeholder.com/40' };
+      updateProfileUI();
+    }
+  }
+
+  function fakeSignup() {
+    const name = prompt('Enter your name to sign up');
+    if(name) {
+      currentUser = { name, pic: 'https://via.placeholder.com/40' };
+
+      // Auto pin posts if verified star
+      if(verifiedStars.includes(name)) {
+        fakePosts[currentForum].forEach(post => {
+          if(post.author === name) post.pinned = true;
+        });
+      }
+
+      updateProfileUI();
+    }
+  }
+
+  function updateProfileUI() {
+    document.getElementById('username').textContent = currentUser ? currentUser.name : '';
+    const pic = document.getElementById('profile-pic');
+    if(currentUser) {
+      pic.style.display = 'block';
+    } else {
+      pic.style.display = 'none';
+    }
+    document.getElementById('login-section').style.display = currentUser ? 'none' : 'block';
+    renderPosts();
+  }
+
+  function switchForum(forum) {
+    currentForum = forum;
+    renderPosts();
+  }
+
+  renderPosts();
+</script>
 
 </body>
 </html>
