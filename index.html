@@ -1,167 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>astrothesis</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Yeseva One', serif;
-    background-color: #fdf5e6; /* cream/ivory */
-    color: #000;
-    text-align: center;
-    overflow-x: hidden;
-  }
-  h1, h2 {
-    font-family: 'DM Serif Text', serif;
-  }
-  h1 { font-size: 4rem; margin: 2rem 0; }
-  h2 { font-size: 2rem; margin: 2rem 0 1rem; }
-  nav {
-    padding: 1rem;
-    position: sticky;
-    top: 0;
-    background: rgba(253,245,230,0.95);
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 0;
-    margin: 0;
-  }
-  nav a {
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-  section {
-    padding: 4rem 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .discover-point { margin: 1rem 0; font-size: 1.2rem; }
-  #starfield {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>astrothesis</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Yeseva One', serif;
+      background-color: #fffaf0; /* ivory/cream background */
+      color: black;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 20px;
+      margin: 0;
+      background: transparent;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-family: 'Yeseva One', serif;
+      font-size: 1.1em;
+    }
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* keeps content from too far down */
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      padding: 100px 40px;
+    }
+    section h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 3em;
+      margin-bottom: 30px;
+    }
+    section p {
+      font-family: 'Yeseva One', serif;
+      font-size: 1.2em;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+    .discover p {
+      margin: 15px 0;
+    }
+    .discover p::before {
+      content: "💫 ";
+    }
+  </style>
 </head>
 <body>
 
-<canvas id="starfield"></canvas>
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+  </nav>
 
-<nav>
-  <ul>
-    <li><a href="index.html">home</a></li>
-    <li><a href="about.html">about</a></li>
-    <li><a href="contact.html">contact</a></li>
-    <li><a href="blog.html">blog</a></li>
-    <li><a href="forum.html">forum</a></li>
-  </ul>
-</nav>
-
-<section id="home">
-  <h1>astrothesis</h1>
-</section>
-
-<section id="about">
-  <h2>about astrothesis</h2>
-  <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
-</section>
-
-<section id="discover">
-  <h2>What you'll discover here</h2>
-  <p class="discover-point">🌌 Explore galaxies, stars and black holes</p>
-  <p class="discover-point">🌌 Uncover the science behind cosmic phenomena</p>
-  <p class="discover-point">🌌 Dive into fun space facts and mind blowing mysteries</p>
-  <p class="discover-point">🌌 Read exclusive essays to satisfy your curiosity</p>
-  <p class="discover-point">Become a member of the Navigators community where you can share questions and interests with like-minded individuals!</p>
-</section>
-
-<section id="contact">
-  <h2>follow me across the universe</h2>
-  <p>Instagram: <a href="https://www.instagram.com/astrothesis" target="_blank">astrothesis</a></p>
-  <p>TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">astro.thesis</a></p>
-  <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
-</section>
-
-<script>
-const canvas = document.getElementById('starfield');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-class Star {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * canvas.height;
-    this.radius = Math.random() * 1.5;
-    this.alpha = Math.random();
-    this.alphaChange = 0.002 + Math.random() * 0.003;
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-    ctx.fillStyle = `rgba(0,0,0,${this.alpha})`; // black stars
-    ctx.fill();
-    this.alpha += this.alphaChange;
-    if (this.alpha <= 0 || this.alpha >= 1) this.alphaChange = -this.alphaChange;
-  }
-}
-
-class ShootingStar {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * canvas.width;
-    this.y = Math.random() * -canvas.height;
-    this.length = Math.random() * 150 + 50;
-    this.speed = Math.random() * 5 + 5;
-    this.angle = Math.PI / 4;
-    this.opacity = 1;
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x + this.length * Math.cos(this.angle), this.y + this.length * Math.sin(this.angle));
-    ctx.strokeStyle = `rgba(50,50,50,${this.opacity})`; // dark gray shooting stars
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-    this.update();
-  }
-  update() {
-    this.x += this.speed * Math.cos(this.angle);
-    this.y += this.speed * Math.sin(this.angle);
-    this.opacity -= 0.01;
-    if (this.opacity <= 0) this.reset();
-  }
-}
-
-const stars = Array.from({length: 150},()=>new Star());
-const shootingStars = Array.from({length: 2},()=>new ShootingStar());
-
-function animate() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  stars.forEach(star=>star.draw());
-  shootingStars.forEach(star=>star.draw());
-  requestAnimationFrame(animate);
-}
-animate();
-</script>
+  <!-- Home Sections -->
+  <section>
+    <h1>astrothesis</h1>
+    <p>astrothesis is a creative science space where physics, astronomy and cosmic ideas come together. Our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
+    
+    <div class="discover">
+      <h2>what you'll discover here</h2>
+      <p>🌌 Explore galaxies, stars and black holes</p>
+      <p>🌌 Uncover the science behind cosmic phenomena</p>
+      <p>🌌 Dive into fun space facts and mind blowing mysteries</p>
+      <p>🌌 Read exclusive essays to satisfy your curiosity</p>
+      <p>Become a member of the Navigators community where you can share questions and interests with like-minded individuals!</p>
+    </div>
+  </section>
 
 </body>
 </html>
