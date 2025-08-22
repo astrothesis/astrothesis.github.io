@@ -29,7 +29,7 @@
       z-index: 10;
     }
     nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
-    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; margin-left: auto; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
     .forum-wrapper { display: flex; max-width: 1200px; width: 100%; gap: 2rem; margin-top: 2rem; }
@@ -42,8 +42,14 @@
       height: fit-content;
     }
     .sidebar h3 { margin-bottom: 1rem; font-size: 1.2rem; }
-    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
     .sidebar li a { text-decoration: none; color: #0E0066; font-weight: bold; }
+    .login-signup {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .login-btn, .signup-btn { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; width: 100%; }
     .forum-container {
       flex: 1;
       display: flex;
@@ -61,9 +67,7 @@
     .post-content { font-size: 1rem; margin-bottom: 0.5rem; }
     .post-actions { display: flex; gap: 1rem; }
     .like-btn, .comment-btn { cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; padding: 0.3rem 0.6rem; }
-    .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; }
-    .profile-pic { width: 40px; height: 40px; border-radius: 50%; margin-left: 1rem; }
-    .top-right { display: flex; align-items: center; }
+    .profile-pic { width: 40px; height: 40px; border-radius: 50%; margin-top: 0.5rem; display:none; }
   </style>
 </head>
 <body>
@@ -77,11 +81,6 @@
       <li><a href="blog.html">blog</a></li>
       <li><a href="forum.html">forum</a></li>
     </ul>
-    <div class="top-right">
-      <button class="login-btn">Login</button>
-      <button class="signup-btn">Sign Up</button>
-      <img class="profile-pic" src="" alt="Profile" style="display:none;">
-    </div>
   </nav>
 
   <div class="forum-wrapper">
@@ -91,6 +90,12 @@
         <li><a href="#">General</a></li>
         <li><a href="#">Questions</a></li>
       </ul>
+
+      <div class="login-signup">
+        <button class="login-btn">Login</button>
+        <button class="signup-btn">Sign Up</button>
+        <img class="profile-pic" src="" alt="Profile">
+      </div>
     </div>
 
     <div class="forum-container">
