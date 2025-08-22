@@ -4,108 +4,98 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>astrothesis</title>
+  
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Yeseva+One&display=swap" rel="stylesheet">
+  
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-    body, html {
       height: 100%;
       font-family: 'Yeseva One', serif;
-      background: #fdf7ec; /* ivory background */
+      background: #FFFFF0; /* ivory */
       overflow-x: hidden;
-      position: relative;
-      color: #000000;
-    }
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 0;
     }
     header {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      background: rgba(255, 255, 255, 0.3);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 50px;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.8);
       z-index: 10;
-      font-family: 'Yeseva One', serif;
     }
     header .logo {
+      font-family: 'DM Serif Display', serif;
       font-size: 1.5rem;
       text-transform: lowercase;
     }
-    header nav a {
-      margin-left: 20px;
+    nav a {
+      margin-left: 2rem;
       text-decoration: none;
-      color: #000000;
-      font-size: 1.1rem;
-    }
-    main {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 120px;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    h1 {
-      font-family: 'DM Serif Text', serif;
-      font-size: 4rem;
-      margin-bottom: 20px;
+      color: black;
+      font-weight: bold;
+      font-family: 'Yeseva One', serif;
       text-transform: lowercase;
     }
-    h2 {
-      font-family: 'DM Serif Text', serif;
-      font-size: 2rem;
-      margin: 40px 0 20px 0;
-    }
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-    .discover p {
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      margin: 10px 0;
+      padding: 150px 20px 50px 20px; /* extra top padding for header */
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+    main h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      text-transform: lowercase;
+    }
+    main h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+    main p {
+      max-width: 700px;
+      line-height: 1.6;
+      margin: 0.5rem 0;
+      color: black;
     }
     .discover span {
       display: block;
-      margin: 10px 0;
+      margin: 1rem 0;
+      font-size: 1.2rem;
     }
-    .contact-info a {
-      display: block;
-      margin: 10px 0;
-      color: #000000;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .text-section {
-      background: rgba(253, 247, 236, 0.85); /* semi-transparent to see stars behind */
-      padding: 30px;
-      border-radius: 10px;
-      margin-bottom: 40px;
+    canvas#staticStars, canvas#shootingStars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
     }
   </style>
 </head>
+
 <body>
-  <canvas id="starsCanvas"></canvas>
-  <canvas id="shootingCanvas"></canvas>
+  <canvas id="staticStars"></canvas>
+  <canvas id="shootingStars"></canvas>
 
   <header>
     <div class="logo">astrothesis</div>
     <nav>
-      <a href="home.html">home</a>
+      <a href="index.html">home</a>
       <a href="about.html">about</a>
       <a href="contact.html">contact</a>
       <a href="blog.html">blog</a>
@@ -114,62 +104,63 @@
   </header>
 
   <main>
-    <div class="text-section">
-      <h1>astrothesis</h1>
-      <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery – are you ready to explore?</p>
+    <h1>astrothesis</h1>
+    <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discover - are you ready to explore?</p>
+
+    <h2>What You’ll Discover Here</h2>
+    <div class="discover">
+      <span>🌌 Explore galaxies, stars and black holes.</span>
+      <span>🌌 Uncover the science behind cosmic phenomena.</span>
+      <span>🌌 Dive into fun space facts and mind blowing mysteries.</span>
+      <span>🌌 Read exclusive essays to satisfy your curiosity.</span>
+      <span>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</span>
     </div>
 
-    <div class="text-section discover">
-      <h2>What You’ll Discover Here</h2>
-      <p>🌌 Explore galaxies, stars and black holes.</p>
-      <p>🌌 Uncover the science behind cosmic phenomena.</p>
-      <p>🌌 Dive into fun space facts and mind blowing mysteries.</p>
-      <p>🌌 Read exclusive essays to satisfy your curiosity.</p>
-      <p>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</p>
-    </div>
-
-    <div class="text-section contact-info">
-      <h2>Follow Us Across The Universe</h2>
-      <a href="https://www.instagram.com/astrothesis" target="_blank">Instagram: astrothesis</a>
-      <a href="https://www.tiktok.com/@astro.thesis" target="_blank">TikTok: astro.thesis</a>
-      <a href="mailto:astrothesis@outlook.com">Email: astrothesis@outlook.com</a>
-    </div>
+    <h2>Follow Us Across The Universe</h2>
+    <p>
+      Instagram: <a href="https://www.instagram.com/astrothesis" target="_blank">astrothesis</a> <br>
+      TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">astro.thesis</a> <br>
+      Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a>
+    </p>
   </main>
 
   <script>
     // Static stars
-    const starsCanvas = document.getElementById('starsCanvas');
-    const shootingCanvas = document.getElementById('shootingCanvas');
-    starsCanvas.width = shootingCanvas.width = window.innerWidth;
-    starsCanvas.height = shootingCanvas.height = window.innerHeight;
-    const ctxStars = starsCanvas.getContext('2d');
-    const ctxShooting = shootingCanvas.getContext('2d');
+    const staticCanvas = document.getElementById('staticStars');
+    const ctxStatic = staticCanvas.getContext('2d');
+    staticCanvas.width = window.innerWidth;
+    staticCanvas.height = window.innerHeight;
 
-    const staticStars = [];
+    const stars = [];
     for (let i = 0; i < 150; i++) {
-      staticStars.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        r: Math.random() * 1.5 + 0.5
+      stars.push({
+        x: Math.random() * staticCanvas.width,
+        y: Math.random() * staticCanvas.height,
+        radius: Math.random() * 1.2 + 0.5
       });
     }
 
-    function drawStaticStars() {
-      ctxStars.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
-      ctxStars.fillStyle = '#000000';
-      staticStars.forEach(s => {
-        ctxStars.beginPath();
-        ctxStars.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctxStars.fill();
+    function drawStars() {
+      ctxStatic.clearRect(0,0,staticCanvas.width, staticCanvas.height);
+      ctxStatic.fillStyle = 'black';
+      stars.forEach(s => {
+        ctxStatic.beginPath();
+        ctxStatic.arc(s.x, s.y, s.radius, 0, Math.PI*2);
+        ctxStatic.fill();
       });
+      requestAnimationFrame(drawStars);
     }
-
-    drawStaticStars();
+    drawStars();
 
     // Shooting stars
+    const shootingCanvas = document.getElementById('shootingStars');
+    const ctxShooting = shootingCanvas.getContext('2d');
+    shootingCanvas.width = window.innerWidth;
+    shootingCanvas.height = window.innerHeight;
+
     let shootingStars = [];
     let lastSpawn = 0;
-    const spawnRate = 2000;
+    const spawnRate = 2500;
 
     function animateShootingStars(timestamp) {
       ctxShooting.clearRect(0, 0, shootingCanvas.width, shootingCanvas.height);
@@ -178,21 +169,28 @@
         s.x += s.vx;
         s.y += s.vy;
         s.life--;
-        ctxShooting.strokeStyle = 'rgba(0,0,0,0.7)';
+
+        // draw streak with gradient
+        const grad = ctxShooting.createLinearGradient(s.x, s.y, s.x - s.vx*15, s.y - s.vy*15);
+        grad.addColorStop(0, 'rgba(0,0,0,0.8)');
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+        ctxShooting.strokeStyle = grad;
         ctxShooting.lineWidth = 2;
         ctxShooting.beginPath();
         ctxShooting.moveTo(s.x, s.y);
-        ctxShooting.lineTo(s.x - s.vx * 5, s.y - s.vy * 5); // elongated streak
+        ctxShooting.lineTo(s.x - s.vx*15, s.y - s.vy*15);
         ctxShooting.stroke();
-        if (s.life <= 0) shootingStars.splice(i, 1);
+
+        if (s.life <= 0) shootingStars.splice(i,1);
       });
 
       if (!lastSpawn || timestamp - lastSpawn > spawnRate) {
         shootingStars.push({
           x: Math.random() * shootingCanvas.width,
-          y: Math.random() * shootingCanvas.height / 2,
+          y: Math.random() * shootingCanvas.height/2,
           vx: Math.random() * 6 + 4,
-          vy: Math.random() * 2 + 1,
+          vy: Math.random() * 1 + 0.5,
           life: 30
         });
         lastSpawn = timestamp;
@@ -200,14 +198,16 @@
 
       requestAnimationFrame(animateShootingStars);
     }
-
     requestAnimationFrame(animateShootingStars);
 
     window.addEventListener('resize', () => {
-      starsCanvas.width = shootingCanvas.width = window.innerWidth;
-      starsCanvas.height = shootingCanvas.height = window.innerHeight;
-      drawStaticStars();
+      staticCanvas.width = window.innerWidth;
+      staticCanvas.height = window.innerHeight;
+      shootingCanvas.width = window.innerWidth;
+      shootingCanvas.height = window.innerHeight;
     });
   </script>
 </body>
 </html>
+
+        
