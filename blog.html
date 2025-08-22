@@ -55,7 +55,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-width: 900px;
+      max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -67,26 +67,17 @@
     }
 
     .cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
-      margin-bottom: 2rem;
+      width: 100%;
     }
 
     .card {
       background: #fff;
       border: 1px solid #ddd;
       border-radius: 1rem;
-      width: 250px;
-      min-height: 150px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      text-align: center;
-      font-size: 1.1rem;
+      overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       transition: transform 0.3s, box-shadow 0.3s;
     }
@@ -94,6 +85,33 @@
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+    }
+
+    .card-image {
+      background: #eee;
+      height: 200px;
+    }
+
+    .card-content {
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .card-content h2 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-content p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-content .date {
+      font-size: 0.9rem;
+      color: #555;
     }
   </style>
 </head>
@@ -112,9 +130,26 @@
   <div class="content">
     <h1>blog</h1>
     <div class="cards">
-      <div class="card"></div>
-      <div class="card"></div>
-      <div class="card">Stay tuned! There’s lots to come on astrothesis.</div>
+      <!-- Example Blog Post -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+          <h2>stay tuned</h2>
+          <p>there’s lots to come on astrothesis — soon you’ll find posts exploring cosmic mysteries, ideas, and discoveries.</p>
+          <div class="date">posted: august 2025</div>
+        </div>
+      </div>
+
+      <!-- Empty placeholders -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content"></div>
+      </div>
     </div>
   </div>
 </body>
