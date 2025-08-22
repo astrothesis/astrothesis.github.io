@@ -1,170 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astrothesis</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-    <style>
-        /* Reset and body styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>astrothesis</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+  /* General Reset */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; font-family: 'Yeseva One', serif; background-color: #fffaf0; color: #000; overflow-x: hidden; }
+  
+  /* Top Navigation Bar */
+  .navbar {
+    width: 100%;
+    background-color: #fffaf0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    padding: 10px 50px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .navbar-left img {
+    width: 40px;
+    height: 40px;
+  }
+  .navbar-left span {
+    font-family: 'DM Serif Text', serif;
+    font-size: 24px;
+    text-transform: lowercase;
+  }
+  .navbar-right a {
+    margin-left: 30px;
+    text-decoration: none;
+    color: #FF6D4D;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  
+  /* Main Content */
+  .container {
+    max-width: 900px;
+    margin: 150px auto 50px auto; /* leaves space for navbar */
+    text-align: center;
+  }
+  h1 {
+    font-family: 'DM Serif Text', serif;
+    font-size: 60px;
+    margin-bottom: 30px;
+    text-transform: lowercase;
+  }
+  h2 {
+    font-family: 'DM Serif Text', serif;
+    font-size: 36px;
+    margin: 50px 0 20px 0;
+  }
+  p {
+    font-size: 20px;
+    line-height: 1.8;
+    margin-bottom: 50px;
+  }
+  .emoji-list {
+    font-size: 20px;
+    line-height: 2;
+    margin-bottom: 40px;
+  }
 
-        body {
-            background-color: #FFFFF0; /* Ivory/cream background */
-            font-family: 'Yeseva One', serif;
-            color: #000000;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Navbar */
-        nav {
-            width: 100%;
-            background-color: #FFFFF0;
-            padding: 15px 30px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 1px solid #ddd;
-        }
-
-        nav .logo-container {
-            display: flex;
-            align-items: center;
-        }
-
-        nav .logo-container img.logo {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #000000;
-            margin-left: 20px;
-            font-weight: bold;
-        }
-
-        /* Sections */
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        h1 {
-            font-family: 'DM Serif Text', serif;
-            font-size: 4em;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-family: 'DM Serif Text', serif;
-            font-size: 2em;
-            margin: 40px 0 20px 0;
-        }
-
-        p {
-            max-width: 700px;
-            margin: 20px auto;
-            line-height: 1.8;
-        }
-
-        /* Discover points */
-        .discover-point {
-            margin: 10px 0;
-            font-size: 1.2em;
-        }
-
-        /* Follow section */
-        .follow-links a {
-            display: block;
-            margin: 10px 0;
-            color: #000000;
-            text-decoration: none;
-            font-size: 1.2em;
-        }
-
-        /* Flickering stars */
-        .star {
-            position: absolute;
-            background-color: #000;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: flicker 2s infinite;
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.2; }
-        }
-    </style>
+  /* Star background */
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+</style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav>
-        <div class="logo-container">
-            <img src="logo.png" alt="Astrothesis Logo" class="logo">
-            <span>astrothesis</span>
-        </div>
-        <div class="links">
-            <a href="index.html">home</a>
-            <a href="about.html">about</a>
-            <a href="contact.html">contact</a>
-            <a href="blog.html">blog</a>
-            <a href="forum.html">forum</a>
-        </div>
-    </nav>
+<!-- Canvas for stars -->
+<canvas id="stars"></canvas>
 
-    <!-- Home Section -->
-    <section>
-        <h1>astrothesis</h1>
-        <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
+<!-- Navigation -->
+<div class="navbar">
+  <div class="navbar-left">
+    <img src="logo.png" alt="logo"> <!-- replace logo.png with your logo -->
+    <span>astrothesis</span>
+  </div>
+  <div class="navbar-right">
+    <a href="index.html">home</a>
+    <a href="about.html">about</a>
+    <a href="contact.html">contact</a>
+    <a href="blog.html">blog</a>
+    <a href="forum.html">forum</a>
+  </div>
+</div>
 
-        <h2>What You’ll Discover Here</h2>
-        <p class="discover-point">🌌 Explore galaxies, stars and black holes.</p>
-        <p class="discover-point">🌌 Uncover the science behind cosmic phenomena.</p>
-        <p class="discover-point">🌌 Dive into fun space facts and mind blowing mysteries.</p>
-        <p class="discover-point">🌌 Read exclusive essays to satisfy your curiosity.</p>
-        <p>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</p>
+<!-- Main Content -->
+<div class="container">
+  <h1>astrothesis</h1>
+  <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
 
-        <h2>Follow Us Across The Universe</h2>
-        <div class="follow-links">
-            <a href="https://instagram.com/astrothesis" target="_blank">Instagram: astrothesis</a>
-            <a href="https://tiktok.com/@astro.thesis" target="_blank">TikTok: astro.thesis</a>
-            <a href="mailto:astrothesis@outlook.com">Email: astrothesis@outlook.com</a>
-        </div>
-    </section>
+  <h2>What You'll Discover Here</h2>
+  <div class="emoji-list">
+    🌌 Explore galaxies, stars and black holes.<br>
+    🌌 Uncover the science behind cosmic phenomena.<br>
+    🌌 Dive into fun space facts and mind blowing mysteries.<br>
+    🌌 Read exclusive essays to satisfy your curiosity.<br>
+    Become a member of the Navigators community where you can share questions and interests with like-minded individuals!
+  </div>
 
-    <!-- Flickering stars -->
-    <script>
-        const numberOfStars = 100;
-        for(let i = 0; i < numberOfStars; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.width = `${Math.random()*2 + 1}px`;
-            star.style.height = star.style.width;
-            star.style.top = `${Math.random() * window.innerHeight}px`;
-            star.style.left = `${Math.random() * window.innerWidth}px`;
-            star.style.animationDuration = `${Math.random()*3 + 2}s`;
-            document.body.appendChild(star);
-        }
-    </script>
+  <h2>Follow Us Across The Universe</h2>
+  <p>
+    Instagram: <a href="https://www.instagram.com/astrothesis" target="_blank">@astrothesis</a><br>
+    TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">@astro.thesis</a><br>
+    Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a>
+  </p>
+</div>
+
+<!-- Stars JS -->
+<script>
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = window.innerWidth;
+  let h = canvas.height = window.innerHeight;
+
+  const stars = [];
+  const numStars = 150;
+
+  for(let i = 0; i < numStars; i++) {
+    stars.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      radius: Math.random() * 1.5,
+      alpha: Math.random()
+    });
+  }
+
+  function drawStars() {
+    ctx.clearRect(0,0,w,h);
+    for(let i=0; i<stars.length; i++){
+      const s = stars[i];
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(0,0,0,${s.alpha})`;
+      ctx.fill();
+      s.alpha += (Math.random() - 0.5) * 0.02;
+      if(s.alpha < 0) s.alpha = 0;
+      if(s.alpha > 1) s.alpha = 1;
+    }
+    requestAnimationFrame(drawStars);
+  }
+  drawStars();
+
+  window.addEventListener('resize', () => {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  });
+</script>
 
 </body>
-</html>            
+</html>
