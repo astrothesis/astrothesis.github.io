@@ -6,89 +6,122 @@
   <title>astrothesis - forum</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+
     body {
       font-family: 'Yeseva One', serif;
       background: #fef9f4;
       color: black;
-      display: flex;
-      min-height: 100vh;
+      overflow-x: hidden;
     }
+
     nav {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:1rem 2rem;
       background: rgba(255,255,255,0.9);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:10;
     }
-    nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; }
-    nav ul { list-style: none; display: flex; gap: 1.5rem; }
-    nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
+
+    nav .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color:black;
+    }
+
+    nav ul {
+      list-style:none;
+      display:flex;
+      gap:1.5rem;
+    }
+
+    nav a {
+      text-decoration:none;
+      font-size:1rem;
+      color:black;
+      transition: color 0.3s;
+    }
+
     nav a:hover { color: #ff6d4d; }
 
-    .sidebar {
-      width: 220px;
-      background: #fff;
-      padding: 2rem 1rem;
-      border-right: 1px solid #ddd;
-      margin-top: 5rem; /* navbar offset */
-      flex-shrink: 0;
+    .content {
+      margin-top:6rem;
+      display:flex;
+      padding:2rem;
+      gap:2rem;
     }
-    .sidebar h2 { font-family: 'DM Serif Text', serif; margin-bottom: 1rem; font-size: 1.2rem; }
-    .sidebar ul { list-style: none; }
-    .sidebar li { margin-bottom: 0.8rem; }
-    .sidebar a { text-decoration: none; color: black; }
-    .sidebar a:hover { color: #ff6d4d; }
 
-    .forum-content {
-      flex-grow: 1;
-      padding: 6rem 2rem 2rem 2rem; /* navbar offset */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .sidebar {
+      flex: 1;
+      max-width:200px;
     }
+
+    .sidebar h2 {
+      font-family: 'DM Serif Text', serif;
+      margin-bottom:1rem;
+    }
+
+    .sidebar ul { list-style:none; padding-left:0; }
+    .sidebar li { margin-bottom:0.5rem; }
+    .sidebar a { text-decoration:none; color:black; }
+    .sidebar a:hover { color:#ff6d4d; }
+
+    .forum-main {
+      flex:3;
+    }
+
     .post-card {
-      width: 100%;
-      max-width: 600px;
-      background: #fff;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      border-radius: 8px;
+      background:#fff;
+      padding:1rem;
+      margin-bottom:1.5rem;
+      border-radius:8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .post-card h3 {
-      font-family: 'DM Serif Text', serif;
-      margin-bottom: 0.5rem;
+
+    .post-card h3 { font-family:'DM Serif Text', serif; margin-bottom:0.5rem; }
+    .post-card .date { font-size:0.85rem; color:#555; margin-bottom:0.5rem; }
+    .post-card p { margin-bottom:0.5rem; }
+    .post-actions { display:flex; gap:1rem; margin-top:0.5rem; }
+
+    textarea { width:100%; margin-top:0.5rem; padding:0.5rem; }
+    button { cursor:pointer; background:#ff6d4d; color:#fff; border:none; padding:0.5rem 1rem; }
+
+    /* Login Modal */
+    #loginModal {
+      display:none;
+      position:fixed;
+      top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.6);
+      justify-content:center;
+      align-items:center;
+      z-index:20;
     }
-    .post-card p {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
+
+    #loginModal div {
+      background:#fff;
+      padding:2rem;
+      border-radius:8px;
+      width:300px;
+      text-align:center;
     }
-    .post-meta {
-      font-size: 0.85rem;
-      color: #555;
-      margin-bottom: 1rem;
+
+    #loginModal input { width:100%; margin:0.5rem 0; padding:0.5rem; }
+    #loginModal button { margin-top:1rem; }
+
+    @media(max-width:768px){
+      .content { flex-direction:column; }
+      .sidebar { max-width:100%; margin-bottom:1rem; }
     }
-    .post-actions { display: flex; gap: 1rem; }
-    .post-actions button {
-      background: #ff6d4d;
-      border: none;
-      color: #fff;
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .post-actions button:hover { background: #e55a3c; }
-    .reply-box textarea { font-family: 'Yeseva One', serif; padding:0.4rem; border-radius:4px; }
   </style>
 </head>
 <body>
+
+  <!-- Navbar -->
   <nav>
     <div class="logo">astrothesis</div>
     <ul>
@@ -100,50 +133,86 @@
     </ul>
   </nav>
 
-  <div class="sidebar">
-    <h2>Forums</h2>
-    <ul>
-      <li><a href="#">General</a></li>
-      <li><a href="#">Questions</a></li>
-      <li><a href="#">Ask the Experts</a></li>
-    </ul>
-  </div>
-
-  <div class="forum-content">
-    <!-- Post 1 -->
-    <div class="post-card">
-      <h3>What’s brewing among the stars?</h3>
-      <p class="post-meta">Posted: August 22, 2025</p>
-      <p>We’re preparing exciting new content and discoveries to share with the astrothesis community. Stay curious!</p>
-      <div class="post-actions">
-        <button>Like</button>
-        <button>Reply</button>
-      </div>
-    </div>
-
-    <!-- Post 2 -->
-    <div class="post-card">
-      <h3>Empty Post Slot</h3>
-      <p class="post-meta">Posted: —</p>
-      <div class="post-actions">
-        <button>Like</button>
-        <button>Reply</button>
-      </div>
-    </div>
-
-    <!-- Post 3 -->
-    <div class="post-card">
-      <h3>Empty Post Slot</h3>
-      <p class="post-meta">Posted: —</p>
-      <div class="post-actions">
-        <button>Like</button>
-        <button>Reply</button>
-      </div>
+  <!-- Login Modal -->
+  <div id="loginModal">
+    <div>
+      <h2>Login</h2>
+      <input id="username" type="text" placeholder="Username">
+      <input id="password" type="password" placeholder="Password">
+      <button id="loginBtn">Login</button>
     </div>
   </div>
 
+  <!-- Main Content -->
+  <div class="content">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Forums</h2>
+      <ul>
+        <li><a href="#">General</a></li>
+        <li><a href="#">Questions</a></li>
+      </ul>
+    </div>
+
+    <!-- Forum Main Area -->
+    <div class="forum-main">
+
+      <!-- Example Posts -->
+      <div class="post-card">
+        <h3>What's Brewing Among the Stars</h3>
+        <div class="date">August 22, 2025</div>
+        <p>Ideas are forming, discoveries await. Soon, this space will be filled with cosmic discussions and explorations. Get ready to join the conversation!</p>
+        <div class="post-actions">
+          <button>Like</button>
+          <button>Reply</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <h3>Example Post 2</h3>
+        <div class="date">August 21, 2025</div>
+        <p>This is an empty placeholder for future posts.</p>
+        <div class="post-actions">
+          <button>Like</button>
+          <button>Reply</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <h3>Example Post 3</h3>
+        <div class="date">August 20, 2025</div>
+        <p>This is an empty placeholder for future posts.</p>
+        <div class="post-actions">
+          <button>Like</button>
+          <button>Reply</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JS -->
   <script>
-    // Like & Reply functionality
+    let loggedIn = false;
+
+    function showLogin() {
+      document.getElementById('loginModal').style.display = 'flex';
+    }
+
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+      if(user && pass){
+        loggedIn = true;
+        document.getElementById('loginModal').style.display = 'none';
+        alert('Logged in successfully! Now you can post and reply.');
+      } else {
+        alert('Please enter username and password.');
+      }
+    });
+
     document.querySelectorAll('.post-actions button').forEach(button => {
       if (button.textContent === 'Like') {
         let liked = false;
@@ -152,6 +221,7 @@
         likeDisplay.style.marginLeft = '0.5rem';
         button.parentElement.appendChild(likeDisplay);
         button.addEventListener('click', () => {
+          if(!loggedIn) { showLogin(); return; }
           liked = !liked;
           count = liked ? count + 1 : count - 1;
           likeDisplay.textContent = `Likes: ${count}`;
@@ -160,6 +230,7 @@
 
       if (button.textContent === 'Reply') {
         button.addEventListener('click', () => {
+          if(!loggedIn) { showLogin(); return; }
           let card = button.closest('.post-card');
           let existingBox = card.querySelector('.reply-box');
           if (!existingBox) {
@@ -167,8 +238,8 @@
             replyBox.className = 'reply-box';
             replyBox.style.marginTop = '0.5rem';
             replyBox.innerHTML = `
-              <textarea rows="2" style="width:100%;"></textarea>
-              <button class="submit-reply" style="margin-top:0.3rem;">Submit</button>
+              <textarea rows="2"></textarea>
+              <button class="submit-reply">Submit</button>
               <div class="replies" style="margin-top:0.5rem;"></div>
             `;
             card.appendChild(replyBox);
@@ -190,5 +261,6 @@
       }
     });
   </script>
+
 </body>
 </html>
