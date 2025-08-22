@@ -43,8 +43,7 @@
     .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
-    .auth-buttons { margin: 1rem 0; display: flex; gap: 1rem; }
-    .login-btn, .signup-btn, .google-btn { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
+    .auth-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -66,53 +65,67 @@
       <div class="post-date">August 22, 2025</div>
       <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
     </div>
+    <div class="post-card">
+      <div class="post-title">Post Placeholder</div>
+      <div class="post-date">---</div>
+      <div class="post-content">No posts yet. Check back soon!</div>
+    </div>
   </div>
 
-  <div class="auth-buttons">
-    <button class="login-btn">Login with Email</button>
-    <button class="signup-btn">Sign Up with Email</button>
-    <button class="google-btn">Sign In with Google</button>
+  <div>
+    <button class="auth-btn" id="googleSignIn">Login with Google</button>
+    <button class="auth-btn" id="emailSignUp">Sign Up with Email</button>
+    <button class="auth-btn" id="emailLogin">Login with Email</button>
   </div>
 
   <script type="module">
-    // Firebase imports
+    // Firebase SDK
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
 
-    // Google sign-in
-    document.querySelector('.google-btn').addEventListener('click', () => {
+    // Google Sign-In
+    const provider = new GoogleAuthProvider();
+    document.getElementById('googleSignIn').addEventListener('click', () => {
       signInWithPopup(auth, provider)
-        .then((result) => alert(`Signed in as ${result.user.email}`))
-        .catch((error) => alert(error.message));
+        .then((result) => {
+          alert(`Welcome ${result.user.displayName}`);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     });
 
-    // Email signup
-    document.querySelector('.signup-btn').addEventListener('click', async () => {
+    // Email Sign-Up
+    document.getElementById('emailSignUp').addEventListener('click', async () => {
       const email = prompt("Enter your email:");
       const password = prompt("Enter your password:");
-      if(email && password) {
+      if(email && password){
         try {
           const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          alert(`Account created: ${userCredential.user.email}`);
-        } catch(error) { alert(error.message); }
+          alert(`Account created for ${userCredential.user.email}`);
+        } catch(error){
+          alert(error.message);
+        }
       }
     });
 
-    // Email login
-    document.querySelector('.login-btn').addEventListener('click', async () => {
+    // Email Login
+    document.getElementById('emailLogin').addEventListener('click', async () => {
       const email = prompt("Enter your email:");
       const password = prompt("Enter your password:");
-      if(email && password) {
+      if(email && password){
         try {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
-          alert(`Logged in as ${userCredential.user.email}`);
-        } catch(error) { alert(error.message); }
+          alert(`Welcome back ${userCredential.user.email}`);
+        } catch(error){
+          alert(error.message);
+        }
       }
     });
   </script>
