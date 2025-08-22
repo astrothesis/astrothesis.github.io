@@ -7,15 +7,13 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Yeseva+One&display=swap" rel="stylesheet">
     <style>
-        /* Reset and body */
         * {margin:0; padding:0; box-sizing:border-box;}
         body {
             font-family: 'Yeseva One', serif;
-            background-color: #fdf6e3; /* cream/ivory */
+            background-color: #fdf6e3; 
             color: #000000;
             overflow-x: hidden;
         }
-        /* Navbar */
         nav {
             width: 100%;
             padding: 1em 2em;
@@ -31,9 +29,8 @@
         }
         nav .logo {font-weight: bold;}
         nav a {margin-left: 1.5em; text-decoration: none; color: #000;}
-        /* Sections */
         .container {
-            min-height: 100vh;
+            min-height: 200vh; /* extra scroll space */
             padding: 150px 2em 50px 2em;
             text-align: center;
             position: relative;
@@ -41,8 +38,7 @@
         h1 {font-family: 'DM Serif Display', serif; font-size: 4em; margin-bottom: 0.5em;}
         h2 {font-family: 'DM Serif Display', serif; font-size: 2em; margin: 1em 0;}
         p {max-width: 800px; margin: 0.5em auto; line-height: 1.6; font-size: 1.2em;}
-        .discover span {display:block; margin: 0.8em 0;}
-        /* Canvas for stars */
+        .discover span{display:block; margin:0.8em 0;}
         #starsCanvas {
             position: fixed;
             top:0;
@@ -87,56 +83,34 @@
     </div>
 
     <script>
-        // Canvas for flickering stars + constellations
         const canvas = document.getElementById('starsCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
         let stars = [];
-        let numStars = 150;
+        let numStars = 300; // more stars
 
-        // Create stars
         for(let i=0; i<numStars; i++){
             stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 1.5 + 0.5,
+                x: Math.random()*canvas.width,
+                y: Math.random()*canvas.height,
+                r: Math.random()*1.5+0.5,
                 alpha: Math.random(),
-                dAlpha: 0.01 * Math.random()
+                dAlpha: 0.01*Math.random()
             });
         }
 
-        // Some constellations
-        let constellations = [
-            [{x: 100, y:100},{x:140,y:140},{x:180,y:120}],
-            [{x: 500, y:200},{x:550,y:240},{x:580,y:180}],
-            [{x: 800, y:400},{x:840,y:430},{x:880,y:410}]
-        ];
-
-        function draw() {
+        function draw(){
             ctx.clearRect(0,0,canvas.width,canvas.height);
 
-            // Draw stars
             for(let star of stars){
                 ctx.beginPath();
                 ctx.arc(star.x, star.y, star.r, 0, Math.PI*2);
                 ctx.fillStyle = `rgba(0,0,0,${star.alpha})`;
                 ctx.fill();
                 star.alpha += star.dAlpha;
-                if(star.alpha <=0 || star.alpha >=1) star.dAlpha *= -1;
-            }
-
-            // Draw constellations
-            ctx.strokeStyle = "rgba(0,0,0,0.5)";
-            ctx.lineWidth = 1;
-            for(let con of constellations){
-                ctx.beginPath();
-                ctx.moveTo(con[0].x, con[0].y);
-                for(let i=1; i<con.length; i++){
-                    ctx.lineTo(con[i].x, con[i].y);
-                }
-                ctx.stroke();
+                if(star.alpha<=0 || star.alpha>=1) star.dAlpha*=-1;
             }
 
             requestAnimationFrame(draw);
@@ -144,7 +118,6 @@
 
         draw();
 
-        // Resize canvas
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
