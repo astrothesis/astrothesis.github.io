@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Astrothesis</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+  <!-- Seasons font: link manually downloaded or use Canva font upload instructions -->
 </head>
 <body>
   <!-- Starfield Canvas Background -->
@@ -14,52 +15,22 @@
 
   <!-- Navigation -->
   <nav>
-    <h2>Astrothesis 🌌</h2>
+    <h2>astrothesis 🌌</h2>
     <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="discover.html">what you’ll discover here</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+      <li><a href="contact.html">follow me across the universe</a></li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <section id="home" class="hero">
-    <h1>Welcome to Astrothesis</h1>
-    <p>Exploring physics and the cosmos, one thought at a time.</p>
+    <h1>welcome to astrothesis</h1>
+    <p>exploring physics and the cosmos, one thought at a time.</p>
   </section>
-
-  <!-- About -->
-  <section id="about" class="content">
-    <h2>About</h2>
-    <p>Astrothesis is a creative science space where physics, astronomy, and cosmic ideas come together. 
-    Our goal is to make complex concepts simple, beautiful, and inspiring.</p>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="content">
-    <h2>Projects</h2>
-    <ul>
-      <li>✨ Bite-sized explainers on TikTok</li>
-      <li>🚀 Aesthetic space visuals on Instagram</li>
-      <li>🌍 Educational resources for curious learners</li>
-    </ul>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="content">
-    <h2>Contact</h2>
-    <p>Find Astrothesis on:</p>
-    <p>
-      <a href="https://www.instagram.com/" target="_blank">Instagram</a> |
-      <a href="https://www.tiktok.com/" target="_blank">TikTok</a>
-    </p>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 Astrothesis. Made with 💫 on Earth.</p>
-  </footer>
 
   <!-- Starfield Script -->
   <script>
@@ -76,7 +47,6 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    // Create stars
     for (let i = 0; i < numStars; i++) {
       stars.push({
         x: Math.random() * canvas.width,
@@ -87,16 +57,15 @@
     }
 
     function animate() {
-      ctx.fillStyle = "black";
+      ctx.fillStyle = "#0E0066";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "white";
+      ctx.fillStyle = "#FF6D4D";
       for (let star of stars) {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
         ctx.fill();
 
-        // Move star downward
         star.y += star.speed;
         if (star.y > canvas.height) {
           star.y = 0;
