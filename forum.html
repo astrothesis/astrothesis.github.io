@@ -33,7 +33,7 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
     .post-card {
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -44,6 +44,9 @@
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
     .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
+    #post-container { margin-top: 2rem; width: 100%; max-width: 600px; display: none; flex-direction: column; gap: 0.5rem; }
+    #post-container input, #post-container textarea { width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc; }
+    #post-container button { width: 100%; background: #ff6d4d; color: white; border: none; padding: 0.5rem; border-radius: 4px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -60,7 +63,13 @@
   </nav>
 
   <div class="forum-container" id="forum-container">
-    <!-- Posts will be dynamically inserted here -->
+    <!-- Posts will appear here dynamically -->
+  </div>
+
+  <div id="post-container">
+    <input type="text" id="post-title" placeholder="Post Title" />
+    <textarea id="post-content" placeholder="Write your post here"></textarea>
+    <button id="post-btn">Submit Post</button>
   </div>
 
   <div>
@@ -71,56 +80,83 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getFirestore, collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-    const db = getFirestore(app);
+    const auth = getAuth();
+    const db = getFirestore();
 
     const forumContainer = document.getElementById('forum-container');
+    const postContainer = document.getElementById('post-container');
+    const postBtn = document.getElementById('post-btn');
 
+    // Display posts
     async function loadPosts() {
-      const postsCol = collection(db, 'posts');
-      // Highlight admin posts first, then other posts by date
-      const postsQuery = query(postsCol, orderBy('isAdmin', 'desc'), orderBy('timestamp', 'desc'));
-      const snapshot = await getDocs(postsQuery);
-
-      snapshot.forEach(doc => {
+      forumContainer.innerHTML = '';
+      const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
         const data = doc.data();
         const postCard = document.createElement('div');
-        postCard.className = 'post-card';
-
-        const title = document.createElement('div');
-        title.className = 'post-title';
-        title.textContent = data.title;
-
-        const date = document.createElement('div');
-        date.className = 'post-date';
-        date.textContent = new Date(data.timestamp.seconds * 1000).toLocaleDateString();
-
-        const content = document.createElement('div');
-        content.className = 'post-content';
-        content.textContent = data.content;
-
-        postCard.appendChild(title);
-        postCard.appendChild(date);
-        postCard.appendChild(content);
+        postCard.classList.add('post-card');
+        postCard.innerHTML = `
+          <div class="post-title">${data.title}</div>
+          <div class="post-date">${new Date(data.timestamp.seconds * 1000).toLocaleDateString()}</div>
+          <div class="post-content">${data.content}</div>
+        `;
         forumContainer.appendChild(postCard);
       });
     }
 
+    // Add post
+    postBtn.addEventListener('click', async () => {
+      const title = document.getElementById('post-title').value;
+      const content = document.getElementById('post-content').value;
+      if(title && content) {
+        await addDoc(collection(db, "posts"), {
+          title,
+          content,
+          timestamp: serverTimestamp(),
+          uid: auth.currentUser.uid
+        });
+        document.getElementById('post-title').value = '';
+        document.getElementById('post-content').value = '';
+        loadPosts();
+      }
+    });
+
+    // Auth state change
+    onAuthStateChanged(auth, (user) => {
+      if(user) {
+        postContainer.style.display = 'flex';
+      } else {
+        postContainer.style.display = 'none';
+      }
+      loadPosts();
+    });
+
+    // Login/Signup buttons (Google as example)
+    const loginBtn = document.querySelector('.login-btn');
+    const signupBtn = document.querySelector('.signup-btn');
+    const provider = new GoogleAuthProvider();
+
+    loginBtn.addEventListener('click', async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch(e) { console.error(e); }
+    });
+
+    signupBtn.addEventListener('click', async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch(e) { console.error(e); }
+    });
+
     loadPosts();
-
-    // Placeholder login/signup buttons
-    document.querySelector('.login-btn').addEventListener('click', () => {
-      alert('Login functionality coming soon!');
-    });
-    document.querySelector('.signup-btn').addEventListener('click', () => {
-      alert('Signup functionality coming soon!');
-    });
   </script>
-
 </body>
 </html>
