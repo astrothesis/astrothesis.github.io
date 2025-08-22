@@ -1,215 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>astrothesis - forum</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Yeseva One', serif;
-      background: #fef9f4;
-      color: black;
-      display: flex;
-      min-height: 100vh;
-    }
-
-    nav {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(255,255,255,0.9);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-    }
-
-    nav .logo {
-      font-family: 'DM Serif Text', serif;
-      font-size: 1.5rem;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    nav a {
-      text-decoration: none;
-      font-size: 1rem;
-      color: black;
-      transition: color 0.3s;
-    }
-
-    nav a:hover { color: #ff6d4d; }
-
-    /* Layout */
-    .container {
-      display: flex;
-      width: 100%;
-      margin-top: 5rem; /* push down for navbar */
-      padding: 1rem;
-    }
-
-    .sidebar {
-      width: 220px;
-      padding: 1rem;
-      border-right: 1px solid #ddd;
-    }
-
-    .sidebar h3 {
-      font-family: 'DM Serif Text', serif;
-      margin-bottom: 1rem;
-    }
-
-    .sidebar ul {
-      list-style: none;
-    }
-
-    .sidebar li {
-      margin: 0.5rem 0;
-    }
-
-    .sidebar a {
-      text-decoration: none;
-      color: black;
-      transition: color 0.3s;
-    }
-
-    .sidebar a:hover { color: #ff6d4d; }
-
-    .forum {
-      flex: 1;
-      padding: 1rem 2rem;
-    }
-
-    .post {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      background: white;
-    }
-
-    .post h4 {
-      font-family: 'DM Serif Text', serif;
-      margin-bottom: 0.5rem;
-    }
-
-    .meta {
-      font-size: 0.9rem;
-      color: gray;
-      margin-bottom: 0.5rem;
-    }
-
-    .actions {
-      margin-top: 0.5rem;
-      display: flex;
-      gap: 1rem;
-    }
-
-    .actions button {
-      border: none;
-      background: none;
-      cursor: pointer;
-      color: #ff6d4d;
-      font-size: 0.9rem;
-    }
-
-    /* Login box (placeholder) */
-    .login-box {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      background: #fff3ec;
-      text-align: center;
-    }
-
-    .login-box p {
-      font-size: 0.95rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .login-box button {
-      background: #ff6d4d;
-      border: none;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .login-box button:hover {
-      background: #e65b3e;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>astrothesis - forum</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Yeseva One', serif;
+    background: #fef9f4;
+    color: black;
+  }
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255,255,255,0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+  nav ul { list-style: none; display: flex; gap: 1.5rem; }
+  nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
+  nav a:hover { color: #ff6d4d; }
+  .container { display: flex; margin-top: 6rem; }
+  .sidebar {
+    width: 200px;
+    padding: 2rem;
+    background: rgba(255,255,255,0.9);
+  }
+  .sidebar h3 { margin-bottom: 1rem; font-family: 'DM Serif Text', serif; }
+  .sidebar ul { list-style: none; }
+  .sidebar li { margin-bottom: 0.8rem; }
+  .sidebar a { text-decoration: none; color: black; transition: color 0.3s; }
+  .sidebar a:hover { color: #ff6d4d; }
+  .forum-content {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .post-card {
+    background: rgba(255,255,255,0.9);
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  .post-card img { width: 100%; border-radius: 10px; height: 200px; object-fit: cover; }
+  .post-card h2 { font-family: 'DM Serif Text', serif; margin: 0.5rem 0; }
+  .post-card .date { font-size: 0.9rem; margin-bottom: 0.5rem; color: #555; }
+  .post-card p { margin-bottom: 0.5rem; }
+  .post-actions { display: flex; gap: 1rem; }
+  .post-actions button { cursor: pointer; padding: 0.3rem 0.6rem; border: none; background: #ff6d4d; color: white; border-radius: 5px; transition: background 0.3s; }
+  .post-actions button:hover { background: #ff5233; }
+</style>
 </head>
 <body>
-  <nav>
-    <div class="logo">astrothesis</div>
-    <ul>
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">astrothesis</div>
+  <ul>
+    <li><a href="index.html">home</a></li>
+    <li><a href="about.html">about</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="blog.html">blog</a></li>
+    <li><a href="forum.html">forum</a></li>
+  </ul>
+</nav>
 
-  <div class="container">
-    <div class="sidebar">
-      <h3>Forums</h3>
-      <ul>
-        <li><a href="#">General</a></li>
-        <li><a href="#">Questions</a></li>
-        <li><a href="#">Ask the Experts</a></li>
-        <li><a href="#">More Coming Soon...</a></li>
-      </ul>
+<div class="container">
+  <aside class="sidebar">
+    <h3>Forums</h3>
+    <ul>
+      <li><a href="#">General</a></li>
+      <li><a href="#">Questions</a></li>
+      <!-- Future forums like "Ask the Experts" can be added here -->
+    </ul>
+  </aside>
+
+  <div class="forum-content">
+    <!-- Example Post 1 -->
+    <div class="post-card">
+      <img src="https://via.placeholder.com/800x200?text=Cosmic+Thoughts" alt="post image">
+      <h2>What's Brewing Among the Stars</h2>
+      <div class="date">August 22, 2025</div>
+      <p>Ideas are forming in the universe, and a space of discovery is preparing to unfold.</p>
+      <div class="post-actions">
+        <button>Like</button>
+        <button>Reply</button>
+      </div>
     </div>
 
-    <div class="forum">
-      <div class="login-box">
-        <p>Login required to post or comment.</p>
-        <button>Login / Sign Up</button>
+    <!-- Example Post 2 -->
+    <div class="post-card">
+      <img src="https://via.placeholder.com/800x200?text=Coming+Soon" alt="post image">
+      <h2>Post Title</h2>
+      <div class="date">—</div>
+      <p>Synopsis will appear here.</p>
+      <div class="post-actions">
+        <button>Like</button>
+        <button>Reply</button>
       </div>
+    </div>
 
-      <div class="post">
-        <h4>Welcome to astrothesis forum!</h4>
-        <div class="meta">Posted by Admin · 20 Aug 2025</div>
-        <p>This is the beginning of our community space. Share your thoughts, ask questions, and connect with fellow stargazers.</p>
-        <div class="actions">
-          <button>👍 12</button>
-          <button>💬 3</button>
-        </div>
-      </div>
-
-      <div class="post">
-        <h4>Why do stars twinkle?</h4>
-        <div class="meta">Posted by User123 · 18 Aug 2025</div>
-        <p>I’ve always wondered — is it the stars themselves or the atmosphere? Would love an explanation!</p>
-        <div class="actions">
-          <button>👍 8</button>
-          <button>💬 5</button>
-        </div>
-      </div>
-
-      <div class="post">
-        <h4>Best books to start learning astrophysics?</h4>
-        <div class="meta">Posted by StarSeeker · 15 Aug 2025</div>
-        <p>I want to start exploring astrophysics more seriously. Any beginner-friendly book recommendations?</p>
-        <div class="actions">
-          <button>👍 15</button>
-          <button>💬 7</button>
-        </div>
+    <!-- Example Post 3 -->
+    <div class="post-card">
+      <img src="https://via.placeholder.com/800x200?text=Coming+Soon" alt="post image">
+      <h2>Post Title</h2>
+      <div class="date">—</div>
+      <p>Synopsis will appear here.</p>
+      <div class="post-actions">
+        <button>Like</button>
+        <button>Reply</button>
       </div>
     </div>
   </div>
+</div>
 </body>
 </html>
