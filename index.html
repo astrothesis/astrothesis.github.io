@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Astrothesis</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
-  <!-- Seasons font: link manually downloaded or use Canva font upload instructions -->
 </head>
 <body>
+
   <!-- Starfield Canvas Background -->
   <canvas id="starfield"></canvas>
 
@@ -17,12 +15,9 @@
   <nav>
     <h2>astrothesis 🌌</h2>
     <ul>
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="discover.html">what you’ll discover here</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
-      <li><a href="contact.html">follow me across the universe</a></li>
+      <li><a href="#home">home</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
     </ul>
   </nav>
 
@@ -31,6 +26,37 @@
     <h1>welcome to astrothesis</h1>
     <p>exploring physics and the cosmos, one thought at a time.</p>
   </section>
+
+  <!-- About Section -->
+  <section id="about" class="content">
+    <h2>about</h2>
+    <p>astrothesis is a creative science space where physics, astronomy and cosmic ideas come together. our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. every post is a new discovery - are you ready to explore?</p>
+  </section>
+
+  <!-- What You’ll Discover Here Section -->
+  <section id="discover" class="content">
+    <h2>what you’ll discover here</h2>
+    <ul>
+      <li>explore galaxies, stars and black holes</li>
+      <li>uncover the science behind cosmic phenomena</li>
+      <li>dive into fun space facts and mind blowing mysteries</li>
+      <li>read exclusive essays to satisfy your curiosity</li>
+    </ul>
+    <p>become a member of the Navigators community where you can share questions and interests with like-minded individuals!</p>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="content">
+    <h2>follow me across the universe</h2>
+    <p>Instagram: <a href="https://www.instagram.com/astrothesis" target="_blank">astrothesis</a></p>
+    <p>TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">astro.thesis</a></p>
+    <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 astrothesis. Made with 💫 on Earth.</p>
+  </footer>
 
   <!-- Starfield Script -->
   <script>
@@ -60,7 +86,7 @@
       ctx.fillStyle = "#0E0066";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = "#FF6D4D";
+      ctx.fillStyle = "#FFFFFF";
       for (let star of stars) {
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
@@ -76,5 +102,6 @@
     }
     animate();
   </script>
+
 </body>
 </html>
