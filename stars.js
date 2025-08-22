@@ -1,67 +1,84 @@
-// Shooting stars animation
-const canvas = document.getElementById('shootingStars');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// Setup canvases
+const starCanvas = document.getElementById('starfield');
+const starCtx = starCanvas.getContext('2d');
+starCanvas.width = window.innerWidth;
+starCanvas.height = window.innerHeight;
 
-function random(min, max) {
-  return Math.random() * (max - min) + min;
+const shootCanvas = document.getElementById('shootingStars');
+const shootCtx = shootCanvas.getContext('2d');
+shootCanvas.width = window.innerWidth;
+shootCanvas.height = window.innerHeight;
+
+// Random stars background
+let stars = [];
+for (let i = 0; i < 200; i++) {
+  stars.push({
+    x: Math.random() * starCanvas.width,
+    y: Math.random() * starCanvas.height,
+    r: Math.random() * 1.5
+  });
 }
 
+function drawStars() {
+  starCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+  starCtx.fillStyle = "black";
+  stars.forEach(s => {
+    starCtx.beginPath();
+    starCtx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+    starCtx.fill();
+  });
+}
+
+// Shooting stars
 class ShootingStar {
-  constructor() {
-    this.reset();
-  }
-
+  constructor() { this.reset(); }
   reset() {
-    this.x = random(0, canvas.width);
-    this.y = random(0, canvas.height / 2);
-    this.len = random(80, 120);
-    this.speed = random(6, 10);
-    this.size = random(1, 2);
-    this.angle = Math.PI / 4; // diagonal top-left → bottom-right
+    this.x = Math.random() * shootCanvas.width;
+    this.y = Math.random() * (shootCanvas.height / 2);
+    this.len = Math.random() * 100 + 50;
+    this.speed = Math.random() * 8 + 4;
+    this.size = Math.random() * 2;
+    this.angle = Math.PI / 4;
   }
-
   update() {
     this.x += this.speed * Math.cos(this.angle);
     this.y += this.speed * Math.sin(this.angle);
-
-    if (this.x > canvas.width || this.y > canvas.height) {
-      this.reset();
-    }
+    if (this.x > shootCanvas.width || this.y > shootCanvas.height) this.reset();
   }
-
   draw() {
-    const gradient = ctx.createLinearGradient(this.x, this.y, this.x - this.len * Math.cos(this.angle), this.y - this.len * Math.sin(this.angle));
-    gradient.addColorStop(0, 'black');
-    gradient.addColorStop(1, 'transparent');
-
-    ctx.beginPath();
-    ctx.moveTo(this.x, this.y);
-    ctx.lineTo(this.x - this.len * Math.cos(this.angle), this.y - this.len * Math.sin(this.angle));
-    ctx.strokeStyle = gradient;
-    ctx.lineWidth = this.size;
-    ctx.stroke();
+    const grad = shootCtx.createLinearGradient(
+      this.x, this.y,
+      this.x - this.len * Math.cos(this.angle),
+      this.y - this.len * Math.sin(this.angle)
+    );
+    grad.addColorStop(0, "black");
+    grad.addColorStop(1, "transparent");
+    shootCtx.beginPath();
+    shootCtx.moveTo(this.x, this.y);
+    shootCtx.lineTo(
+      this.x - this.len * Math.cos(this.angle),
+      this.y - this.len * Math.sin(this.angle)
+    );
+    shootCtx.strokeStyle = grad;
+    shootCtx.lineWidth = this.size;
+    shootCtx.stroke();
   }
 }
 
-let stars = [];
-for (let i = 0; i < 10; i++) {
-  stars.push(new ShootingStar());
-}
+let shootingStars = [];
+for (let i = 0; i < 8; i++) shootingStars.push(new ShootingStar());
 
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  stars.forEach(star => {
-    star.update();
-    star.draw();
-  });
+  drawStars();
+  shootCtx.clearRect(0, 0, shootCanvas.width, shootCanvas.height);
+  shootingStars.forEach(s => { s.update(); s.draw(); });
   requestAnimationFrame(animate);
 }
-
 animate();
 
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+window.addEventListener("resize", () => {
+  starCanvas.width = window.innerWidth;
+  starCanvas.height = window.innerHeight;
+  shootCanvas.width = window.innerWidth;
+  shootCanvas.height = window.innerHeight;
 });
