@@ -1,235 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>astrothesis</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-  <style>
-    /* General reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>astrothesis</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Yeseva One', serif;
+    background-color: #fff8e7; /* cream/ivory background */
+    color: #000;
+    overflow-x: hidden;
+  }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      font-family: 'Yeseva One', serif;
-      background-color: #fdf6e3; /* Cream/ivory background */
-      overflow-x: hidden;
-      position: relative;
-      color: #000000;
-    }
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff8e7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+  }
 
-    /* Navbar */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      background-color: rgba(255, 255, 255, 0.8);
-      z-index: 1000;
-      font-family: 'Yeseva One', serif;
-    }
+  nav .logo {
+    font-family: 'DM Serif Text', serif;
+    font-size: 1.5rem;
+    text-transform: lowercase;
+  }
 
-    nav .logo {
-      font-weight: bold;
-      text-transform: lowercase;
-    }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+  }
 
-    nav ul {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
+  nav ul li a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+  }
 
-    nav ul li a {
-      text-decoration: none;
-      color: #000000;
-      font-weight: bold;
-      text-transform: capitalize;
-    }
+  .content {
+    max-width: 800px;
+    margin: 120px auto 60px auto;
+    text-align: center;
+    padding: 0 1rem;
+  }
 
-    /* Container for all content */
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 8rem 2rem 4rem;
-      position: relative;
-      z-index: 1;
-    }
+  h1 {
+    font-family: 'DM Serif Text', serif;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
 
-    h1.main-heading {
-      font-family: 'DM Serif Text', serif;
-      font-size: 4rem;
-      text-align: center;
-      margin-bottom: 2rem;
-      text-transform: lowercase;
-    }
+  h2 {
+    font-family: 'DM Serif Text', serif;
+    font-size: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
 
-    .intro-text {
-      max-width: 800px;
-      text-align: center;
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 3rem;
-    }
+  p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
 
-    h2.sub-heading {
-      font-family: 'DM Serif Text', serif;
-      font-size: 2rem;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
+  .discovery p {
+    text-align: center;
+  }
 
-    .discover p {
-      max-width: 700px;
-      font-size: 1.1rem;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
+  /* Static stars */
+  #starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+  }
 
-    .discover p span.emoji {
-      margin-right: 0.5rem;
-    }
+  .shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: black;
+    opacity: 0.8;
+    transform: rotate(45deg);
+    animation: shoot 2s linear forwards;
+  }
 
-    .follow p {
-      max-width: 700px;
-      text-align: center;
-      margin-bottom: 0.5rem;
+  @keyframes shoot {
+    0% {
+      transform: translate(-50px, -50px) rotate(45deg);
+      opacity: 1;
     }
+    100% {
+      transform: translate(100vw, 100vh) rotate(45deg);
+      opacity: 0;
+    }
+  }
 
-    /* Star canvas */
-    canvas#stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
+  .discovery p::before {
+    content: "🌌 ";
+  }
 
-    /* Shooting star styles */
-    .shooting-star {
-      position: fixed;
-      width: 2px;
-      height: 80px;
-      background: linear-gradient(white, transparent);
-      opacity: 0.8;
-      pointer-events: none;
-      z-index: 0;
-    }
-  </style>
+</style>
 </head>
 <body>
-  <nav>
-    <div class="logo">astrothesis</div>
-    <ul>
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
-    </ul>
-  </nav>
 
-  <canvas id="stars"></canvas>
+<nav>
+  <div class="logo">astrothesis</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="forum.html">Forum</a></li>
+  </ul>
+</nav>
 
-  <div class="container">
-    <h1 class="main-heading">astrothesis</h1>
-    <p class="intro-text">
-      astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discover - are you ready to explore?
-    </p>
+<div id="starfield"></div>
 
-    <h2 class="sub-heading">What You’ll Discover Here</h2>
-    <div class="discover">
-      <p><span class="emoji">🌌</span>Explore galaxies, stars and black holes.</p>
-      <p><span class="emoji">🌌</span>Uncover the science behind cosmic phenomena.</p>
-      <p><span class="emoji">🌌</span>Dive into fun space facts and mind blowing mysteries.</p>
-      <p><span class="emoji">🌌</span>Read exclusive essays to satisfy your curiosity.</p>
-      <p>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</p>
-    </div>
+<div class="content">
+  <h1>astrothesis</h1>
+  <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
 
-    <h2 class="sub-heading">Follow Us Across The Universe</h2>
-    <div class="follow">
-      <p>Instagram: <a href="https://instagram.com/astrothesis" target="_blank">astrothesis</a></p>
-      <p>TikTok: <a href="https://tiktok.com/@astro.thesis" target="_blank">astro.thesis</a></p>
-      <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
-    </div>
+  <h2>What You’ll Discover Here</h2>
+  <div class="discovery">
+    <p>Explore galaxies, stars and black holes.</p>
+    <p>Uncover the science behind cosmic phenomena.</p>
+    <p>Dive into fun space facts and mind blowing mysteries.</p>
+    <p>Read exclusive essays to satisfy your curiosity.</p>
+    <p>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</p>
   </div>
 
-  <script>
-    // Static stars
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
+  <h2>Follow Us Across The Universe</h2>
+  <p>Instagram: <a href="https://instagram.com/astrothesis" target="_blank">astrothesis</a></p>
+  <p>TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">astro.thesis</a></p>
+  <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
+</div>
 
-    const stars = [];
-    for (let i = 0; i < 150; i++) {
-      stars.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: Math.random() * 1.5,
-        alpha: Math.random()
-      });
-    }
+<script>
+const starfield = document.getElementById('starfield');
 
-    function drawStars() {
-      ctx.clearRect(0,0,width,height);
-      stars.forEach(star => {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, Math.PI*2);
-        ctx.fillStyle = "rgba(0,0,0,"+star.alpha+")";
-        ctx.fill();
-      });
-    }
+// Create static stars
+for (let i = 0; i < 200; i++) {
+  const star = document.createElement('div');
+  star.style.position = 'absolute';
+  star.style.width = '2px';
+  star.style.height = '2px';
+  star.style.background = 'black';
+  star.style.top = Math.random() * window.innerHeight + 'px';
+  star.style.left = Math.random() * window.innerWidth + 'px';
+  starfield.appendChild(star);
+}
 
-    function animateStars() {
-      drawStars();
-      requestAnimationFrame(animateStars);
-    }
+// Create shooting stars periodically
+function createShootingStar() {
+  const star = document.createElement('div');
+  star.className = 'shooting-star';
+  star.style.top = Math.random() * window.innerHeight/2 + 'px';
+  star.style.left = Math.random() * window.innerWidth/2 + 'px';
+  starfield.appendChild(star);
 
-    animateStars();
+  setTimeout(() => {
+    star.remove();
+  }, 2000);
+}
 
-    // Shooting stars
-    function createShootingStar() {
-      const star = document.createElement('div');
-      star.classList.add('shooting-star');
-      const startX = Math.random() * window.innerWidth;
-      const startY = Math.random() * window.innerHeight * 0.5;
-      star.style.left = startX + 'px';
-      star.style.top = startY + 'px';
-      document.body.appendChild(star);
+// Make a new shooting star every 1.5 seconds
+setInterval(createShootingStar, 1500);
+</script>
 
-      const endX = startX + (Math.random() * 400 + 200);
-      const endY = startY + (Math.random() * 400 + 200);
-      const duration = Math.random() * 1 + 1.5;
-
-      star.animate([
-        { transform: `translate(0,0)`, opacity: 0.8 },
-        { transform: `translate(${endX-startX}px, ${endY-startY}px)`, opacity: 0 }
-      ], {
-        duration: duration * 1000,
-        easing: 'linear'
-      });
-
-      setTimeout(() => {
-        star.remove();
-      }, duration*1000);
-    }
-
-    setInterval(createShootingStar, 1200); // Shooting star frequency
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-  </script>
 </body>
 </html>
