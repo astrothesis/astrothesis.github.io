@@ -21,7 +21,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.9);
     position: fixed;
     top: 0;
     left: 0;
@@ -33,6 +33,7 @@
     list-style: none;
     display: flex;
     gap: 1.5rem;
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
   }
   .nav-links li { margin: 0; }
   .nav-links a { text-decoration: none; color: black; transition: color 0.3s; }
@@ -49,19 +50,32 @@
     width: 25px;
     height: 3px;
     background-color: black;
+    transition: transform 0.3s ease;
   }
 
   /* Content */
-  .content { margin-top: 6rem; display: flex; flex-direction: column; align-items: center; padding: 2rem; }
-  .section { width: 90%; max-width: 800px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+  .content {
+    margin-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+  .section {
+    width: 90%;
+    max-width: 800px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
   h1 { font-family: 'DM Serif Text', serif; font-size: 2.5rem; margin-bottom: 1rem; }
   h2 { font-family: 'DM Serif Text', serif; font-size: 1.8rem; margin-bottom: 1rem; }
   p { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
   .follow a { display: block; margin: 0.3rem 0; text-decoration: none; color: black; }
   .follow a:hover { color: #ff6d4d; }
 
-  /* Responsive mobile styles */
-  @media (max-width: 800px) {
+  /* Responsive for mobile */
+  @media (max-width: 768px) {
     .nav-links {
       position: absolute;
       top: 100%;
@@ -69,11 +83,21 @@
       width: 100%;
       flex-direction: column;
       background: rgba(255,255,255,0.95);
-      display: none; /* hidden by default */
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
     }
-    .nav-links li { text-align: center; padding: 1rem 0; }
-    .hamburger { display: flex; }
-    .nav-active { display: flex !important; flex-direction: column; }
+    .nav-links li {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .hamburger {
+      display: flex;
+    }
+    .nav-active {
+      max-height: 500px; /* enough to show all items */
+      opacity: 1;
+    }
   }
 </style>
 </head>
@@ -125,7 +149,20 @@
 
   hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('nav-active');
+
+    // Animate hamburger bars into X when open
+    hamburger.classList.toggle('toggle');
+    if(hamburger.classList.contains('toggle')){
+      hamburger.children[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+      hamburger.children[1].style.opacity = '0';
+      hamburger.children[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      hamburger.children[0].style.transform = 'rotate(0) translate(0,0)';
+      hamburger.children[1].style.opacity = '1';
+      hamburger.children[2].style.transform = 'rotate(0) translate(0,0)';
+    }
   });
 </script>
+
 </body>
 </html>
