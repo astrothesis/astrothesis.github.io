@@ -33,14 +33,13 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
     .post-card {
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 1rem;
       background: white;
     }
-    .highlight { border: 2px solid #ff6d4d; }
     .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
@@ -60,18 +59,8 @@
     </ul>
   </nav>
 
-  <div class="forum-container" id="forumContainer">
-    <!-- Example post cards -->
-    <div class="post-card highlight">
-      <div class="post-title">Welcome to the Forum</div>
-      <div class="post-date">August 22, 2025</div>
-      <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
-    </div>
-    <div class="post-card">
-      <div class="post-title">Post Placeholder</div>
-      <div class="post-date">---</div>
-      <div class="post-content">No posts yet. Check back soon!</div>
-    </div>
+  <div class="forum-container" id="forum-container">
+    <!-- Posts will load dynamically -->
   </div>
 
   <div>
@@ -80,48 +69,58 @@
   </div>
 
   <script type="module">
+    // Firebase App + Firestore
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-    const auth = getAuth();
     const db = getFirestore(app);
 
-    const loginBtn = document.querySelector('.login-btn');
-    const signupBtn = document.querySelector('.signup-btn');
+    const forumContainer = document.getElementById('forum-container');
 
-    // Sign up new user
-    signupBtn.addEventListener('click', async () => {
-      const email = prompt("Enter your email:");
-      const password = prompt("Enter your password:");
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        await setDoc(doc(db, "users", user.uid), { email: email, role: "user" });
-        alert("Sign-up successful!");
-      } catch (error) {
-        alert("Error: " + error.message);
+    async function loadPosts() {
+      // Get posts ordered by highlight first, then date descending
+      const q = query(collection(db, "posts"), orderBy("highlight", "desc"), orderBy("date", "desc"));
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.empty) {
+        const placeholder = document.createElement('div');
+        placeholder.classList.add('post-card');
+        placeholder.innerHTML = `
+          <div class="post-title">What’s Brewing?</div>
+          <div class="post-date">---</div>
+          <div class="post-content">No posts yet. Stay tuned for exciting discussions!</div>
+        `;
+        forumContainer.appendChild(placeholder);
       }
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const postCard = document.createElement('div');
+        postCard.classList.add('post-card');
+
+        postCard.innerHTML = `
+          <div class="post-title">${data.title}</div>
+          <div class="post-date">${data.date.toDate().toDateString()}</div>
+          <div class="post-content">${data.content}</div>
+        `;
+
+        forumContainer.appendChild(postCard);
+      });
+    }
+
+    loadPosts();
+
+    // Placeholder login/signup
+    document.querySelector('.login-btn').addEventListener('click', () => {
+      alert('Login functionality coming soon!');
     });
-
-    // Log in existing user
-    loginBtn.addEventListener('click', async () => {
-      const email = prompt("Enter your email:");
-      const password = prompt("Enter your password:");
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        const role = docSnap.exists() ? docSnap.data().role : "user";
-        alert("Login successful! Role: " + role);
-      } catch (error) {
-        alert("Error: " + error.message);
-      }
+    document.querySelector('.signup-btn').addEventListener('click', () => {
+      alert('Signup functionality coming soon!');
     });
   </script>
 
