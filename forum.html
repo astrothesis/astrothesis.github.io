@@ -1,174 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>astrothesis - forum</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: 'Yeseva One', serif;
-  background: #fef9f4;
-  color: black;
-  overflow-x: hidden;
-  padding-top: 6rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-nav {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: rgba(255,255,255,0.9);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-}
-nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
-nav ul { list-style: none; display: flex; gap: 1.5rem; }
-nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
-nav a:hover { color: #ff6d4d; }
-.forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
-.post-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  background: white;
-}
-.post-card.admin { border-color: #0E0066; }
-.post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
-.post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
-.post-content { font-size: 1rem; }
-.login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4;
+      color: black;
+      overflow-x: hidden;
+      padding-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+    nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
+    nav a:hover { color: #ff6d4d; }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+    .post-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      background: white;
+    }
+    .post-card.admin {
+      border: 2px solid #0E0066;
+      background: #f0f0ff;
+    }
+    .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
+    .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
+    .post-content { font-size: 1rem; }
+    #post-section input, #post-section textarea { padding:0.5rem; font-size:1rem; border-radius:4px; border:1px solid #ccc; }
+    #post-section button { background:#0E0066; color:white; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer; }
+    .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; }
+    #profile-container { display:flex; align-items:center; gap:0.5rem; }
+    #profile-container img { width:40px; height:40px; border-radius:50%; object-fit:cover; }
+  </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">astrothesis</div>
-  <ul>
-    <li><a href="index.html">home</a></li>
-    <li><a href="about.html">about</a></li>
-    <li><a href="contact.html">contact</a></li>
-    <li><a href="blog.html">blog</a></li>
-    <li><a href="forum.html">forum</a></li>
-  </ul>
-</nav>
+  <nav>
+    <div class="logo">astrothesis</div>
+    <ul>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+    <div id="profile-container">
+      <button class="login-btn">Login</button>
+      <button class="signup-btn">Sign Up</button>
+    </div>
+  </nav>
 
-<div class="forum-container" id="forum-container">
-  <!-- Posts will be dynamically loaded here -->
-</div>
+  <div class="forum-container" id="forum-container">
+    <!-- Posts will load here -->
+  </div>
 
-<div>
-  <button class="login-btn">Login with Google</button>
-  <button class="signup-btn">Email Sign Up</button>
-</div>
+  <div id="post-section" style="margin-top:2rem;"></div>
 
-<div id="profile-container" style="position:fixed; top:1rem; right:2rem;"></div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+    import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, setDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { firebaseConfig } from './firebaseConfig.js';
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, updateProfile, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import { getFirestore, collection, getDocs, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
-import { firebaseConfig } from './firebaseConfig.js';
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth();
+    const db = getFirestore();
+    const forumContainer = document.getElementById('forum-container');
+    const profileContainer = document.getElementById('profile-container');
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth();
-const db = getFirestore(app);
-const storage = getStorage(app);
+    const googleProvider = new GoogleAuthProvider();
 
-const forumContainer = document.getElementById('forum-container');
-const profileContainer = document.getElementById('profile-container');
-const loginBtn = document.querySelector('.login-btn');
-const signupBtn = document.querySelector('.signup-btn');
-
-// --- Authentication ---
-const provider = new GoogleAuthProvider();
-
-loginBtn.addEventListener('click', () => {
-  signInWithPopup(auth, provider);
-});
-
-signupBtn.addEventListener('click', async () => {
-  const email = prompt('Enter your email:');
-  const password = prompt('Enter your password:');
-  if(email && password) {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert('Signed up successfully!');
-    } catch(err) { alert(err.message); }
-  }
-});
-
-// --- Profile Display ---
-onAuthStateChanged(auth, user => {
-  profileContainer.innerHTML = '';
-
-  if(user) {
-    const img = document.createElement('img');
-    img.src = user.photoURL || 'default-profile.png';
-    img.style.width = '40px';
-    img.style.height = '40px';
-    img.style.borderRadius = '50%';
-    img.style.cursor = 'pointer';
-
-    const logoutBtn = document.createElement('button');
-    logoutBtn.textContent = 'Log Out';
-    logoutBtn.style.marginLeft = '0.5rem';
-    logoutBtn.addEventListener('click', async () => {
-      await signOut(auth);
+    // Login Buttons
+    document.querySelector('.login-btn').addEventListener('click', async () => {
+      const result = await signInWithPopup(auth, googleProvider);
+    });
+    document.querySelector('.signup-btn').addEventListener('click', async () => {
+      const email = prompt('Enter email:');
+      const password = prompt('Enter password:');
+      if(email && password) await createUserWithEmailAndPassword(auth, email, password);
     });
 
-    const passBtn = document.createElement('button');
-    passBtn.textContent = 'Change Password';
-    passBtn.style.marginLeft = '0.5rem';
-    passBtn.addEventListener('click', () => {
-      const newPass = prompt('Enter new password:');
-      if(newPass) updatePassword(auth.currentUser, newPass).catch(e => alert(e.message));
+    // Log Out
+    function addLogoutBtn() {
+      const btn = document.createElement('button');
+      btn.textContent = 'Logout';
+      btn.style.background = '#ff6d4d';
+      btn.style.color = 'white';
+      btn.style.border = 'none';
+      btn.style.padding = '0.3rem 0.6rem';
+      btn.style.borderRadius = '4px';
+      btn.style.cursor = 'pointer';
+      btn.addEventListener('click', async () => { await signOut(auth); });
+      profileContainer.appendChild(btn);
+    }
+
+    // Show Post Form
+    function showPostForm(user) {
+      const postSection = document.getElementById('post-section');
+      postSection.innerHTML = '';
+      if(!user) return;
+
+      const form = document.createElement('div');
+      form.innerHTML = `
+        <h3>Create a Post</h3>
+        <input type="text" id="post-title" placeholder="Post Title" style="width:100%; margin-bottom:0.5rem;"/>
+        <textarea id="post-content" placeholder="Write your post..." style="width:100%; margin-bottom:0.5rem;"></textarea>
+        <button id="submit-post">Post</button>
+      `;
+      postSection.appendChild(form);
+
+      document.getElementById('submit-post').addEventListener('click', async () => {
+        const title = document.getElementById('post-title').value.trim();
+        const content = document.getElementById('post-content').value.trim();
+        if(!title || !content) return alert('Enter title and content');
+
+        await addDoc(collection(db, "posts"), {
+          title,
+          content,
+          date: new Date().toLocaleString(),
+          uid: user.uid,
+          admin: user.email === "YOUR_EMAIL@gmail.com",
+          star: false,
+          likes: 0,
+          comments: []
+        });
+        document.getElementById('post-title').value = '';
+        document.getElementById('post-content').value = '';
+      });
+    }
+
+    // Load Posts
+    function loadPosts() {
+      onSnapshot(collection(db, "posts"), (snapshot) => {
+        forumContainer.innerHTML = '';
+        snapshot.forEach(docSnap => {
+          const post = docSnap.data();
+          const postCard = document.createElement('div');
+          postCard.classList.add('post-card');
+          if(post.admin || post.star) postCard.classList.add('admin');
+          postCard.innerHTML = `
+            <div class="post-title">${post.title}</div>
+            <div class="post-date">${post.date}</div>
+            <div class="post-content">${post.content}</div>
+            <div class="interact" style="margin-top:0.5rem;">
+              <span class="likes">Likes: ${post.likes || 0}</span>
+              <button class="like-btn">Like</button>
+              <button class="comment-btn">Comment</button>
+              <div class="comments-container"></div>
+            </div>
+          `;
+          forumContainer.appendChild(postCard);
+
+          const likeBtn = postCard.querySelector('.like-btn');
+          const commentBtn = postCard.querySelector('.comment-btn');
+          const commentsContainer = postCard.querySelector('.comments-container');
+
+          (post.comments || []).forEach(c => {
+            const div = document.createElement('div');
+            div.textContent = `${c.userName}: ${c.text}`;
+            commentsContainer.appendChild(div);
+          });
+
+          likeBtn.addEventListener('click', async () => {
+            if(!auth.currentUser) return alert('Login to like posts');
+            const postRef = doc(db, 'posts', docSnap.id);
+            await setDoc(postRef, { likes: (post.likes || 0) + 1 }, { merge: true });
+          });
+
+          commentBtn.addEventListener('click', async () => {
+            if(!auth.currentUser) return alert('Login to comment');
+            const text = prompt('Enter your comment:');
+            if(!text) return;
+            const postRef = doc(db, 'posts', docSnap.id);
+            const updatedComments = post.comments || [];
+            updatedComments.push({ userName: auth.currentUser.displayName || auth.currentUser.email, text });
+            await setDoc(postRef, { comments: updatedComments }, { merge: true });
+          });
+        });
+      });
+    }
+
+    // Auth state changes
+    onAuthStateChanged(auth, user => {
+      profileContainer.innerHTML = '';
+      if(user) {
+        const img = document.createElement('img');
+        img.src = user.photoURL || 'https://via.placeholder.com/40';
+        profileContainer.appendChild(img);
+        addLogoutBtn();
+      } else {
+        profileContainer.appendChild(document.querySelector('.login-btn'));
+        profileContainer.appendChild(document.querySelector('.signup-btn'));
+      }
+      showPostForm(user);
     });
 
-    const picInput = document.createElement('input');
-    picInput.type = 'file';
-    picInput.addEventListener('change', async e => {
-      const file = e.target.files[0];
-      const storageRef = ref(storage, `profilePictures/${auth.currentUser.uid}`);
-      await uploadBytes(storageRef, file);
-      const url = await getDownloadURL(storageRef);
-      await updateProfile(auth.currentUser, { photoURL: url });
-    });
-
-    profileContainer.append(img, logoutBtn, passBtn, picInput);
-  }
-});
-
-// --- Load Forum Posts ---
-async function loadPosts() {
-  forumContainer.innerHTML = '';
-  const querySnapshot = await getDocs(collection(db, "posts"));
-  querySnapshot.forEach(docSnap => {
-    const post = docSnap.data();
-    const postCard = document.createElement('div');
-    postCard.classList.add('post-card');
-    if(post.admin || post.star) postCard.classList.add('admin');
-    postCard.innerHTML = `
-      <div class="post-title">${post.title}</div>
-      <div class="post-date">${post.date}</div>
-      <div class="post-content">${post.content}</div>
-    `;
-    forumContainer.appendChild(postCard);
-  });
-}
-
-loadPosts();
-</script>
+    loadPosts();
+  </script>
 
 </body>
 </html>
