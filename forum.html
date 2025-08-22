@@ -33,7 +33,12 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
+    #newPostContainer {
+      margin-bottom: 2rem; 
+      max-width: 900px; 
+      width: 100%;
+    }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
     .post-card {
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -44,6 +49,7 @@
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
     .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
+    textarea { font-family: 'Yeseva One', serif; resize: vertical; }
   </style>
 </head>
 <body>
@@ -59,8 +65,14 @@
     </ul>
   </nav>
 
+  <!-- New Post Interface -->
+  <div id="newPostContainer">
+    <textarea id="newPostContent" placeholder="Write your post here..."></textarea>
+    <button id="postBtn">Post</button>
+  </div>
+
+  <!-- Forum Posts -->
   <div class="forum-container" id="forumContainer">
-    <!-- Example post cards -->
     <div class="post-card">
       <div class="post-title">Welcome to the Forum</div>
       <div class="post-date">August 22, 2025</div>
@@ -81,42 +93,33 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-    const auth = getAuth();
 
-    // Login
+    // Placeholder buttons for login/signup functionality
     document.querySelector('.login-btn').addEventListener('click', () => {
-      const email = prompt("Enter your email:");
-      const password = prompt("Enter your password:");
-      
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          alert(`Welcome back, ${user.email}!`);
-        })
-        .catch((error) => {
-          alert(`Login failed: ${error.message}`);
-        });
+      alert('Login functionality coming soon!');
+    });
+    document.querySelector('.signup-btn').addEventListener('click', () => {
+      alert('Signup functionality coming soon!');
     });
 
-    // Signup
-    document.querySelector('.signup-btn').addEventListener('click', () => {
-      const email = prompt("Enter your email:");
-      const password = prompt("Enter your password (6+ characters):");
-      
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          alert(`Account created! Welcome, ${user.email}!`);
-        })
-        .catch((error) => {
-          alert(`Signup failed: ${error.message}`);
-        });
+    // Placeholder Post Button
+    document.getElementById('postBtn').addEventListener('click', () => {
+      const content = document.getElementById('newPostContent').value.trim();
+      if(!content) return alert('Please write something first!');
+      const forumContainer = document.getElementById('forumContainer');
+      const postCard = document.createElement('div');
+      postCard.classList.add('post-card');
+      postCard.innerHTML = `
+        <div class="post-title">New Post</div>
+        <div class="post-date">${new Date().toLocaleDateString()}</div>
+        <div class="post-content">${content}</div>
+      `;
+      forumContainer.prepend(postCard);
+      document.getElementById('newPostContent').value = '';
     });
   </script>
 
