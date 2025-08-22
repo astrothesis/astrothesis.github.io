@@ -33,7 +33,7 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
     .post-card {
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -43,10 +43,8 @@
     .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
+    .highlighted { border: 2px solid #ff6d4d; }
     .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
-    .auth-form { display: none; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
-    .auth-form input { padding: 0.5rem; font-size: 1rem; border-radius: 4px; border: 1px solid #ccc; }
-    .auth-form button { background: #ff6d4d; color: white; border: none; border-radius: 4px; padding: 0.5rem; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -62,18 +60,8 @@
     </ul>
   </nav>
 
-  <div class="forum-container">
-    <!-- Example post cards -->
-    <div class="post-card">
-      <div class="post-title">Welcome to the Forum</div>
-      <div class="post-date">August 22, 2025</div>
-      <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
-    </div>
-    <div class="post-card">
-      <div class="post-title">Post Placeholder</div>
-      <div class="post-date">---</div>
-      <div class="post-content">No posts yet. Check back soon!</div>
-    </div>
+  <div class="forum-container" id="forumContainer">
+    <!-- Posts will be dynamically injected here -->
   </div>
 
   <div>
@@ -81,74 +69,63 @@
     <button class="signup-btn">Sign Up</button>
   </div>
 
-  <!-- Auth Forms -->
-  <div class="auth-form login-form">
-    <input type="email" placeholder="Email" class="login-email" />
-    <input type="password" placeholder="Password" class="login-password" />
-    <button class="login-submit">Login</button>
-  </div>
-
-  <div class="auth-form signup-form">
-    <input type="email" placeholder="Email" class="signup-email" />
-    <input type="password" placeholder="Password" class="signup-password" />
-    <button class="signup-submit">Sign Up</button>
-  </div>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth();
+    const db = getFirestore(app);
 
-    const loginBtn = document.querySelector('.login-btn');
-    const signupBtn = document.querySelector('.signup-btn');
-    const loginForm = document.querySelector('.login-form');
-    const signupForm = document.querySelector('.signup-form');
+    const forumContainer = document.getElementById('forumContainer');
 
-    loginBtn.addEventListener('click', () => {
-      loginForm.style.display = 'flex';
-      signupForm.style.display = 'none';
+    async function loadPosts() {
+      const postsCol = collection(db, 'posts');
+      // Order by highlight first, then by date descending
+      const postsQuery = query(postsCol, orderBy('highlight', 'desc'), orderBy('date', 'desc'));
+      const postsSnapshot = await getDocs(postsQuery);
+      forumContainer.innerHTML = ''; // Clear container
+
+      postsSnapshot.forEach(doc => {
+        const post = doc.data();
+        const card = document.createElement('div');
+        card.classList.add('post-card');
+        if(post.highlight) card.classList.add('highlighted');
+
+        card.innerHTML = `
+          <div class="post-title">${post.title}</div>
+          <div class="post-date">${post.date}</div>
+          <div class="post-content">${post.content}</div>
+        `;
+        forumContainer.appendChild(card);
+      });
+
+      // If no posts exist, show placeholder
+      if(postsSnapshot.empty) {
+        const placeholder = document.createElement('div');
+        placeholder.classList.add('post-card');
+        placeholder.innerHTML = `
+          <div class="post-title">No posts yet</div>
+          <div class="post-date">---</div>
+          <div class="post-content">Check back soon!</div>
+        `;
+        forumContainer.appendChild(placeholder);
+      }
+    }
+
+    loadPosts();
+
+    // Placeholder buttons for login/signup functionality
+    document.querySelector('.login-btn').addEventListener('click', () => {
+      alert('Login functionality coming soon!');
+    });
+    document.querySelector('.signup-btn').addEventListener('click', () => {
+      alert('Signup functionality coming soon!');
     });
 
-    signupBtn.addEventListener('click', () => {
-      signupForm.style.display = 'flex';
-      loginForm.style.display = 'none';
-    });
-
-    // Login submit
-    document.querySelector('.login-submit').addEventListener('click', () => {
-      const email = document.querySelector('.login-email').value;
-      const password = document.querySelector('.login-password').value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          alert('Login successful! Welcome.');
-          loginForm.style.display = 'none';
-        })
-        .catch((error) => {
-          alert('Login failed: ' + error.message);
-        });
-    });
-
-    // Signup submit
-    document.querySelector('.signup-submit').addEventListener('click', () => {
-      const email = document.querySelector('.signup-email').value;
-      const password = document.querySelector('.signup-password').value;
-
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          alert('Signup successful! You can now login.');
-          signupForm.style.display = 'none';
-        })
-        .catch((error) => {
-          alert('Signup failed: ' + error.message);
-        });
-    });
   </script>
 
 </body>
 </html>
+
