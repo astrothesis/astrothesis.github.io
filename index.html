@@ -60,9 +60,12 @@
   .follow a { display: block; margin: 0.3rem 0; text-decoration: none; color: black; }
   .follow a:hover { color: #ff6d4d; }
 
-  /* ✅ Make email stay on one line */
+  /* Keep email on one line + centered */
   .follow a[href^="mailto"] {
     white-space: nowrap;
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
   }
 
   /* Mobile styles */
