@@ -3,9 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>about</title>
+  <title>about - astrothesis</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      padding: 40px;
+    }
+    section h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 3em;
+      margin-bottom: 40px;
+    }
+    section p {
+      font-family: 'Yeseva One', serif;
+      font-size: 1.2em;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 20px;
+      margin: 0;
+      background: transparent;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-family: 'Yeseva One', serif;
+      font-size: 1.1em;
+    }
+    #starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
 </head>
 <body>
   <!-- Starfield Canvas -->
@@ -14,23 +65,20 @@
   <!-- Navigation -->
   <nav>
     <ul>
-      <li><a href="index.html">home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
+      <li><a href="contact.html">Follow me across the universe</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="forum.html">Forum</a></li>
     </ul>
   </nav>
 
-  <!-- Page Content -->
+  <!-- About Section -->
   <section>
-    <h1>astrothesis</h1>
-
-    <p>astrothesis is a creative science space where physics, astronomy and cosmic ideas come together. Our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
-
-    <p>I’m Taseefah, and I created astrothesis because science—especially astrophysics—can often feel inaccessible. There’s so much knowledge online, but it’s scattered or difficult to find. This platform aims to bridge that gap: to give students direction, inspire curiosity, and allow scientists to connect and collaborate. After all, astrophysics is the future, and everyone should have the opportunity to explore it.</p>
-
-    <p>As a student myself, I want to bring science closer to the community. While this starts as a humble website, I hope to eventually introduce it to schools and use it as a platform to share not only my own discoveries but also other exciting new developments in science through joint blogs with notable people in the field.</p>
+    <h1>about</h1>
+    <p>astrothesis is a creative science space where physics, astronomy, and cosmic ideas come together. Our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
+    <p>Science is often inaccessible, and astrophysics in particular can feel out of reach for students. This site was created to provide clear, engaging information online so students can find direction, and scientists can collaborate. Astrophysics is after all the future.</p>
+    <p>I’m a student myself, and I want to bring science closer to the community. While this starts as a humble website, I hope to eventually introduce it to schools and use it as a platform to share not only my own discoveries but also other exciting new developments in astrophysics and science.</p>
   </section>
 
   <!-- Starfield JS -->
@@ -57,47 +105,18 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(0,0,0,${this.alpha})`; // black stars
+        ctx.fillStyle = `rgba(0,0,0,${this.alpha})`;
         ctx.fill();
         this.alpha += this.alphaChange;
         if (this.alpha <= 0 || this.alpha >= 1) this.alphaChange = -this.alphaChange;
       }
     }
 
-    class ShootingStar {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * -canvas.height;
-        this.length = Math.random() * 150 + 50;
-        this.speed = Math.random() * 5 + 5;
-        this.angle = Math.PI / 4;
-        this.opacity = 1;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x + this.length * Math.cos(this.angle), this.y + this.length * Math.sin(this.angle));
-        ctx.strokeStyle = `rgba(50,50,50,${this.opacity})`; // dark gray shooting stars
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-        this.update();
-      }
-      update() {
-        this.x += this.speed * Math.cos(this.angle);
-        this.y += this.speed * Math.sin(this.angle);
-        this.opacity -= 0.01;
-        if (this.opacity <= 0) this.reset();
-      }
-    }
-
     const stars = Array.from({length: 150}, () => new Star());
-    const shootingStars = Array.from({length: 2}, () => new ShootingStar());
 
     function animate() {
       ctx.clearRect(0,0,canvas.width,canvas.height);
       stars.forEach(star => star.draw());
-      shootingStars.forEach(star => star.draw());
       requestAnimationFrame(animate);
     }
     animate();
