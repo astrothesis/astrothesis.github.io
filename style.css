@@ -1,41 +1,36 @@
 /* Body and General */
 body {
   font-family: 'Yeseva One', serif;
-  color: #FF6D4D;
+  color: #000000;
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  background-color: #0E0066;
+  background-color: #fdf6e3; /* Cream/Ivory background */
   scroll-behavior: smooth;
+  text-align: center; /* Center everything */
 }
 
 /* Headings */
 h1, h2, h3 {
   font-family: 'DM Serif Text', serif;
-  color: #FF6D4D;
+  color: #000000;
   margin-bottom: 1rem;
 }
 
-/* Lowercase astrothesis in hero */
+/* Hero Section */
 .hero h1 {
   text-transform: lowercase;
   font-size: 3em;
-  margin-bottom: 0.5rem;
-}
-
-/* Hero tagline */
-.hero p {
-  font-size: 1.2em;
-  margin: 0;
+  margin: 2rem 0;
 }
 
 /* Navigation */
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #0E0066;
+  background-color: #fdf6e3;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -44,14 +39,14 @@ nav {
 nav ul {
   list-style: none;
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   margin: 0;
   padding: 0;
 }
 
 nav ul li a {
   text-decoration: none;
-  color: #FF6D4D;
+  color: #000000;
   font-weight: bold;
   transition: opacity 0.3s;
 }
@@ -63,7 +58,7 @@ nav ul li a:hover {
 /* Sections */
 section {
   padding: 4rem 2rem;
-  max-width: 900px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
@@ -71,21 +66,12 @@ section {
 section#discover ul {
   list-style-type: disc;
   padding-left: 1.5rem;
+  display: inline-block; /* Center bullets */
+  text-align: left;
 }
 
 /* Links */
 a {
-  color: #FF6D4D;
+  color: #000000;
   text-decoration: none;
-}
-
-/* Starfield Canvas */
-#stars {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: #0E0066;
 }
