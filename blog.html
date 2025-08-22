@@ -1,69 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>blog - astrothesis</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - blog</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
   <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    section {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;  /* aligns content closer to top */
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
-      padding: 100px 40px;          /* space from top */
-    }
-    section h1 {
-      font-family: 'DM Serif Text', serif;
-      font-size: 3em;
-      margin-bottom: 30px;
-    }
-    section p {
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
       font-family: 'Yeseva One', serif;
-      font-size: 1.2em;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      max-width: 800px;
-    }
-    nav ul {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      padding: 20px;
-      margin: 0;
-      background: transparent;
-    }
-    nav ul li {
-      margin: 0 15px;
-    }
-    nav ul li a {
-      text-decoration: none;
+      background: #fef9f4;
       color: black;
-      font-family: 'Yeseva One', serif;
-      font-size: 1.1em;
+      text-align: center;
+      padding: 2rem;
     }
-    #starfield {
+
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1;
+      z-index: 10;
+    }
+
+    nav .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color: black;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #555; }
+
+    .content {
+      margin-top: 6rem; /* space for navbar */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 1rem;
+      width: 250px;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
-  <!-- Starfield Canvas -->
-  <canvas id="starfield"></canvas>
-
-  <!-- Navigation -->
   <nav>
+    <div class="logo">astrothesis</div>
     <ul>
       <li><a href="index.html">home</a></li>
       <li><a href="about.html">about</a></li>
@@ -73,53 +109,13 @@
     </ul>
   </nav>
 
-  <!-- Blog Section -->
-  <section>
+  <div class="content">
     <h1>blog</h1>
-    <p>Welcome to the astrothesis blog! Here, you will find a variety of posts exploring fascinating topics in astrophysics, astronomy, and cosmic science. Each post is carefully crafted to inspire curiosity, share knowledge, and bring the wonders of the universe closer to you.</p>
-    <p>From detailed essays on black holes and galaxies to fun facts and discoveries from the latest research, our goal is to provide engaging and accessible science content for students, aspiring scientists, and anyone fascinated by the cosmos.</p>
-    <p>Stay tuned as we regularly add new content, share insights, and highlight exciting developments in astrophysics. Whether you're here to learn, explore, or contribute, the astrothesis blog is your gateway to the universe.</p>
-  </section>
-
-  <!-- Starfield JS -->
-  <script>
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    class Star {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.radius = Math.random() * 1.5;
-        this.alpha = Math.random();
-        this.alphaChange = 0.002 + Math.random() * 0.003;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(0,0,0,${this.alpha})`;
-        ctx.fill();
-        this.alpha += this.alphaChange;
-        if (this.alpha <= 0 || this.alpha >= 1) this.alphaChange = -this.alphaChange;
-      }
-    }
-
-    const stars = Array.from({length: 150}, () => new Star());
-
-    function animate() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      stars.forEach(star => star.draw());
-      requestAnimationFrame(animate);
-    }
-    animate();
-  </script>
+    <div class="cards">
+      <div class="card"></div>
+      <div class="card"></div>
+      <div class="card">Stay tuned! There’s lots to come on astrothesis.</div>
+    </div>
+  </div>
 </body>
 </html>
