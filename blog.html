@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - astrothesis</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Starfield Canvas -->
+  <canvas id="starfield"></canvas>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Follow me across the universe</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="forum.html">Forum</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Content -->
+  <section>
+    <h1>Blog</h1>
+    <p>Welcome to the astrothesis Blog! Here we share insights, essays, and discoveries about physics, astronomy, and the cosmos. Every post is designed to inspire curiosity and provide accessible science content for students and enthusiasts alike.</p>
+    <p>Stay tuned for upcoming posts, exclusive essays, and fascinating explanations of the universe’s mysteries. Explore the stars, galaxies, and black holes with us!</p>
+  </section>
+
+  <!-- Starfield JS -->
+  <script>
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Star {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 1.5;
+        this.alpha = Math.random();
+        this.alphaChange = 0.002 + Math.random() * 0.003;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(0,0,0,${this.alpha})`;
+        ctx.fill();
+        this.alpha += this.alphaChange;
+        if (this.alpha <= 0 || this.alpha >= 1) this.alphaChange = -this.alphaChange;
+      }
+    }
+
+    class ShootingStar {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * -canvas.height;
+        this.length = Math.random() * 150 + 50;
+        this.speed = Math.random() * 5 + 5;
+        this.angle = Math.PI / 4;
+        this.opacity = 1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.moveTo(this.x, this.y);
+        ctx.lineTo(this.x + this.length * Math.cos(this.angle), this.y + this.length * Math.sin(this.angle));
+        ctx.strokeStyle = `rgba(50,50,50,${this.opacity})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        this.update();
+      }
+      update() {
+        this.x += this.speed * Math.cos(this.angle);
+        this.y += this.speed * Math.sin(this.angle);
+        this.opacity -= 0.01;
+        if (this.opacity <= 0) this.reset();
+      }
+    }
+
+    const stars = Array.from({length: 150}, () => new Star());
+    const shootingStars = Array.from({length: 2}, () => new ShootingStar());
+
+    function animate() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      stars.forEach(star => star.draw());
+      shootingStars.forEach(star => star.draw());
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
