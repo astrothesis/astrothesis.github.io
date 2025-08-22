@@ -5,10 +5,9 @@
   box-sizing: border-box;
 }
 
-/* Body */
 body {
-  font-family: 'Poppins', sans-serif;
-  color: white;
+  font-family: 'Yeseva One', serif;
+  color: #FF6D4D;
   line-height: 1.6;
   overflow-x: hidden;
 }
@@ -27,16 +26,16 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(14, 0, 102, 0.6);
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
 nav h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.5rem;
-  color: #9fd2ff;
+  font-family: 'Seasons', cursive; /* Heading font from Canva */
+  font-size: 1.8rem;
+  color: #FF6D4D;
 }
 
 nav ul {
@@ -47,13 +46,13 @@ nav ul {
 
 nav ul li a {
   text-decoration: none;
-  color: white;
+  color: #FF6D4D;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-  color: #9fd2ff;
+  color: #ffffff;
 }
 
 /* Hero Section */
@@ -63,12 +62,15 @@ nav ul li a:hover {
 }
 
 .hero h1 {
+  font-family: 'Seasons', cursive;
   font-size: 3rem;
-  color: #9fd2ff;
+  color: #FF6D4D;
+  text-transform: lowercase;
   margin-bottom: 1rem;
 }
 
 .hero p {
+  font-family: 'Yeseva One', serif;
   font-size: 1.2rem;
   opacity: 0.9;
 }
@@ -77,7 +79,7 @@ nav ul li a:hover {
 .content {
   padding: 4rem 2rem;
   text-align: center;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(14, 0, 102, 0.4);
   margin: 2rem auto;
   border-radius: 12px;
   width: 90%;
@@ -85,10 +87,10 @@ nav ul li a:hover {
 }
 
 .content h2 {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Seasons', cursive;
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #d6b3ff;
+  color: #FF6D4D;
 }
 
 .content p, .content ul {
@@ -99,6 +101,7 @@ nav ul li a:hover {
 .content ul {
   list-style: none;
   padding: 0;
+  text-align: left;
 }
 
 .content ul li {
@@ -107,18 +110,18 @@ nav ul li a:hover {
 
 /* Links */
 a {
-  color: #9fd2ff;
+  color: #FF6D4D;
 }
 
 a:hover {
-  color: #d6b3ff;
+  color: #ffffff;
 }
 
 /* Footer */
 footer {
   text-align: center;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(14, 0, 102, 0.6);
   font-size: 0.9rem;
   margin-top: 2rem;
 }
