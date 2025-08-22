@@ -1,183 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>astrothesis - forum</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Yeseva One', serif; background:#fef9f4; color:black; }
-    nav { width:100%; display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:rgba(255,255,255,0.9); position:fixed; top:0; left:0; z-index:10; }
-    nav .logo { font-family:'DM Serif Text', serif; font-size:1.5rem; color:black; }
-    nav ul { list-style:none; display:flex; gap:1.5rem; }
-    nav a { text-decoration:none; font-size:1rem; color:black; transition:color 0.3s; }
-    nav a:hover { color:#ff6d4d; }
-    .container { display:flex; margin-top:6rem; padding:2rem; }
-    .sidebar { width:200px; padding-right:1rem; }
-    .sidebar h2 { font-family:'DM Serif Text', serif; margin-bottom:1rem; }
-    .sidebar ul { list-style:none; }
-    .sidebar li { margin-bottom:0.5rem; cursor:pointer; color:black; }
-    .sidebar li:hover { color:#ff6d4d; }
-    .posts { flex:1; display:flex; flex-direction:column; gap:1.5rem; }
-    .post { background:white; padding:1rem; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
-    .post h3 { font-family:'DM Serif Text', serif; margin-bottom:0.5rem; }
-    .post p { margin-bottom:0.5rem; }
-    .post .meta { font-size:0.85rem; margin-bottom:0.5rem; color:gray; }
-    .post .buttons { display:flex; gap:0.5rem; }
-    button { cursor:pointer; padding:0.3rem 0.6rem; border:none; background:#ff6d4d; color:white; border-radius:4px; transition:0.2s; }
-    button:hover { opacity:0.8; }
-    .reply { margin-left:1rem; background:#f9f4ef; padding:0.5rem; border-radius:5px; }
-    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
-    .modal-content { background:white; padding:2rem; border-radius:8px; width:90%; max-width:400px; text-align:center; }
-    .modal-content input, .modal-content textarea { width:90%; margin-bottom:1rem; padding:0.5rem; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>astrothesis - forum</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Yeseva One', serif; background:#fef9f4; color:black; display:flex; min-height:100vh; }
+  nav { width:100%; background:rgba(255,255,255,0.95); padding:1rem 2rem; position:fixed; top:0; left:0; display:flex; justify-content:space-between; align-items:center; z-index:10; }
+  nav .logo { font-family:'DM Serif Text', serif; font-size:1.5rem; }
+  nav ul { list-style:none; display:flex; gap:1.5rem; }
+  nav a { text-decoration:none; color:black; transition:color 0.3s; }
+  nav a:hover { color:#ff6d4d; }
+  .container { display:flex; flex:1; margin-top:80px; width:100%; }
+  .sidebar { width:200px; background:#fff; border-right:1px solid #ddd; padding:1rem; }
+  .sidebar h3 { font-family:'DM Serif Text', serif; margin-bottom:1rem; }
+  .sidebar ul { list-style:none; }
+  .sidebar li { margin-bottom:0.5rem; cursor:pointer; color:black; }
+  .sidebar li:hover { color:#ff6d4d; }
+  .forum-content { flex:1; padding:1rem 2rem; overflow-y:auto; }
+  .post-card { background:#fff; padding:1rem; margin-bottom:1rem; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.1); }
+  .post-title { font-family:'DM Serif Text', serif; font-weight:bold; font-size:1.2rem; margin-bottom:0.3rem; }
+  .post-meta { font-size:0.8rem; color:#555; margin-bottom:0.5rem; }
+  .post-content { margin-bottom:0.5rem; }
+  .post-actions { display:flex; gap:1rem; font-size:0.9rem; cursor:pointer; color:#555; }
+  .post-actions span:hover { color:#ff6d4d; }
+  .reply { margin-left:1.5rem; background:#f9f5f0; padding:0.5rem; border-radius:6px; margin-top:0.5rem; }
+  .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:20; }
+  .modal-content { background:#fff; padding:2rem; border-radius:8px; width:300px; text-align:center; }
+  .modal-content h2 { margin-bottom:1rem; }
+  .modal-content input { width:100%; padding:0.5rem; margin-bottom:1rem; border:1px solid #ccc; border-radius:4px; }
+  .modal-content button { padding:0.5rem 1rem; border:none; background:#ff6d4d; color:#fff; cursor:pointer; border-radius:4px; }
+  .modal-content button:hover { background:#ff3d0d; }
+  .modal-toggle { font-size:0.8rem; color:#555; cursor:pointer; margin-top:0.5rem; }
+</style>
 </head>
 <body>
-  <nav>
-    <div class="logo">astrothesis</div>
+
+<nav>
+  <div class="logo">astrothesis</div>
+  <ul>
+    <li><a href="index.html">home</a></li>
+    <li><a href="about.html">about</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="blog.html">blog</a></li>
+    <li><a href="forum.html">forum</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="sidebar">
+    <h3>Forums</h3>
     <ul>
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
+      <li data-category="General">General</li>
+      <li data-category="Questions">Questions</li>
     </ul>
-  </nav>
-
-  <div class="container">
-    <div class="sidebar">
-      <h2>Forums</h2>
-      <ul>
-        <li onclick="setCategory('General')">General</li>
-        <li onclick="setCategory('Questions')">Questions</li>
-      </ul>
-    </div>
-
-    <div class="posts" id="postsContainer"></div>
-  </div>
-
-  <!-- Post Modal -->
-  <div class="modal" id="postModal">
-    <div class="modal-content">
-      <h3>New Post</h3>
-      <input type="text" id="postTitle" placeholder="Title" />
-      <textarea id="postContent" placeholder="Write your post..."></textarea>
-      <button onclick="submitPost()">Submit</button>
+    <button onclick="openPostModal()" style="margin-top:1rem; padding:0.5rem 1rem; background:#ff6d4d; color:white; border:none; cursor:pointer; border-radius:4px;">New Post</button>
+    <div style="margin-top:1rem;">
+      <button onclick="openLoginModal()" style="padding:0.5rem 1rem; background:#555; color:white; border:none; cursor:pointer; border-radius:4px;">Login / Sign Up</button>
     </div>
   </div>
 
-  <!-- Reply Modal -->
-  <div class="modal" id="replyModal">
-    <div class="modal-content">
-      <h3>Reply</h3>
-      <textarea id="replyContent" placeholder="Write your reply..."></textarea>
-      <button onclick="submitReply()">Submit Reply</button>
-    </div>
+  <div class="forum-content" id="forumContent">
+    <p>Select a forum from the sidebar to view posts.</p>
   </div>
+</div>
 
-  <!-- Login Modal -->
-  <div class="modal" id="loginModal">
-    <div class="modal-content">
-      <h3>Login</h3>
-      <input type="text" id="usernameInput" placeholder="Enter username" />
-      <input type="password" id="passwordInput" placeholder="Enter password" />
-      <button onclick="login()">Login</button>
-    </div>
+<!-- Login / Sign Up Modal -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h2 id="modalTitle">Login</h2>
+    <input type="text" id="usernameInput" placeholder="Username">
+    <input type="password" id="passwordInput" placeholder="Password">
+    <button onclick="submitLoginSignup()">Submit</button>
+    <div class="modal-toggle" id="toggleForm">Don't have an account? Sign Up</div>
   </div>
+</div>
 
-  <script>
-    let posts = JSON.parse(localStorage.getItem('forumPosts')) || [];
-    let currentCategory = 'General';
-    let replyTo = null;
+<!-- New Post Modal -->
+<div class="modal" id="postModal">
+  <div class="modal-content">
+    <h2>New Post</h2>
+    <input type="text" id="postTitle" placeholder="Post Title">
+    <textarea id="postContent" placeholder="Content" style="width:100%; height:100px; margin-bottom:1rem;"></textarea>
+    <select id="postCategory" style="margin-bottom:1rem; width:100%; padding:0.5rem;">
+      <option value="General">General</option>
+      <option value="Questions">Questions</option>
+    </select>
+    <button onclick="submitPost()">Post</button>
+  </div>
+</div>
 
-    function setCategory(category){
-      currentCategory = category;
-      renderPosts();
-    }
+<script>
+let users = JSON.parse(localStorage.getItem('users') || '[]');
+let posts = JSON.parse(localStorage.getItem('posts') || '[]');
+let loggedInUser = localStorage.getItem('loggedInUser') || null;
+let loginMode = 'login'; // 'login' or 'signup'
+let currentCategory = '';
 
-    function renderPosts(){
-      const container = document.getElementById('postsContainer');
-      container.innerHTML = '';
-      posts.filter(p=>p.category===currentCategory).forEach(p=>{
-        const postDiv = document.createElement('div');
-        postDiv.classList.add('post');
-        postDiv.innerHTML = `
-          <h3>${p.title}</h3>
-          <div class="meta">${p.date}</div>
-          <p>${p.content}</p>
-          <div class="buttons">
-            <button onclick="likePost(${p.id})">Like (${p.likes})</button>
-            <button onclick="openReply(${p.id})">Reply</button>
-          </div>
-        `;
-        p.replies.forEach(r=>{
-          const replyDiv = document.createElement('div');
-          replyDiv.classList.add('reply');
-          replyDiv.innerHTML = `<p><strong>${r.user}:</strong> ${r.content}</p>`;
-          postDiv.appendChild(replyDiv);
-        });
-        container.appendChild(postDiv);
-      });
-    }
+const forumContent = document.getElementById('forumContent');
+const loginModal = document.getElementById('loginModal');
+const postModal = document.getElementById('postModal');
+const toggleForm = document.getElementById('toggleForm');
+const modalTitle = document.getElementById('modalTitle');
 
-    function openReply(postId){
-      if(!localStorage.getItem('forumUser')) return openLogin();
-      replyTo = postId;
-      document.getElementById('replyModal').style.display='flex';
-    }
-
-    function submitReply(){
-      const content = document.getElementById('replyContent').value;
-      const user = localStorage.getItem('forumUser');
-      if(content && replyTo!==null){
-        const post = posts.find(p=>p.id===replyTo);
-        post.replies.push({user, content});
-        localStorage.setItem('forumPosts', JSON.stringify(posts));
-        document.getElementById('replyContent').value='';
-        document.getElementById('replyModal').style.display='none';
-        renderPosts();
-      }
-    }
-
-    function likePost(id){
-      const post = posts.find(p=>p.id===id);
-      post.likes +=1;
-      localStorage.setItem('forumPosts', JSON.stringify(posts));
-      renderPosts();
-    }
-
-    function openLogin(){
-      document.getElementById('loginModal').style.display='flex';
-    }
-
-    function login(){
-      const username = document.getElementById('usernameInput').value;
-      const password = document.getElementById('passwordInput').value;
-      if(username && password){
-        localStorage.setItem('forumUser', username);
-        localStorage.setItem('forumPass', password);
-        document.getElementById('loginModal').style.display='none';
-        alert('Logged in as '+username);
-      } else alert('Enter username and password');
-    }
-
-    function submitPost(){
-      if(!localStorage.getItem('forumUser')) return openLogin();
-      const title = document.getElementById('postTitle').value;
-      const content = document.getElementById('postContent').value;
-      if(title && content){
-        const newPost = { id:Date.now(), category:currentCategory, title, content, likes:0, replies:[], date: new Date().toLocaleDateString() };
-        posts.push(newPost);
-        localStorage.setItem('forumPosts', JSON.stringify(posts));
-        document.getElementById('postTitle').value='';
-        document.getElementById('postContent').value='';
-        document.getElementById('postModal').style.display='none';
-        renderPosts();
-      }
-    }
-
+document.querySelectorAll('.sidebar li').forEach(li=>{
+  li.addEventListener('click', ()=>{
+    currentCategory = li.getAttribute('data-category');
     renderPosts();
-  </script>
+  });
+});
+
+function openLoginModal(){
+  loginModal.style.display = 'flex';
+}
+
+toggleForm.addEventListener('click', ()=>{
+  if(loginMode==='login'){
+    loginMode='signup';
+    modalTitle.textContent='Sign Up';
+    toggleForm.textContent='Already have an account? Login';
+  } else {
+    loginMode='login';
+    modalTitle.textContent='Login';
+    toggleForm.textContent="Don't have an account? Sign Up";
+  }
+});
+
+function submitLoginSignup(){
+  const username = document.getElementById('usernameInput').value.trim();
+  const password = document.getElementById('passwordInput').value.trim();
+  if(!username || !password){ alert('Enter username and password'); return; }
+
+  if(loginMode==='signup'){
+    if(users.find(u=>u.username===username)){ alert('Username taken'); return; }
+    users.push({username,password});
+    localStorage.setItem('users',JSON.stringify(users));
+    loggedInUser = username;
+    localStorage.setItem('loggedInUser',loggedInUser);
+    alert('Sign up successful!');
+    loginModal.style.display='none';
+  } else {
+    const user = users.find(u=>u.username===username && u.password===password);
+    if(user){
+      loggedInUser=username;
+      localStorage.setItem('loggedInUser',loggedInUser);
+      alert('Login successful!');
+      loginModal.style.display='none';
+    } else { alert('Invalid credentials'); }
+  }
+}
+
+function openPostModal(){
+  if(!loggedInUser){ alert('You must login to post.'); return; }
+  postModal.style.display='flex';
+}
+
+function submitPost(){
+  const title = document.getElementById('postTitle').value.trim();
+  const content = document.getElementById('postContent').value.trim();
+  const category = document.getElementById('postCategory').value;
+  if(!title || !content){ alert('Fill title and content'); return; }
+  posts.push({title, content, category, user:loggedInUser, date:new Date().toLocaleString(), likes:0, replies:[]});
+  localStorage.setItem('posts',JSON.stringify(posts));
+  postModal.style.display='none';
+  renderPosts();
+}
+
+function renderPosts(){
+  if(!currentCategory){ forumContent.innerHTML='<p>Select a forum from the sidebar to view posts.</p>'; return; }
+  let html='';
+  const filtered = posts.filter(p=>p.category===currentCategory);
+  if(filtered.length===0){ html='<p>No posts yet.</p>'; }
+  filtered.forEach((p,i)=>{
+    html+=`
+      <div class="post-card">
+        <div class="post-title">${p.title}</div>
+        <div class="post-meta">By ${p.user} on ${p.date}</div>
+        <div class="post-content">${p.content}</div>
+        <div class="post-actions">
+          <span onclick="likePost(${i})">❤️ ${p.likes}</span>
+          <span onclick="openReplyModal(${i})">Reply</span>
+        </div>
+        <div>${p.replies.map(r=>`<div class="reply"><strong>${r.user}:</strong> ${r.content}</div>`).join('')}</div>
+      </div>
+    `;
+  });
+  forumContent.innerHTML=html;
+}
+
+// Likes
+function likePost(index){
+  posts[index].likes++;
+  localStorage.setItem('posts',JSON.stringify(posts));
+  renderPosts();
+}
+
+// Replies
+function openReplyModal(postIndex){
+  if(!loggedInUser){ alert('Login to reply'); return; }
+  const reply = prompt('Type your reply:');
+  if(reply){ 
+    posts[postIndex].replies.push({user:loggedInUser, content:reply});
+    localStorage.setItem('posts',JSON.stringify(posts));
+    renderPosts();
+  }
+}
+
+// Close modals when clicking outside
+window.onclick = function(e){
+  if(e.target===loginModal) loginModal.style.display='none';
+  if(e.target===postModal) postModal.style.display='none';
+}
+</script>
+
 </body>
 </html>
