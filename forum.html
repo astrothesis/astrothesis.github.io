@@ -33,20 +33,18 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
     .post-card {
       border: 1px solid #ddd;
       border-radius: 8px;
       padding: 1rem;
       background: white;
     }
+    .post-card.admin { border: 2px solid #ff6d4d; }
     .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
     .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
-    #post-container { margin-top: 2rem; width: 100%; max-width: 600px; display: none; flex-direction: column; gap: 0.5rem; }
-    #post-container input, #post-container textarea { width: 100%; padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc; }
-    #post-container button { width: 100%; background: #ff6d4d; color: white; border: none; padding: 0.5rem; border-radius: 4px; cursor: pointer; }
   </style>
 </head>
 <body>
@@ -63,13 +61,7 @@
   </nav>
 
   <div class="forum-container" id="forum-container">
-    <!-- Posts will appear here dynamically -->
-  </div>
-
-  <div id="post-container">
-    <input type="text" id="post-title" placeholder="Post Title" />
-    <textarea id="post-content" placeholder="Write your post here"></textarea>
-    <button id="post-btn">Submit Post</button>
+    <!-- Posts will load here -->
   </div>
 
   <div>
@@ -80,83 +72,60 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, orderBy, serverTimestamp, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-    const auth = getAuth();
-    const db = getFirestore();
+    const db = getFirestore(app);
 
     const forumContainer = document.getElementById('forum-container');
-    const postContainer = document.getElementById('post-container');
-    const postBtn = document.getElementById('post-btn');
 
-    // Display posts
+    // Load posts with admin posts first
     async function loadPosts() {
       forumContainer.innerHTML = '';
-      const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+      const q = query(collection(db, "posts"), orderBy("admin", "desc"), orderBy("timestamp", "desc"));
       const querySnapshot = await getDocs(q);
+
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         const postCard = document.createElement('div');
         postCard.classList.add('post-card');
+        if(data.admin) postCard.classList.add('admin');
+
         postCard.innerHTML = `
-          <div class="post-title">${data.title}</div>
-          <div class="post-date">${new Date(data.timestamp.seconds * 1000).toLocaleDateString()}</div>
+          <div class="post-title">${data.title}${data.admin ? " ★" : ""}</div>
+          <div class="post-date">${data.timestamp ? new Date(data.timestamp.seconds * 1000).toLocaleDateString() : '---'}</div>
           <div class="post-content">${data.content}</div>
         `;
         forumContainer.appendChild(postCard);
       });
     }
 
-    // Add post
-    postBtn.addEventListener('click', async () => {
-      const title = document.getElementById('post-title').value;
-      const content = document.getElementById('post-content').value;
-      if(title && content) {
-        await addDoc(collection(db, "posts"), {
-          title,
-          content,
-          timestamp: serverTimestamp(),
-          uid: auth.currentUser.uid
-        });
-        document.getElementById('post-title').value = '';
-        document.getElementById('post-content').value = '';
-        loadPosts();
-      }
-    });
-
-    // Auth state change
-    onAuthStateChanged(auth, (user) => {
-      if(user) {
-        postContainer.style.display = 'flex';
-      } else {
-        postContainer.style.display = 'none';
-      }
-      loadPosts();
-    });
-
-    // Login/Signup buttons (Google as example)
-    const loginBtn = document.querySelector('.login-btn');
-    const signupBtn = document.querySelector('.signup-btn');
-    const provider = new GoogleAuthProvider();
-
-    loginBtn.addEventListener('click', async () => {
-      try {
-        await signInWithPopup(auth, provider);
-      } catch(e) { console.error(e); }
-    });
-
-    signupBtn.addEventListener('click', async () => {
-      try {
-        await signInWithPopup(auth, provider);
-      } catch(e) { console.error(e); }
-    });
-
     loadPosts();
+
+    // Placeholder login/signup functionality
+    document.querySelector('.login-btn').addEventListener('click', () => {
+      alert('Login functionality coming soon!');
+    });
+    document.querySelector('.signup-btn').addEventListener('click', () => {
+      alert('Signup functionality coming soon!');
+    });
+
+    // Example: Adding a sample admin post for testing
+    async function addAdminPost() {
+      await addDoc(collection(db, "posts"), {
+        title: "Welcome to the Forum",
+        content: "This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!",
+        timestamp: serverTimestamp(),
+        admin: true
+      });
+      loadPosts();
+    }
+
+    // Uncomment to add initial admin post once
+    // addAdminPost();
   </script>
+
 </body>
 </html>
