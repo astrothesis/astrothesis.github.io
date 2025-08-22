@@ -1,24 +1,32 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Body and General */
 body {
-  font-family: sans-serif;
+  font-family: 'Yeseva One', serif;
   color: #FF6D4D;
   line-height: 1.6;
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
   background-color: #0E0066;
+  scroll-behavior: smooth;
 }
 
-/* Starfield Canvas */
-#starfield {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
+/* Headings */
+h1, h2, h3 {
+  font-family: 'DM Serif Text', serif;
+  color: #FF6D4D;
+  margin-bottom: 1rem;
+}
+
+/* Lowercase astrothesis in hero */
+.hero h1 {
+  text-transform: lowercase;
+  font-size: 3em;
+  margin-bottom: 0.5rem;
+}
+
+/* Hero tagline */
+.hero p {
+  font-size: 1.2em;
+  margin: 0;
 }
 
 /* Navigation */
@@ -27,95 +35,57 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(14, 0, 102, 0.8);
+  background-color: #0E0066;
   position: sticky;
   top: 0;
   z-index: 10;
-}
-
-nav h2 {
-  font-size: 1.8rem;
 }
 
 nav ul {
   list-style: none;
   display: flex;
   gap: 1.5rem;
+  margin: 0;
+  padding: 0;
 }
 
 nav ul li a {
   text-decoration: none;
   color: #FF6D4D;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  font-weight: bold;
+  transition: opacity 0.3s;
 }
 
 nav ul li a:hover {
-  color: #FFFFFF;
+  opacity: 0.7;
 }
 
-/* Hero Section */
-.hero {
-  text-align: center;
-  padding: 5rem 2rem;
-}
-
-.hero h1 {
-  font-size: 3rem;
-  text-transform: lowercase;
-  margin-bottom: 1rem;
-}
-
-.hero p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-}
-
-/* Content Sections */
-.content {
+/* Sections */
+section {
   padding: 4rem 2rem;
-  text-align: center;
-  background: rgba(14, 0, 102, 0.4);
-  margin: 2rem auto;
-  border-radius: 12px;
-  width: 90%;
   max-width: 900px;
-}
-
-.content h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.content p, .content ul {
-  max-width: 700px;
   margin: 0 auto;
 }
 
-.content ul {
-  list-style: none;
-  padding: 0;
-  text-align: left;
-}
-
-.content ul li {
-  margin: 0.5rem 0;
+/* Lists in Discover Section */
+section#discover ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
 }
 
 /* Links */
 a {
   color: #FF6D4D;
+  text-decoration: none;
 }
 
-a:hover {
-  color: #FFFFFF;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: rgba(14, 0, 102, 0.8);
-  font-size: 0.9rem;
-  margin-top: 2rem;
+/* Starfield Canvas */
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: #0E0066;
 }
