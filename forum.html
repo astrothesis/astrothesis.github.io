@@ -33,7 +33,7 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
     .post-card {
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -43,7 +43,8 @@
     .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
-    .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
+    .login-btn, .signup-btn, .login-google-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
+    .highlight { border-color: #ff6d4d; background: #fff3f0; }
   </style>
 </head>
 <body>
@@ -60,67 +61,77 @@
   </nav>
 
   <div class="forum-container" id="forum-container">
-    <!-- Posts will load dynamically -->
+    <!-- Example post cards -->
+    <div class="post-card highlight">
+      <div class="post-title">Welcome to the Forum</div>
+      <div class="post-date">August 22, 2025</div>
+      <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
+    </div>
   </div>
 
   <div>
     <button class="login-btn">Login</button>
     <button class="signup-btn">Sign Up</button>
+    <button class="login-google-btn">Login with Google</button>
   </div>
 
   <script type="module">
-    // Firebase App + Firestore
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-    const db = getFirestore(app);
+    const auth = getAuth(app);
 
-    const forumContainer = document.getElementById('forum-container');
+    const loginBtn = document.querySelector('.login-btn');
+    const signupBtn = document.querySelector('.signup-btn');
+    const googleBtn = document.querySelector('.login-google-btn');
 
-    async function loadPosts() {
-      // Get posts ordered by highlight first, then date descending
-      const q = query(collection(db, "posts"), orderBy("highlight", "desc"), orderBy("date", "desc"));
-      const querySnapshot = await getDocs(q);
-
-      if (querySnapshot.empty) {
-        const placeholder = document.createElement('div');
-        placeholder.classList.add('post-card');
-        placeholder.innerHTML = `
-          <div class="post-title">What’s Brewing?</div>
-          <div class="post-date">---</div>
-          <div class="post-content">No posts yet. Stay tuned for exciting discussions!</div>
-        `;
-        forumContainer.appendChild(placeholder);
+    // Login with Email/Password
+    loginBtn.addEventListener('click', async () => {
+      const email = prompt("Enter your email:");
+      const password = prompt("Enter your password:");
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        alert(`Welcome back, ${userCredential.user.email}!`);
+      } catch (error) {
+        alert(error.message);
       }
-
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const postCard = document.createElement('div');
-        postCard.classList.add('post-card');
-
-        postCard.innerHTML = `
-          <div class="post-title">${data.title}</div>
-          <div class="post-date">${data.date.toDate().toDateString()}</div>
-          <div class="post-content">${data.content}</div>
-        `;
-
-        forumContainer.appendChild(postCard);
-      });
-    }
-
-    loadPosts();
-
-    // Placeholder login/signup
-    document.querySelector('.login-btn').addEventListener('click', () => {
-      alert('Login functionality coming soon!');
     });
-    document.querySelector('.signup-btn').addEventListener('click', () => {
-      alert('Signup functionality coming soon!');
+
+    // Signup with Email/Password
+    signupBtn.addEventListener('click', async () => {
+      const email = prompt("Enter your email:");
+      const password = prompt("Enter your password:");
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        alert(`Account created for ${userCredential.user.email}!`);
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+    // Login with Google
+    const googleProvider = new GoogleAuthProvider();
+    googleBtn.addEventListener('click', async () => {
+      try {
+        const result = await signInWithPopup(auth, googleProvider);
+        alert(`Welcome, ${result.user.displayName}!`);
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+    // Placeholder: Highlight admin posts (you can replace this later with dynamic Firebase logic)
+    const forumContainer = document.getElementById('forum-container');
+    const posts = forumContainer.querySelectorAll('.post-card');
+    posts.forEach(post => {
+      if(post.classList.contains('highlight')) {
+        post.style.border = '2px solid #ff6d4d';
+      }
     });
   </script>
 
