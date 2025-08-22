@@ -7,16 +7,16 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: 'Yeseva One', serif;
       background: #fef9f4;
       color: black;
       overflow-x: hidden;
-      text-align: center;
-      padding: 2rem;
+      padding-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-
     nav {
       width: 100%;
       display: flex;
@@ -29,93 +29,21 @@
       left: 0;
       z-index: 10;
     }
-
-    nav .logo {
-      font-family: 'DM Serif Text', serif;
-      font-size: 1.5rem;
-      color: black;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    nav a {
-      text-decoration: none;
-      font-size: 1rem;
-      color: black;
-      transition: color 0.3s;
-    }
-
+    nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-
-    .forum-container {
-      margin-top: 6rem; /* space for navbar */
-    }
-
-    .forum-header {
-      font-family: 'DM Serif Text', serif;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    .forum-message {
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-
-    .auth-buttons {
-      margin-bottom: 2rem;
-    }
-
-    .auth-buttons button {
-      font-family: 'Yeseva One', serif;
-      margin: 0 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-      border: 1px solid black;
-      background: #fef9f4;
-      transition: background 0.3s;
-    }
-
-    .auth-buttons button:hover {
-      background: #ff6d4d;
-      color: white;
-    }
-
-    .forum-posts {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
     .post-card {
-      border: 1px solid #ccc;
-      padding: 1rem;
+      border: 1px solid #ddd;
       border-radius: 8px;
-      text-align: left;
+      padding: 1rem;
+      background: white;
     }
-
-    .post-card h3 {
-      font-family: 'DM Serif Text', serif;
-      margin-bottom: 0.5rem;
-    }
-
-    .post-card p {
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-
-    .post-date {
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 0.5rem;
-    }
+    .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
+    .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
+    .post-content { font-size: 1rem; }
+    .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -132,42 +60,39 @@
   </nav>
 
   <div class="forum-container">
-    <div class="forum-header">Forum</div>
-    <div class="forum-message">Anyone can view, but login is required to post or comment.</div>
-    
-    <div class="auth-buttons">
-      <button id="loginBtn">Login</button>
-      <button id="signupBtn">Sign Up</button>
+    <!-- Example post cards -->
+    <div class="post-card">
+      <div class="post-title">Welcome to the Forum</div>
+      <div class="post-date">August 22, 2025</div>
+      <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
     </div>
-
-    <div class="forum-posts">
-      <div class="post-card">
-        <h3>What's Brewing</h3>
-        <p>Stay tuned, exciting posts and discussions are coming soon!</p>
-        <div class="post-date">Date: TBD</div>
-      </div>
-      <div class="post-card"></div>
-      <div class="post-card"></div>
+    <div class="post-card">
+      <div class="post-title">Post Placeholder</div>
+      <div class="post-date">---</div>
+      <div class="post-content">No posts yet. Check back soon!</div>
     </div>
   </div>
 
-  <!-- Firebase SDK -->
+  <div>
+    <button class="login-btn">Login</button>
+    <button class="signup-btn">Sign Up</button>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCFQaMEMZN_KhPyjnn-mTuX5x0clfO13_s",
-      authDomain: "astrothesis.firebaseapp.com",
-      projectId: "astrothesis",
-      storageBucket: "astrothesis.firebasestorage.app",
-      messagingSenderId: "934925526328",
-      appId: "1:934925526328:web:c4ec11838af184c9b28dcd",
-      measurementId: "G-S7R91QYZGR"
-    };
+    import { firebaseConfig } from './firebaseConfig.js';
 
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
+
+    // Placeholder buttons for login/signup functionality
+    document.querySelector('.login-btn').addEventListener('click', () => {
+      alert('Login functionality coming soon!');
+    });
+    document.querySelector('.signup-btn').addEventListener('click', () => {
+      alert('Signup functionality coming soon!');
+    });
   </script>
 
 </body>
