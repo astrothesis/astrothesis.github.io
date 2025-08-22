@@ -6,86 +6,15 @@
   <title>astrothesis</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Yeseva One', serif;
-      background-color: #fffaf0; /* ivory/cream */
-      color: black;
-      overflow-x: hidden;
-    }
-
-    /* Starfield canvas */
-    #starfield {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1; /* behind content */
-      background-color: #fffaf0;
-    }
-
-    /* Navigation bar */
-    nav ul {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      padding: 20px;
-      margin: 0;
-      background: transparent;
-    }
-    nav ul li {
-      margin: 0 15px;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: black;
-      font-family: 'Yeseva One', serif;
-      font-size: 1.1em;
-    }
-
-    /* Sections */
-    section {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
-      padding: 100px 40px;
-    }
-    section h1 {
-      font-family: 'DM Serif Text', serif;
-      font-size: 3em;
-      margin-bottom: 30px;
-    }
-    section p {
-      font-family: 'Yeseva One', serif;
-      font-size: 1.2em;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      max-width: 800px;
-    }
-
-    /* "What you'll discover here" */
-    .discover p {
-      margin: 15px 0;
-    }
-    .discover p::before {
-      content: "🌌";
-    }
-  </style>
 </head>
 <body>
-
-  <!-- Starfield -->
+  <!-- Star background canvas -->
   <canvas id="starfield"></canvas>
 
-  <!-- Navigation -->
+  <!-- Navigation Bar -->
   <nav>
-    <ul>
+    <div class="logo">astrothesis</div>
+    <ul class="nav-links">
       <li><a href="index.html">home</a></li>
       <li><a href="about.html">about</a></li>
       <li><a href="contact.html">contact</a></li>
@@ -94,27 +23,36 @@
     </ul>
   </nav>
 
-  <!-- Home Sections -->
-  <section>
-    <h1>astrothesis</h1>
-    <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
-    
+  <!-- Main Content -->
+  <main>
+    <h1 class="main-heading">astrothesis</h1>
+    <p class="intro">
+      astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?
+    </p>
+
+    <h2 class="sub-heading">What You’ll Discover Here</h2>
     <div class="discover">
-      <h2>what you'll discover here</h2>
-      <p>Explore galaxies, stars and black holes</p>
-      <p>Uncover the science behind cosmic phenomena</p>
-      <p>Dive into fun space facts and mind blowing mysteries</p>
-      <p>Read exclusive essays to satisfy your curiosity</p>
+      <p>🌌 Explore galaxies, stars and black holes.</p>
+      <p>🌌 Uncover the science behind cosmic phenomena.</p>
+      <p>🌌 Dive into fun space facts and mind-blowing mysteries.</p>
+      <p>🌌 Read exclusive essays to satisfy your curiosity.</p>
       <p>Become a member of the Navigators community where you can share questions and interests with like-minded individuals!</p>
     </div>
-  </section>
 
-  <!-- Starfield JavaScript -->
+    <h2 class="sub-heading">Follow Us Across The Universe</h2>
+    <div class="contact-links">
+      <p>Instagram: <a href="https://www.instagram.com/astrothesis" target="_blank">astrothesis</a></p>
+      <p>TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">astro.thesis</a></p>
+      <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
+    </div>
+  </main>
+
+  <!-- Starfield JS -->
   <script>
     const canvas = document.getElementById('starfield');
     const ctx = canvas.getContext('2d');
     let stars = [];
-    let numStars = 100;
+    let shootingStars = [];
 
     function resize() {
       canvas.width = window.innerWidth;
@@ -123,30 +61,66 @@
     window.addEventListener('resize', resize);
     resize();
 
-    for (let i = 0; i < numStars; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 1,
-        speed: Math.random() * 0.5 + 0.2
+    function initStars(count) {
+      stars = [];
+      for(let i=0;i<count;i++){
+        stars.push({
+          x: Math.random()*canvas.width,
+          y: Math.random()*canvas.height,
+          radius: Math.random()*1.5+0.5
+        });
+      }
+    }
+
+    function initShootingStar(){
+      shootingStars.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height/2,
+        length: Math.random()*80+50,
+        speed: Math.random()*4+2,
+        opacity: Math.random()*0.5+0.5
       });
     }
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let star of stars) {
-        star.x += star.speed;
-        if (star.x > canvas.width) star.x = 0;
-        ctx.fillStyle = 'black';
+    function draw(){
+      ctx.fillStyle = '#fffaf0'; // cream background
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // draw stars
+      ctx.fillStyle = '#000000';
+      stars.forEach(s=>{
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.arc(s.x,s.y,s.radius,0,Math.PI*2);
         ctx.fill();
-      }
+      });
+
+      // draw shooting stars
+      shootingStars.forEach((s, index)=>{
+        ctx.strokeStyle = 'rgba(0,0,0,'+s.opacity+')';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(s.x - s.length, s.y + s.length);
+        ctx.stroke();
+
+        s.x += s.speed;
+        s.y += s.speed;
+
+        if(s.x - s.length > canvas.width || s.y - s.length > canvas.height){
+          shootingStars.splice(index,1);
+          initShootingStar();
+        }
+      });
+    }
+
+    function animate(){
+      draw();
       requestAnimationFrame(animate);
     }
 
+    initStars(150);
+    for(let i=0;i<3;i++) initShootingStar();
     animate();
   </script>
-
 </body>
 </html>
