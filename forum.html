@@ -33,7 +33,7 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
     .post-card {
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -43,148 +43,126 @@
     .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
-    .login-btn, .signup-btn, .post-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
-    #postForm { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
-    #postForm input, #postForm textarea { padding: 0.5rem; font-size: 1rem; border-radius: 4px; border: 1px solid #ccc; width: 100%; }
+    .login-btn, .signup-btn, #googleLoginBtn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
+    #adminDashboard { margin-top: 2rem; border: 1px solid #ff6d4d; padding: 1rem; border-radius: 8px; width: 100%; max-width: 900px; background: #fff3f0; }
   </style>
 </head>
 <body>
 
-<nav>
-  <div class="logo">astrothesis</div>
-  <ul>
-    <li><a href="index.html">home</a></li>
-    <li><a href="about.html">about</a></li>
-    <li><a href="contact.html">contact</a></li>
-    <li><a href="blog.html">blog</a></li>
-    <li><a href="forum.html">forum</a></li>
-  </ul>
-</nav>
+  <nav>
+    <div class="logo">astrothesis</div>
+    <ul>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+  </nav>
 
-<div class="forum-container" id="forumContainer">
-  <!-- Posts will load here -->
-</div>
+  <div class="forum-container" id="forumContainer">
+    <!-- Example post cards -->
+    <div class="post-card">
+      <div class="post-title">Welcome to the Forum</div>
+      <div class="post-date">August 22, 2025</div>
+      <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
+    </div>
+  </div>
 
-<div id="authContainer">
-  <button class="login-btn" id="loginBtn">Login</button>
-  <button class="signup-btn" id="signupBtn">Sign Up</button>
-</div>
+  <div>
+    <button class="login-btn" id="loginBtn">Login</button>
+    <button class="signup-btn" id="signupBtn">Sign Up</button>
+    <button id="googleLoginBtn">Login with Google</button>
+  </div>
 
-<form id="postForm" style="display:none;">
-  <input type="text" id="postTitle" placeholder="Post title" required>
-  <textarea id="postContent" placeholder="Post content" rows="4" required></textarea>
-  <button type="submit" class="post-btn">Post</button>
-</form>
+  <!-- Admin dashboard -->
+  <div id="adminDashboard" style="display:none;">
+    <h2>Admin Dashboard</h2>
+    <button id="refreshPostsBtn">Refresh Posts</button>
+    <div id="adminPostsContainer"></div>
+  </div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-  import { getFirestore, collection, getDocs, addDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-  import { firebaseConfig } from './firebaseConfig.js';
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getFirestore(app);
-  const auth = getAuth(app);
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFQaMEMZN_KhPyjnn-mTuX5x0clfO13_s",
+      authDomain: "astrothesis.firebaseapp.com",
+      projectId: "astrothesis",
+      storageBucket: "astrothesis.firebasestorage.app",
+      messagingSenderId: "934925526328",
+      appId: "1:934925526328:web:c4ec11838af184c9b28dcd",
+      measurementId: "G-S7R91QYZGR"
+    };
 
-  const forumContainer = document.getElementById('forumContainer');
-  const postForm = document.getElementById('postForm');
-  const loginBtn = document.getElementById('loginBtn');
-  const signupBtn = document.getElementById('signupBtn');
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  let currentUser = null;
-  const adminEmail = "yourAdminEmail@example.com"; // replace with your email
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const googleLoginBtn = document.getElementById('googleLoginBtn');
+    const forumContainer = document.getElementById('forumContainer');
+    const adminDashboard = document.getElementById('adminDashboard');
+    const refreshPostsBtn = document.getElementById('refreshPostsBtn');
+    const adminPostsContainer = document.getElementById('adminPostsContainer');
 
-  // Load posts
-  async function loadPosts() {
-    forumContainer.innerHTML = '';
-    const q = query(collection(db, "general"), orderBy("role", "desc"), orderBy("timestamp", "desc"));
-    const querySnapshot = await getDocs(q);
-    if (querySnapshot.empty) {
-      forumContainer.innerHTML = `
-        <div class="post-card">
-          <div class="post-title">Welcome to the Forum</div>
-          <div class="post-date">${new Date().toLocaleDateString()}</div>
-          <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
-        </div>
-      `;
-    } else {
-      querySnapshot.forEach(doc => {
-        const post = doc.data();
-        const card = document.createElement('div');
-        card.className = 'post-card';
-        if (post.role === "admin") card.style.border = "2px solid #ff6d4d"; // highlight admin posts
-        card.innerHTML = `
-          <div class="post-title">${post.title}</div>
-          <div class="post-date">${new Date(post.timestamp.seconds * 1000).toLocaleDateString()}</div>
-          <div class="post-content">${post.content}</div>
-        `;
-        forumContainer.appendChild(card);
-      });
-    }
-  }
+    const adminEmail = "your-admin-email@example.com"; // Replace with your email
 
-  loadPosts();
+    // Placeholder buttons
+    loginBtn.addEventListener('click', () => alert('Login coming soon!'));
+    signupBtn.addEventListener('click', () => alert('Signup coming soon!'));
 
-  // Auth state listener
-  onAuthStateChanged(auth, (user) => {
-    currentUser = user;
-    if (user) {
-      postForm.style.display = "flex";
-      loginBtn.style.display = "none";
-      signupBtn.style.display = "none";
-    } else {
-      postForm.style.display = "none";
-      loginBtn.style.display = "inline-block";
-      signupBtn.style.display = "inline-block";
-    }
-  });
-
-  // Login
-  loginBtn.addEventListener('click', async () => {
-    const email = prompt("Enter your email:");
-    const password = prompt("Enter your password:");
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Logged in!");
-    } catch(e) {
-      alert("Login failed: " + e.message);
-    }
-  });
-
-  // Sign Up
-  signupBtn.addEventListener('click', async () => {
-    const email = prompt("Enter email:");
-    const password = prompt("Enter password (min 6 chars):");
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Account created! Please log in.");
-    } catch(e) {
-      alert("Signup failed: " + e.message);
-    }
-  });
-
-  // Post submission
-  postForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const title = document.getElementById('postTitle').value.trim();
-    const content = document.getElementById('postContent').value.trim();
-    if (!title || !content) return;
-
-    const role = (currentUser && currentUser.email === adminEmail) ? "admin" : "user";
-
-    await addDoc(collection(db, "general"), {
-      title,
-      content,
-      role,
-      timestamp: serverTimestamp()
+    // Google login
+    const provider = new GoogleAuthProvider();
+    googleLoginBtn.addEventListener('click', async () => {
+      try { await signInWithPopup(auth, provider); }
+      catch(e) { alert("Google login failed: " + e.message); }
     });
 
-    postForm.reset();
-    loadPosts();
-  });
-</script>
+    // Monitor auth state
+    onAuthStateChanged(auth, (user) => {
+      if(user){
+        loginBtn.style.display = "none";
+        signupBtn.style.display = "none";
+        googleLoginBtn.style.display = "none";
+
+        if(user.email === adminEmail){
+          adminDashboard.style.display = "block";
+          loadAdminPosts();
+        } else {
+          adminDashboard.style.display = "none";
+        }
+      } else {
+        loginBtn.style.display = "inline-block";
+        signupBtn.style.display = "inline-block";
+        googleLoginBtn.style.display = "inline-block";
+        adminDashboard.style.display = "none";
+      }
+    });
+
+    async function loadAdminPosts(){
+      adminPostsContainer.innerHTML = '';
+      const q = query(collection(db, "general"), orderBy("timestamp", "desc"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(doc => {
+        const post = doc.data();
+        const div = document.createElement('div');
+        div.className = 'post-card';
+        div.innerHTML = `<div><strong>${post.title}</strong> (${post.role || 'user'})</div><div>${post.content}</div>`;
+        adminPostsContainer.appendChild(div);
+      });
+    }
+
+    refreshPostsBtn.addEventListener('click', loadAdminPosts);
+
+  </script>
 
 </body>
 </html>
