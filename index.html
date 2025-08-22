@@ -60,6 +60,11 @@
   .follow a { display: block; margin: 0.3rem 0; text-decoration: none; color: black; }
   .follow a:hover { color: #ff6d4d; }
 
+  /* ✅ Make email stay on one line */
+  .follow a[href^="mailto"] {
+    white-space: nowrap;
+  }
+
   /* Mobile styles */
   @media (max-width: 768px) {
     .nav-links { 
@@ -115,9 +120,6 @@
     <a href="https://www.instagram.com/astrothesis" target="_blank">Instagram: astrothesis</a>
     <a href="https://www.tiktok.com/@astro.thesis" target="_blank">TikTok: astro.thesis</a>
     <a href="mailto:astrothesis@outlook.com">Email: astrothesis@outlook.com</a>
-   .follow a[href^="mailto"] {
-  white-space: nowrap;
-}
   </div>
 </div>
 
