@@ -1,191 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>astrothesis</title>
-<style>
-  /* General Styles */
-  body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-color: ivory;
-    font-family: 'Yeseva One', serif;
-    overflow-x: hidden;
-  }
-
-  /* Navigation Bar */
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
-    background-color: transparent;
-    position: fixed;
-    width: 100%;
-    z-index: 10;
-  }
-  nav .logo {
-    font-family: 'DM Serif Text', serif;
-    font-size: 24px;
-    font-weight: bold;
-    color: black;
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    margin: 0;
-    padding: 0;
-  }
-  nav ul li a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
-
-  /* Content Styles */
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 800px;
-    margin: 150px auto 50px auto; /* top margin for nav */
-    text-align: center;
-  }
-  h1 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 60px;
-    margin-bottom: 20px;
-  }
-  h2 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 36px;
-    margin: 30px 0 15px 0;
-  }
-  p {
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 15px;
-  }
-
-  /* Star Canvases */
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Emoji Points */
-  .points p {
-    font-size: 18px;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>astrothesis</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Yeseva One', serif;
+      background: #fdf7ec; /* ivory background */
+      overflow-x: hidden;
+      position: relative;
+      color: #000000;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 50px;
+      z-index: 10;
+      font-family: 'Yeseva One', serif;
+    }
+    header .logo {
+      font-size: 1.5rem;
+      text-transform: lowercase;
+    }
+    header nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #000000;
+      font-size: 1.1rem;
+    }
+    main {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 120px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 4rem;
+      margin-bottom: 20px;
+      text-transform: lowercase;
+    }
+    h2 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 2rem;
+      margin: 40px 0 20px 0;
+    }
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .discover p {
+      text-align: center;
+      margin: 10px 0;
+    }
+    .discover span {
+      display: block;
+      margin: 10px 0;
+    }
+    .contact-info a {
+      display: block;
+      margin: 10px 0;
+      color: #000000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .text-section {
+      background: rgba(253, 247, 236, 0.85); /* semi-transparent to see stars behind */
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+  </style>
 </head>
 <body>
+  <canvas id="starsCanvas"></canvas>
+  <canvas id="shootingCanvas"></canvas>
 
-<!-- Navigation -->
-<nav>
-  <div class="logo">astrothesis</div>
-  <ul>
-    <li><a href="index.html">home</a></li>
-    <li><a href="about.html">about</a></li>
-    <li><a href="contact.html">contact</a></li>
-    <li><a href="blog.html">blog</a></li>
-    <li><a href="forum.html">forum</a></li>
-  </ul>
-</nav>
+  <header>
+    <div class="logo">astrothesis</div>
+    <nav>
+      <a href="home.html">home</a>
+      <a href="about.html">about</a>
+      <a href="contact.html">contact</a>
+      <a href="blog.html">blog</a>
+      <a href="forum.html">forum</a>
+    </nav>
+  </header>
 
-<!-- Static Stars Canvas -->
-<canvas id="staticStars"></canvas>
-<!-- Shooting Stars Canvas -->
-<canvas id="shootingStars"></canvas>
+  <main>
+    <div class="text-section">
+      <h1>astrothesis</h1>
+      <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery – are you ready to explore?</p>
+    </div>
 
-<!-- Content -->
-<div class="container">
-  <h1>astrothesis</h1>
-  <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
+    <div class="text-section discover">
+      <h2>What You’ll Discover Here</h2>
+      <p>🌌 Explore galaxies, stars and black holes.</p>
+      <p>🌌 Uncover the science behind cosmic phenomena.</p>
+      <p>🌌 Dive into fun space facts and mind blowing mysteries.</p>
+      <p>🌌 Read exclusive essays to satisfy your curiosity.</p>
+      <p>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</p>
+    </div>
 
-  <h2>What You’ll Discover Here</h2>
-  <div class="points">
-    <p>🌌 Explore galaxies, stars and black holes.</p>
-    <p>🌌 Uncover the science behind cosmic phenomena.</p>
-    <p>🌌 Dive into fun space facts and mind blowing mysteries.</p>
-    <p>🌌 Read exclusive essays to satisfy your curiosity.</p>
-    <p>Become a member of the Navigators community where you can share questions and interests with like-minded individuals!</p>
-  </div>
+    <div class="text-section contact-info">
+      <h2>Follow Us Across The Universe</h2>
+      <a href="https://www.instagram.com/astrothesis" target="_blank">Instagram: astrothesis</a>
+      <a href="https://www.tiktok.com/@astro.thesis" target="_blank">TikTok: astro.thesis</a>
+      <a href="mailto:astrothesis@outlook.com">Email: astrothesis@outlook.com</a>
+    </div>
+  </main>
 
-  <h2>Follow Us Across The Universe</h2>
-  <p>Instagram: <a href="https://www.instagram.com/astrothesis" target="_blank">astrothesis</a></p>
-  <p>TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">astro.thesis</a></p>
-  <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
-</div>
+  <script>
+    // Static stars
+    const starsCanvas = document.getElementById('starsCanvas');
+    const shootingCanvas = document.getElementById('shootingCanvas');
+    starsCanvas.width = shootingCanvas.width = window.innerWidth;
+    starsCanvas.height = shootingCanvas.height = window.innerHeight;
+    const ctxStars = starsCanvas.getContext('2d');
+    const ctxShooting = shootingCanvas.getContext('2d');
 
-<script>
-  // Canvas Setup
-  const staticCanvas = document.getElementById('staticStars');
-  const shootingCanvas = document.getElementById('shootingStars');
-  staticCanvas.width = shootingCanvas.width = window.innerWidth;
-  staticCanvas.height = shootingCanvas.height = window.innerHeight;
-  const sCtx = staticCanvas.getContext('2d');
-  const shCtx = shootingCanvas.getContext('2d');
-
-  // Static Stars
-  const staticStars = [];
-  for (let i = 0; i < 150; i++) {
-    staticStars.push({x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight, r: Math.random()*1.5+0.5});
-  }
-  function drawStaticStars() {
-    sCtx.clearRect(0,0,staticCanvas.width,staticCanvas.height);
-    sCtx.fillStyle = 'black';
-    staticStars.forEach(s => {
-      sCtx.beginPath();
-      sCtx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      sCtx.fill();
-    });
-  }
-  drawStaticStars();
-
-  // Shooting Stars
-  let shootingStars = [];
-  let lastSpawn = 0;
-  const spawnRate = 2500; // every 2.5 seconds
-
-  function animate(timestamp) {
-    shCtx.clearRect(0,0,shootingCanvas.width,shootingCanvas.height);
-
-    shootingStars.forEach((s,i) => {
-      s.x += s.vx;
-      s.y += s.vy;
-      s.life--;
-      shCtx.strokeStyle = 'rgba(0,0,0,0.7)'; // more opaque
-      shCtx.lineWidth = 2;
-      shCtx.beginPath();
-      shCtx.moveTo(s.x, s.y);
-      shCtx.lineTo(s.x - s.vx*2, s.y - s.vy*2);
-      shCtx.stroke();
-      if(s.life <= 0) shootingStars.splice(i,1);
-    });
-
-    if(!lastSpawn || timestamp - lastSpawn > spawnRate) {
-      shootingStars.push({
-        x: Math.random()*shootingCanvas.width,
-        y: 0,
-        vx: Math.random()*6+4,
-        vy: Math.random()*6+4,
-        life: 30
+    const staticStars = [];
+    for (let i = 0; i < 150; i++) {
+      staticStars.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: Math.random() * 1.5 + 0.5
       });
-      lastSpawn = timestamp;
     }
 
-    requestAnimationFrame(animate);
-  }
-  requestAnimationFrame(animate);
-</script>
+    function drawStaticStars() {
+      ctxStars.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      ctxStars.fillStyle = '#000000';
+      staticStars.forEach(s => {
+        ctxStars.beginPath();
+        ctxStars.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctxStars.fill();
+      });
+    }
 
+    drawStaticStars();
+
+    // Shooting stars
+    let shootingStars = [];
+    let lastSpawn = 0;
+    const spawnRate = 2000;
+
+    function animateShootingStars(timestamp) {
+      ctxShooting.clearRect(0, 0, shootingCanvas.width, shootingCanvas.height);
+
+      shootingStars.forEach((s, i) => {
+        s.x += s.vx;
+        s.y += s.vy;
+        s.life--;
+        ctxShooting.strokeStyle = 'rgba(0,0,0,0.7)';
+        ctxShooting.lineWidth = 2;
+        ctxShooting.beginPath();
+        ctxShooting.moveTo(s.x, s.y);
+        ctxShooting.lineTo(s.x - s.vx * 5, s.y - s.vy * 5); // elongated streak
+        ctxShooting.stroke();
+        if (s.life <= 0) shootingStars.splice(i, 1);
+      });
+
+      if (!lastSpawn || timestamp - lastSpawn > spawnRate) {
+        shootingStars.push({
+          x: Math.random() * shootingCanvas.width,
+          y: Math.random() * shootingCanvas.height / 2,
+          vx: Math.random() * 6 + 4,
+          vy: Math.random() * 2 + 1,
+          life: 30
+        });
+        lastSpawn = timestamp;
+      }
+
+      requestAnimationFrame(animateShootingStars);
+    }
+
+    requestAnimationFrame(animateShootingStars);
+
+    window.addEventListener('resize', () => {
+      starsCanvas.width = shootingCanvas.width = window.innerWidth;
+      starsCanvas.height = shootingCanvas.height = window.innerHeight;
+      drawStaticStars();
+    });
+  </script>
 </body>
 </html>
