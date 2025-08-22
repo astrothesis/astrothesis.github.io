@@ -1,212 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>astrothesis - forum</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: 'Yeseva One', serif;
-  background: #fef9f4;
-  color: black;
-}
-nav {
-  width:100%; display:flex; justify-content:space-between; align-items:center;
-  padding:1rem 2rem; background: rgba(255,255,255,0.9); position:fixed; top:0; z-index:10;
-}
-nav .logo { font-family: 'DM Serif Text', serif; font-size:1.5rem; }
-nav ul { list-style:none; display:flex; gap:1.5rem; }
-nav a { text-decoration:none; color:black; transition:color 0.3s; }
-nav a:hover { color:#ff6d4d; }
-.content { margin-top:6rem; display:flex; flex-direction:column; align-items:center; padding:2rem; }
-h1,h2 { font-family:'DM Serif Text', serif; margin-bottom:1rem; text-align:center; }
-h1 { font-size:3rem; }
-h2 { font-size:2rem; }
-p { font-size:1.1rem; line-height:1.6; margin-bottom:1rem; text-align:center; }
-.posts { width:100%; max-width:800px; display:flex; flex-direction:column; gap:1rem; margin-top:2rem; }
-.post { border:1px solid #ddd; padding:1rem; border-radius:8px; background:#fff; position:relative; }
-.post.highlighted { border:2px solid #ff6d4d; background:#fff7f0; }
-.post .meta { font-size:0.9rem; color:#555; margin-bottom:0.5rem; }
-.post .admin-controls { position:absolute; top:5px; right:5px; display:flex; gap:0.5rem; }
-button { padding:0.2rem 0.5rem; border:none; background:#ff6d4d; color:#fff; border-radius:4px; cursor:pointer; }
-button:hover { opacity:0.8; }
-.modal { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);
- display:flex; justify-content:center; align-items:center; display:none; z-index:20; }
-.modal-content { background:#fff; padding:2rem; border-radius:8px; width:300px; display:flex; flex-direction:column; gap:1rem; }
-.modal-content input { padding:0.5rem; font-size:1rem; }
-.modal-content button { width:100%; }
-.sidebar { position:fixed; left:0; top:6rem; width:200px; background:#fff; border-right:1px solid #ddd; height:100%; padding:1rem; }
-.sidebar h3 { text-align:center; margin-bottom:1rem; }
-.sidebar ul { list-style:none; display:flex; flex-direction:column; gap:0.5rem; }
-.sidebar a { text-decoration:none; color:black; }
-.sidebar a:hover { color:#ff6d4d; }
-.main { margin-left:220px; width:calc(100% - 220px); display:flex; flex-direction:column; align-items:center; }
-textarea { width:100%; padding:0.5rem; resize:vertical; font-family:'Yeseva One', serif; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4;
+      color: black;
+      overflow-x: hidden;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    nav .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color: black;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #ff6d4d; }
+
+    .forum-container {
+      margin-top: 6rem; /* space for navbar */
+    }
+
+    .forum-header {
+      font-family: 'DM Serif Text', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .forum-message {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .auth-buttons {
+      margin-bottom: 2rem;
+    }
+
+    .auth-buttons button {
+      font-family: 'Yeseva One', serif;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      border: 1px solid black;
+      background: #fef9f4;
+      transition: background 0.3s;
+    }
+
+    .auth-buttons button:hover {
+      background: #ff6d4d;
+      color: white;
+    }
+
+    .forum-posts {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .post-card {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .post-card h3 {
+      font-family: 'DM Serif Text', serif;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-card p {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .post-date {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 <body>
-<nav>
-<div class="logo">astrothesis</div>
-<ul>
-<li><a href="index.html">home</a></li>
-<li><a href="about.html">about</a></li>
-<li><a href="contact.html">contact</a></li>
-<li><a href="blog.html">blog</a></li>
-<li><a href="forum.html">forum</a></li>
-</ul>
-</nav>
 
-<div class="sidebar">
-<h3>Forums</h3>
-<ul>
-<li><a href="#">General</a></li>
-<li><a href="#">Questions</a></li>
-</ul>
-</div>
+  <nav>
+    <div class="logo">astrothesis</div>
+    <ul>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+  </nav>
 
-<div class="main content">
-<h1>Forum</h1>
-<button id="loginBtn">Login / Sign Up</button>
+  <div class="forum-container">
+    <div class="forum-header">Forum</div>
+    <div class="forum-message">Anyone can view, but login is required to post or comment.</div>
+    
+    <div class="auth-buttons">
+      <button id="loginBtn">Login</button>
+      <button id="signupBtn">Sign Up</button>
+    </div>
 
-<div class="posts" id="postsContainer"></div>
+    <div class="forum-posts">
+      <div class="post-card">
+        <h3>What's Brewing</h3>
+        <p>Stay tuned, exciting posts and discussions are coming soon!</p>
+        <div class="post-date">Date: TBD</div>
+      </div>
+      <div class="post-card"></div>
+      <div class="post-card"></div>
+    </div>
+  </div>
 
-<div class="modal" id="authModal">
-<div class="modal-content">
-<h2 id="modalTitle">Login</h2>
-<input type="text" id="username" placeholder="Username">
-<input type="password" id="password" placeholder="Password">
-<button id="authSubmit">Login</button>
-<p><span id="toggleAuth" style="color:#ff6d4d; cursor:pointer;">Switch to Sign Up</span></p>
-</div>
-</div>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
 
-<div class="modal" id="postModal">
-<div class="modal-content">
-<h2>New Post</h2>
-<textarea id="postContent" rows="4" placeholder="Write your post here..."></textarea>
-<button id="submitPost">Submit Post</button>
-</div>
-</div>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCFQaMEMZN_KhPyjnn-mTuX5x0clfO13_s",
+      authDomain: "astrothesis.firebaseapp.com",
+      projectId: "astrothesis",
+      storageBucket: "astrothesis.firebasestorage.app",
+      messagingSenderId: "934925526328",
+      appId: "1:934925526328:web:c4ec11838af184c9b28dcd",
+      measurementId: "G-S7R91QYZGR"
+    };
 
-</div>
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
 
-<script>
-// --- User & Posts Storage ---
-let users = JSON.parse(localStorage.getItem('users')) || [
-  {username:'taseefah', password:'admin123', role:'admin'}
-];
-let posts = JSON.parse(localStorage.getItem('posts')) || [];
-
-// --- Authentication ---
-let currentUser = null;
-const authModal = document.getElementById('authModal');
-const postModal = document.getElementById('postModal');
-const loginBtn = document.getElementById('loginBtn');
-const toggleAuth = document.getElementById('toggleAuth');
-const modalTitle = document.getElementById('modalTitle');
-const authSubmit = document.getElementById('authSubmit');
-
-let isLogin = true;
-toggleAuth.addEventListener('click', () => {
-  isLogin = !isLogin;
-  modalTitle.innerText = isLogin ? 'Login' : 'Sign Up';
-  authSubmit.innerText = isLogin ? 'Login' : 'Sign Up';
-});
-
-loginBtn.addEventListener('click', () => authModal.style.display='flex');
-
-authSubmit.addEventListener('click', () => {
-  const username = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
-  if(!username||!password) return alert('Enter username and password');
-
-  if(isLogin){
-    const user = users.find(u=>u.username===username && u.password===password);
-    if(user){ currentUser = user; authModal.style.display='none'; renderPosts(); alert('Logged in'); }
-    else alert('Invalid credentials');
-  }else{
-    if(users.find(u=>u.username===username)){ alert('Username exists'); return; }
-    users.push({username,password,role:'member'});
-    localStorage.setItem('users',JSON.stringify(users));
-    alert('Sign up successful! Login now.');
-    isLogin = true; modalTitle.innerText='Login'; authSubmit.innerText='Login';
-  }
-});
-
-// --- Posts ---
-function renderPosts(){
-  const container = document.getElementById('postsContainer');
-  container.innerHTML='';
-  // Sort: admin first, then approved star, then others
-  const sorted = posts.slice().sort((a,b)=>{
-    if(a.highlighted && !b.highlighted) return -1;
-    if(!a.highlighted && b.highlighted) return 1;
-    return new Date(b.date)-new Date(a.date);
-  });
-  sorted.forEach(post=>{
-    const div = document.createElement('div');
-    div.className='post'+(post.highlighted?' highlighted':'');
-    div.innerHTML=`
-      <div class="meta">${post.username} - ${new Date(post.date).toLocaleString()} ${post.role==='star'&&!post.approved?'(Pending Approval)':''}</div>
-      <div class="content">${post.content}</div>
-    `;
-    // Admin controls
-    if(currentUser && currentUser.role==='admin'){
-      const controls = document.createElement('div');
-      controls.className='admin-controls';
-      const highlightBtn = document.createElement('button');
-      highlightBtn.innerText=post.highlighted?'Unhighlight':'Highlight';
-      highlightBtn.onclick=()=>{ post.highlighted=!post.highlighted; savePosts(); renderPosts(); };
-      controls.appendChild(highlightBtn);
-      if(post.role==='star' && !post.approved){
-        const approveBtn = document.createElement('button');
-        approveBtn.innerText='Approve';
-        approveBtn.onclick=()=>{ post.approved=true; savePosts(); renderPosts(); };
-        controls.appendChild(approveBtn);
-      }
-      div.appendChild(controls);
-    }
-    container.appendChild(div);
-  });
-}
-
-function savePosts(){ localStorage.setItem('posts',JSON.stringify(posts)); }
-
-// --- New Post ---
-loginBtn.insertAdjacentHTML('afterend','<button id="newPostBtn">New Post</button>');
-const newPostBtn = document.getElementById('newPostBtn');
-newPostBtn.onclick = ()=>{
-  if(!currentUser) return alert('Login first to post');
-  postModal.style.display='flex';
-};
-
-document.getElementById('submitPost').onclick=()=>{
-  const content = document.getElementById('postContent').value.trim();
-  if(!content) return alert('Post cannot be empty');
-  posts.push({
-    id:Date.now(),
-    username:currentUser.username,
-    role:currentUser.role,
-    content,
-    date:new Date(),
-    highlighted:currentUser.role==='admin',
-    approved: currentUser.role==='star'?false:true
-  });
-  savePosts();
-  postModal.style.display='none';
-  document.getElementById('postContent').value='';
-  renderPosts();
-};
-
-// --- Close modals clicking outside ---
-window.onclick = e=>{
-  if(e.target===authModal) authModal.style.display='none';
-  if(e.target===postModal) postModal.style.display='none';
-};
-
-renderPosts();
-</script>
 </body>
 </html>
