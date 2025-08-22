@@ -10,11 +10,11 @@
     font-family: 'Yeseva One', serif;
     background: #fef9f4;
     color: black;
+    margin: 0;
     overflow-x: hidden;
-    position: relative;
   }
 
-  /* Nav */
+  /* Navbar */
   nav {
     width: 100%;
     display: flex;
@@ -33,9 +33,9 @@
     list-style: none;
     display: flex;
     gap: 1.5rem;
-    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    margin: 0;
+    padding: 0;
   }
-  .nav-links li { margin: 0; }
   .nav-links a { text-decoration: none; color: black; transition: color 0.3s; }
   .nav-links a:hover { color: #ff6d4d; }
 
@@ -50,7 +50,7 @@
     width: 25px;
     height: 3px;
     background-color: black;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
   /* Content */
@@ -74,7 +74,7 @@
   .follow a { display: block; margin: 0.3rem 0; text-decoration: none; color: black; }
   .follow a:hover { color: #ff6d4d; }
 
-  /* Responsive for mobile */
+  /* Mobile Styles */
   @media (max-width: 768px) {
     .nav-links {
       position: absolute;
@@ -86,18 +86,12 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
     }
-    .nav-links li {
-      text-align: center;
-      padding: 1rem 0;
-    }
-    .hamburger {
-      display: flex;
-    }
-    .nav-active {
-      max-height: 500px; /* enough to show all items */
-      opacity: 1;
-    }
+    .nav-links li { padding: 1rem 0; text-align: center; }
+    .nav-links.nav-active { max-height: 500px; opacity: 1; }
+
+    .hamburger { display: flex; }
   }
 </style>
 </head>
@@ -143,14 +137,13 @@
 </div>
 
 <script>
-  // Hamburger menu toggle
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
 
   hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('nav-active');
 
-    // Animate hamburger bars into X when open
+    // Hamburger animation into X
     hamburger.classList.toggle('toggle');
     if(hamburger.classList.contains('toggle')){
       hamburger.children[0].style.transform = 'rotate(45deg) translate(5px,5px)';
