@@ -43,97 +43,148 @@
     .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
-    .login-btn, .signup-btn, .login-google-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
-    .highlight { border-color: #ff6d4d; background: #fff3f0; }
+    .login-btn, .signup-btn, .post-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
+    #postForm { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+    #postForm input, #postForm textarea { padding: 0.5rem; font-size: 1rem; border-radius: 4px; border: 1px solid #ccc; width: 100%; }
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">astrothesis</div>
-    <ul>
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">astrothesis</div>
+  <ul>
+    <li><a href="index.html">home</a></li>
+    <li><a href="about.html">about</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="blog.html">blog</a></li>
+    <li><a href="forum.html">forum</a></li>
+  </ul>
+</nav>
 
-  <div class="forum-container" id="forum-container">
-    <!-- Example post cards -->
-    <div class="post-card highlight">
-      <div class="post-title">Welcome to the Forum</div>
-      <div class="post-date">August 22, 2025</div>
-      <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
-    </div>
-  </div>
+<div class="forum-container" id="forumContainer">
+  <!-- Posts will load here -->
+</div>
 
-  <div>
-    <button class="login-btn">Login</button>
-    <button class="signup-btn">Sign Up</button>
-    <button class="login-google-btn">Login with Google</button>
-  </div>
+<div id="authContainer">
+  <button class="login-btn" id="loginBtn">Login</button>
+  <button class="signup-btn" id="signupBtn">Sign Up</button>
+</div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import { firebaseConfig } from './firebaseConfig.js';
+<form id="postForm" style="display:none;">
+  <input type="text" id="postTitle" placeholder="Post title" required>
+  <textarea id="postContent" placeholder="Post content" rows="4" required></textarea>
+  <button type="submit" class="post-btn">Post</button>
+</form>
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth(app);
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+  import { getFirestore, collection, getDocs, addDoc, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+  import { firebaseConfig } from './firebaseConfig.js';
 
-    const loginBtn = document.querySelector('.login-btn');
-    const signupBtn = document.querySelector('.signup-btn');
-    const googleBtn = document.querySelector('.login-google-btn');
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
 
-    // Login with Email/Password
-    loginBtn.addEventListener('click', async () => {
-      const email = prompt("Enter your email:");
-      const password = prompt("Enter your password:");
-      try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        alert(`Welcome back, ${userCredential.user.email}!`);
-      } catch (error) {
-        alert(error.message);
-      }
+  const forumContainer = document.getElementById('forumContainer');
+  const postForm = document.getElementById('postForm');
+  const loginBtn = document.getElementById('loginBtn');
+  const signupBtn = document.getElementById('signupBtn');
+
+  let currentUser = null;
+  const adminEmail = "yourAdminEmail@example.com"; // replace with your email
+
+  // Load posts
+  async function loadPosts() {
+    forumContainer.innerHTML = '';
+    const q = query(collection(db, "general"), orderBy("role", "desc"), orderBy("timestamp", "desc"));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot.empty) {
+      forumContainer.innerHTML = `
+        <div class="post-card">
+          <div class="post-title">Welcome to the Forum</div>
+          <div class="post-date">${new Date().toLocaleDateString()}</div>
+          <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
+        </div>
+      `;
+    } else {
+      querySnapshot.forEach(doc => {
+        const post = doc.data();
+        const card = document.createElement('div');
+        card.className = 'post-card';
+        if (post.role === "admin") card.style.border = "2px solid #ff6d4d"; // highlight admin posts
+        card.innerHTML = `
+          <div class="post-title">${post.title}</div>
+          <div class="post-date">${new Date(post.timestamp.seconds * 1000).toLocaleDateString()}</div>
+          <div class="post-content">${post.content}</div>
+        `;
+        forumContainer.appendChild(card);
+      });
+    }
+  }
+
+  loadPosts();
+
+  // Auth state listener
+  onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+    if (user) {
+      postForm.style.display = "flex";
+      loginBtn.style.display = "none";
+      signupBtn.style.display = "none";
+    } else {
+      postForm.style.display = "none";
+      loginBtn.style.display = "inline-block";
+      signupBtn.style.display = "inline-block";
+    }
+  });
+
+  // Login
+  loginBtn.addEventListener('click', async () => {
+    const email = prompt("Enter your email:");
+    const password = prompt("Enter your password:");
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Logged in!");
+    } catch(e) {
+      alert("Login failed: " + e.message);
+    }
+  });
+
+  // Sign Up
+  signupBtn.addEventListener('click', async () => {
+    const email = prompt("Enter email:");
+    const password = prompt("Enter password (min 6 chars):");
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert("Account created! Please log in.");
+    } catch(e) {
+      alert("Signup failed: " + e.message);
+    }
+  });
+
+  // Post submission
+  postForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title = document.getElementById('postTitle').value.trim();
+    const content = document.getElementById('postContent').value.trim();
+    if (!title || !content) return;
+
+    const role = (currentUser && currentUser.email === adminEmail) ? "admin" : "user";
+
+    await addDoc(collection(db, "general"), {
+      title,
+      content,
+      role,
+      timestamp: serverTimestamp()
     });
 
-    // Signup with Email/Password
-    signupBtn.addEventListener('click', async () => {
-      const email = prompt("Enter your email:");
-      const password = prompt("Enter your password:");
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        alert(`Account created for ${userCredential.user.email}!`);
-      } catch (error) {
-        alert(error.message);
-      }
-    });
-
-    // Login with Google
-    const googleProvider = new GoogleAuthProvider();
-    googleBtn.addEventListener('click', async () => {
-      try {
-        const result = await signInWithPopup(auth, googleProvider);
-        alert(`Welcome, ${result.user.displayName}!`);
-      } catch (error) {
-        alert(error.message);
-      }
-    });
-
-    // Placeholder: Highlight admin posts (you can replace this later with dynamic Firebase logic)
-    const forumContainer = document.getElementById('forum-container');
-    const posts = forumContainer.querySelectorAll('.post-card');
-    posts.forEach(post => {
-      if(post.classList.contains('highlight')) {
-        post.style.border = '2px solid #ff6d4d';
-      }
-    });
-  </script>
+    postForm.reset();
+    loadPosts();
+  });
+</script>
 
 </body>
 </html>
