@@ -1,160 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>astrothesis - forum</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Yeseva One', serif;
-      background: #fef9f4;
-      color: black;
-      overflow-x: hidden;
-      padding-top: 6rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    nav {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(255,255,255,0.9);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-    }
-    nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
-    nav ul { list-style: none; display: flex; gap: 1.5rem; }
-    nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
-    nav a:hover { color: #ff6d4d; }
-
-    .forum-tabs { display: flex; gap: 1rem; margin-bottom: 1rem; }
-    .forum-tab { cursor: pointer; padding: 0.5rem 1rem; border-radius: 4px; background: #ddd; }
-    .forum-tab.active { background: #0E0066; color: white; }
-
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
-
-    .post-card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 1rem;
-      background: white;
-    }
-    .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
-    .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
-    .post-content { font-size: 1rem; }
-
-    .login-btn, .signup-btn {
-      margin: 0.5rem;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      cursor: pointer;
-      background: #0E0066;
-      color: white;
-      border: none;
-      border-radius: 4px;
-    }
-
-    .hidden { display: none; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>astrothesis - forum</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Yeseva One', serif;
+  background: #fef9f4;
+  color: black;
+  overflow-x: hidden;
+  padding-top: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255,255,255,0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+nav ul { list-style: none; display: flex; gap: 1.5rem; }
+nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
+nav a:hover { color: #ff6d4d; }
+.forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
+.post-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  background: white;
+}
+.post-card.admin { border-color: #0E0066; }
+.post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
+.post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
+.post-content { font-size: 1rem; }
+.login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; }
+</style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">astrothesis</div>
-    <ul>
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">astrothesis</div>
+  <ul>
+    <li><a href="index.html">home</a></li>
+    <li><a href="about.html">about</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="blog.html">blog</a></li>
+    <li><a href="forum.html">forum</a></li>
+  </ul>
+</nav>
 
-  <div class="forum-tabs">
-    <div class="forum-tab active" data-tab="general">General Forum</div>
-    <div class="forum-tab" data-tab="questions">Questions Forum</div>
-  </div>
+<div class="forum-container" id="forum-container">
+  <!-- Posts will be dynamically loaded here -->
+</div>
 
-  <div class="forum-container" id="forum-container">
-    <!-- Sample posts -->
-    <div class="post-card">
-      <div class="post-title">Welcome to the Forum</div>
-      <div class="post-date">August 22, 2025</div>
-      <div class="post-content">This is the general forum for astrothesis. Stay tuned for exciting discussions!</div>
-    </div>
-  </div>
+<div>
+  <button class="login-btn">Login with Google</button>
+  <button class="signup-btn">Email Sign Up</button>
+</div>
 
-  <div>
-    <button class="login-btn">Sign in with Google</button>
-    <button class="signup-btn">Sign up with Email</button>
-  </div>
+<div id="profile-container" style="position:fixed; top:1rem; right:2rem;"></div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-    import { firebaseConfig } from './firebaseConfig.js';
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, updateProfile, updatePassword, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, addDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+import { firebaseConfig } from './firebaseConfig.js';
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth();
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-    // Google login
-    document.querySelector('.login-btn').addEventListener('click', async () => {
-      try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        alert(`Logged in as ${user.displayName}`);
-        document.querySelector('.login-btn').classList.add('hidden');
-        document.querySelector('.signup-btn').classList.add('hidden');
-      } catch (error) {
-        alert(error.message);
-      }
+const forumContainer = document.getElementById('forum-container');
+const profileContainer = document.getElementById('profile-container');
+const loginBtn = document.querySelector('.login-btn');
+const signupBtn = document.querySelector('.signup-btn');
+
+// --- Authentication ---
+const provider = new GoogleAuthProvider();
+
+loginBtn.addEventListener('click', () => {
+  signInWithPopup(auth, provider);
+});
+
+signupBtn.addEventListener('click', async () => {
+  const email = prompt('Enter your email:');
+  const password = prompt('Enter your password:');
+  if(email && password) {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      alert('Signed up successfully!');
+    } catch(err) { alert(err.message); }
+  }
+});
+
+// --- Profile Display ---
+onAuthStateChanged(auth, user => {
+  profileContainer.innerHTML = '';
+
+  if(user) {
+    const img = document.createElement('img');
+    img.src = user.photoURL || 'default-profile.png';
+    img.style.width = '40px';
+    img.style.height = '40px';
+    img.style.borderRadius = '50%';
+    img.style.cursor = 'pointer';
+
+    const logoutBtn = document.createElement('button');
+    logoutBtn.textContent = 'Log Out';
+    logoutBtn.style.marginLeft = '0.5rem';
+    logoutBtn.addEventListener('click', async () => {
+      await signOut(auth);
     });
 
-    // Email signup
-    document.querySelector('.signup-btn').addEventListener('click', async () => {
-      const email = prompt("Enter email:");
-      const password = prompt("Enter password (6+ characters):");
-      if (!email || !password) return;
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        alert(`Signed up as ${userCredential.user.email}`);
-        document.querySelector('.login-btn').classList.add('hidden');
-        document.querySelector('.signup-btn').classList.add('hidden');
-      } catch (error) {
-        alert(error.message);
-      }
+    const passBtn = document.createElement('button');
+    passBtn.textContent = 'Change Password';
+    passBtn.style.marginLeft = '0.5rem';
+    passBtn.addEventListener('click', () => {
+      const newPass = prompt('Enter new password:');
+      if(newPass) updatePassword(auth.currentUser, newPass).catch(e => alert(e.message));
     });
 
-    // Track auth state
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User logged in:", user.email);
-      } else {
-        console.log("No user logged in");
-      }
+    const picInput = document.createElement('input');
+    picInput.type = 'file';
+    picInput.addEventListener('change', async e => {
+      const file = e.target.files[0];
+      const storageRef = ref(storage, `profilePictures/${auth.currentUser.uid}`);
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+      await updateProfile(auth.currentUser, { photoURL: url });
     });
 
-    // Tab switching
-    document.querySelectorAll('.forum-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.forum-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        const forumContainer = document.getElementById('forum-container');
-        forumContainer.innerHTML = `<div class="post-card"><div class="post-title">${tab.dataset.tab} Forum</div><div class="post-date">---</div><div class="post-content">No posts yet in ${tab.dataset.tab} forum!</div></div>`;
-      });
-    });
-  </script>
+    profileContainer.append(img, logoutBtn, passBtn, picInput);
+  }
+});
+
+// --- Load Forum Posts ---
+async function loadPosts() {
+  forumContainer.innerHTML = '';
+  const querySnapshot = await getDocs(collection(db, "posts"));
+  querySnapshot.forEach(docSnap => {
+    const post = docSnap.data();
+    const postCard = document.createElement('div');
+    postCard.classList.add('post-card');
+    if(post.admin || post.star) postCard.classList.add('admin');
+    postCard.innerHTML = `
+      <div class="post-title">${post.title}</div>
+      <div class="post-date">${post.date}</div>
+      <div class="post-content">${post.content}</div>
+    `;
+    forumContainer.appendChild(postCard);
+  });
+}
+
+loadPosts();
+</script>
 
 </body>
 </html>
