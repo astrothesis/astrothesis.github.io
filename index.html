@@ -11,9 +11,23 @@
       margin: 0;
       padding: 0;
       font-family: 'Yeseva One', serif;
-      background-color: #fffaf0; /* ivory/cream background */
+      background-color: #fffaf0; /* ivory/cream */
       color: black;
+      overflow-x: hidden;
     }
+
+    /* Starfield canvas */
+    #starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* behind content */
+      background-color: #fffaf0;
+    }
+
+    /* Navigation bar */
     nav ul {
       display: flex;
       justify-content: center;
@@ -31,10 +45,12 @@
       font-family: 'Yeseva One', serif;
       font-size: 1.1em;
     }
+
+    /* Sections */
     section {
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* keeps content from too far down */
+      justify-content: flex-start;
       align-items: center;
       text-align: center;
       min-height: 100vh;
@@ -52,6 +68,8 @@
       margin-bottom: 20px;
       max-width: 800px;
     }
+
+    /* "What you'll discover here" */
     .discover p {
       margin: 15px 0;
     }
@@ -61,6 +79,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Starfield -->
+  <canvas id="starfield"></canvas>
 
   <!-- Navigation -->
   <nav>
@@ -76,7 +97,7 @@
   <!-- Home Sections -->
   <section>
     <h1>astrothesis</h1>
-    <p>astrothesis is a creative science space where physics, astronomy and cosmic ideas come together. Our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
+    <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
     
     <div class="discover">
       <h2>what you'll discover here</h2>
@@ -87,6 +108,45 @@
       <p>Become a member of the Navigators community where you can share questions and interests with like-minded individuals!</p>
     </div>
   </section>
+
+  <!-- Starfield JavaScript -->
+  <script>
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let numStars = 100;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < numStars; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 1,
+        speed: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let star of stars) {
+        star.x += star.speed;
+        if (star.x > canvas.width) star.x = 0;
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
 
 </body>
 </html>
