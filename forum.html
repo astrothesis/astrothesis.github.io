@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4;
+      color: black;
+      display: flex;
+    }
+
+    nav {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      background: rgba(255,255,255,0.9);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #ff6d4d; }
+
+    .container {
+      display: flex;
+      margin-top: 5rem; /* offset for nav */
+      width: 100%;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      padding: 2rem 1rem;
+      height: calc(100vh - 5rem);
+      position: sticky;
+      top: 5rem;
+    }
+
+    .sidebar h2 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar ul {
+      list-style: none;
+    }
+
+    .sidebar li {
+      margin-bottom: 0.8rem;
+    }
+
+    .sidebar a {
+      text-decoration: none;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    .sidebar a:hover {
+      color: #ff6d4d;
+    }
+
+    /* Forum main */
+    .forum-main {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .post-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-title {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: gray;
+      margin-bottom: 1rem;
+    }
+
+    .post-snippet {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-actions {
+      font-size: 0.9rem;
+      display: flex;
+      gap: 1rem;
+      color: #555;
+    }
+
+    .login-placeholder {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 1rem;
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">astrothesis</div>
+    <ul>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Forums</h2>
+      <ul>
+        <li><a href="#">🌌 General</a></li>
+        <li><a href="#">❓ Questions</a></li>
+        <li><a href="#">⭐ Ask the Experts</a></li>
+        <li><a href="#">🛰 Future Topics</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Forum -->
+    <main class="forum-main">
+      <div class="post-card">
+        <div class="post-title">Welcome to astrothesis forum</div>
+        <div class="post-meta">Posted by admin · Aug 2025</div>
+        <div class="post-snippet">
+          This is a space to share ideas, ask questions, and connect with others. Explore the categories in the sidebar to get started.
+        </div>
+        <div class="post-actions">💬 2 replies · ❤️ 5 likes</div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-title">General Chat</div>
+        <div class="post-meta">Posted by user123 · Aug 2025</div>
+        <div class="post-snippet">
+          What got you interested in astrophysics? Let’s hear everyone’s stories!
+        </div>
+        <div class="post-actions">💬 4 replies · ❤️ 8 likes</div>
+      </div>
+
+      <div class="login-placeholder">
+        🔒 Login required to post or reply.
+      </div>
+    </main>
+  </div>
+</body>
+</html>
