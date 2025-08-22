@@ -6,6 +6,57 @@
   <title>blog - astrothesis</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+      padding: 40px;
+    }
+    section h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 3em;
+      margin-bottom: 40px;
+    }
+    section p {
+      font-family: 'Yeseva One', serif;
+      font-size: 1.2em;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 20px;
+      margin: 0;
+      background: transparent;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: black;
+      font-family: 'Yeseva One', serif;
+      font-size: 1.1em;
+    }
+    #starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
 </head>
 <body>
   <!-- Starfield Canvas -->
@@ -14,19 +65,20 @@
   <!-- Navigation -->
   <nav>
     <ul>
-      <li><a href="index.html">home</a></li>
+      <li><a href="index.html">Home</a></li>
       <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
+      <li><a href="contact.html">Follow me across the universe</a></li>
       <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
+      <li><a href="forum.html">Forum</a></li>
     </ul>
   </nav>
 
-  <!-- Page Content -->
+  <!-- Blog Section -->
   <section>
-    <h1>Blog</h1>
-    <p>Welcome to the astrothesis Blog! Here we share insights, essays, and discoveries about physics, astronomy, and the cosmos. Every post is designed to inspire curiosity and provide accessible science content for students and enthusiasts alike.</p>
-    <p>Stay tuned for upcoming posts, exclusive essays, and fascinating explanations of the universe’s mysteries. Explore the stars, galaxies, and black holes with us!</p>
+    <h1>blog</h1>
+    <p>Welcome to the astrothesis blog! Here you’ll find posts exploring astrophysics, astronomy, and other cosmic phenomena in a fun, accessible way. Every post is designed to spark curiosity and provide insight into the universe.</p>
+    <p>From star systems to black holes, cosmic mysteries to mind-blowing scientific discoveries, this blog will guide you through the science behind the cosmos. Whether you’re a student, an aspiring scientist, or just curious about the universe, there’s something here for you!</p>
+    <p>Stay tuned for new posts, essays, and observations, and join the growing community of Navigators exploring the frontiers of science!</p>
   </section>
 
   <!-- Starfield JS -->
@@ -60,40 +112,11 @@
       }
     }
 
-    class ShootingStar {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * -canvas.height;
-        this.length = Math.random() * 150 + 50;
-        this.speed = Math.random() * 5 + 5;
-        this.angle = Math.PI / 4;
-        this.opacity = 1;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(this.x + this.length * Math.cos(this.angle), this.y + this.length * Math.sin(this.angle));
-        ctx.strokeStyle = `rgba(50,50,50,${this.opacity})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-        this.update();
-      }
-      update() {
-        this.x += this.speed * Math.cos(this.angle);
-        this.y += this.speed * Math.sin(this.angle);
-        this.opacity -= 0.01;
-        if (this.opacity <= 0) this.reset();
-      }
-    }
-
     const stars = Array.from({length: 150}, () => new Star());
-    const shootingStars = Array.from({length: 2}, () => new ShootingStar());
 
     function animate() {
       ctx.clearRect(0,0,canvas.width,canvas.height);
       stars.forEach(star => star.draw());
-      shootingStars.forEach(star => star.draw());
       requestAnimationFrame(animate);
     }
     animate();
