@@ -1,185 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>astrothesis</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-<style>
-  body {
-    margin: 0;
-    font-family: 'Yeseva One', serif;
-    background-color: #fff8e7; /* cream/ivory background */
-    color: #000;
-    overflow-x: hidden;
-  }
-
-  nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: #fff8e7;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 10;
-  }
-
-  nav .logo {
-    font-family: 'DM Serif Text', serif;
-    font-size: 1.5rem;
-    text-transform: lowercase;
-  }
-
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav ul li a {
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-  }
-
-  .content {
-    max-width: 800px;
-    margin: 120px auto 60px auto;
-    text-align: center;
-    padding: 0 1rem;
-  }
-
-  h1 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 4rem;
-    margin-bottom: 1rem;
-  }
-
-  h2 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 2rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-  }
-
-  p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-
-  .discovery p {
-    text-align: center;
-  }
-
-  /* Static stars */
-  #starfield {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    overflow: hidden;
-  }
-
-  .shooting-star {
-    position: absolute;
-    width: 2px;
-    height: 100px;
-    background: black;
-    opacity: 0.8;
-    transform: rotate(45deg);
-    animation: shoot 2s linear forwards;
-  }
-
-  @keyframes shoot {
-    0% {
-      transform: translate(-50px, -50px) rotate(45deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translate(100vw, 100vh) rotate(45deg);
-      opacity: 0;
-    }
-  }
-
-  .discovery p::before {
-    content: "🌌 ";
-  }
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>astrothesis</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Yeseva+One&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and body */
+        * {margin:0; padding:0; box-sizing:border-box;}
+        body {
+            font-family: 'Yeseva One', serif;
+            background-color: #fdf6e3; /* cream/ivory */
+            color: #000000;
+            overflow-x: hidden;
+        }
+        /* Navbar */
+        nav {
+            width: 100%;
+            padding: 1em 2em;
+            position: fixed;
+            top:0;
+            left:0;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            font-family: 'Yeseva One', serif;
+        }
+        nav .logo {font-weight: bold;}
+        nav a {margin-left: 1.5em; text-decoration: none; color: #000;}
+        /* Sections */
+        .container {
+            min-height: 100vh;
+            padding: 150px 2em 50px 2em;
+            text-align: center;
+            position: relative;
+        }
+        h1 {font-family: 'DM Serif Display', serif; font-size: 4em; margin-bottom: 0.5em;}
+        h2 {font-family: 'DM Serif Display', serif; font-size: 2em; margin: 1em 0;}
+        p {max-width: 800px; margin: 0.5em auto; line-height: 1.6; font-size: 1.2em;}
+        .discover span {display:block; margin: 0.8em 0;}
+        /* Canvas for stars */
+        #starsCanvas {
+            position: fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body>
+    <canvas id="starsCanvas"></canvas>
 
-<nav>
-  <div class="logo">astrothesis</div>
-  <ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="forum.html">Forum</a></li>
-  </ul>
-</nav>
+    <nav>
+        <div class="logo">astrothesis</div>
+        <div class="links">
+            <a href="index.html">home</a>
+            <a href="about.html">about</a>
+            <a href="contact.html">contact</a>
+            <a href="blog.html">blog</a>
+            <a href="forum.html">forum</a>
+        </div>
+    </nav>
 
-<div id="starfield"></div>
+    <div class="container">
+        <h1>astrothesis</h1>
+        <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discover - are you ready to explore?</p>
 
-<div class="content">
-  <h1>astrothesis</h1>
-  <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
+        <h2>What You’ll Discover Here</h2>
+        <div class="discover">
+            <span>🌌 Explore galaxies, stars and black holes.</span>
+            <span>🌌 Uncover the science behind cosmic phenomena.</span>
+            <span>🌌 Dive into fun space facts and mind blowing mysteries.</span>
+            <span>🌌 Read exclusive essays to satisfy your curiosity.</span>
+            <p>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</p>
+        </div>
 
-  <h2>What You’ll Discover Here</h2>
-  <div class="discovery">
-    <p>Explore galaxies, stars and black holes.</p>
-    <p>Uncover the science behind cosmic phenomena.</p>
-    <p>Dive into fun space facts and mind blowing mysteries.</p>
-    <p>Read exclusive essays to satisfy your curiosity.</p>
-    <p>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</p>
-  </div>
+        <h2>Follow Us Across The Universe</h2>
+        <p>Instagram: <a href="https://instagram.com/astrothesis">astrothesis</a></p>
+        <p>TikTok: <a href="https://www.tiktok.com/@astro.thesis">astro.thesis</a></p>
+        <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
+    </div>
 
-  <h2>Follow Us Across The Universe</h2>
-  <p>Instagram: <a href="https://instagram.com/astrothesis" target="_blank">astrothesis</a></p>
-  <p>TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">astro.thesis</a></p>
-  <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
-</div>
+    <script>
+        // Canvas for flickering stars + constellations
+        const canvas = document.getElementById('starsCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-<script>
-const starfield = document.getElementById('starfield');
+        let stars = [];
+        let numStars = 150;
 
-// Create static stars
-for (let i = 0; i < 200; i++) {
-  const star = document.createElement('div');
-  star.style.position = 'absolute';
-  star.style.width = '2px';
-  star.style.height = '2px';
-  star.style.background = 'black';
-  star.style.top = Math.random() * window.innerHeight + 'px';
-  star.style.left = Math.random() * window.innerWidth + 'px';
-  starfield.appendChild(star);
-}
+        // Create stars
+        for(let i=0; i<numStars; i++){
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 1.5 + 0.5,
+                alpha: Math.random(),
+                dAlpha: 0.01 * Math.random()
+            });
+        }
 
-// Create shooting stars periodically
-function createShootingStar() {
-  const star = document.createElement('div');
-  star.className = 'shooting-star';
-  star.style.top = Math.random() * window.innerHeight/2 + 'px';
-  star.style.left = Math.random() * window.innerWidth/2 + 'px';
-  starfield.appendChild(star);
+        // Some constellations
+        let constellations = [
+            [{x: 100, y:100},{x:140,y:140},{x:180,y:120}],
+            [{x: 500, y:200},{x:550,y:240},{x:580,y:180}],
+            [{x: 800, y:400},{x:840,y:430},{x:880,y:410}]
+        ];
 
-  setTimeout(() => {
-    star.remove();
-  }, 2000);
-}
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
 
-// Make a new shooting star every 1.5 seconds
-setInterval(createShootingStar, 1500);
-</script>
+            // Draw stars
+            for(let star of stars){
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.r, 0, Math.PI*2);
+                ctx.fillStyle = `rgba(0,0,0,${star.alpha})`;
+                ctx.fill();
+                star.alpha += star.dAlpha;
+                if(star.alpha <=0 || star.alpha >=1) star.dAlpha *= -1;
+            }
 
+            // Draw constellations
+            ctx.strokeStyle = "rgba(0,0,0,0.5)";
+            ctx.lineWidth = 1;
+            for(let con of constellations){
+                ctx.beginPath();
+                ctx.moveTo(con[0].x, con[0].y);
+                for(let i=1; i<con.length; i++){
+                    ctx.lineTo(con[i].x, con[i].y);
+                }
+                ctx.stroke();
+            }
+
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        // Resize canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
