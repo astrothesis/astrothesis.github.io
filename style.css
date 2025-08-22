@@ -6,10 +6,11 @@
 }
 
 body {
-  font-family: 'Yeseva One', serif;
+  font-family: sans-serif;
   color: #FF6D4D;
   line-height: 1.6;
   overflow-x: hidden;
+  background-color: #0E0066;
 }
 
 /* Starfield Canvas */
@@ -26,16 +27,14 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: rgba(14, 0, 102, 0.6);
+  background: rgba(14, 0, 102, 0.8);
   position: sticky;
   top: 0;
   z-index: 10;
 }
 
 nav h2 {
-  font-family: 'Seasons', cursive; /* Heading font from Canva */
   font-size: 1.8rem;
-  color: #FF6D4D;
 }
 
 nav ul {
@@ -52,7 +51,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 /* Hero Section */
@@ -62,15 +61,12 @@ nav ul li a:hover {
 }
 
 .hero h1 {
-  font-family: 'Seasons', cursive;
   font-size: 3rem;
-  color: #FF6D4D;
   text-transform: lowercase;
   margin-bottom: 1rem;
 }
 
 .hero p {
-  font-family: 'Yeseva One', serif;
   font-size: 1.2rem;
   opacity: 0.9;
 }
@@ -87,10 +83,8 @@ nav ul li a:hover {
 }
 
 .content h2 {
-  font-family: 'Seasons', cursive;
   font-size: 2rem;
   margin-bottom: 1rem;
-  color: #FF6D4D;
 }
 
 .content p, .content ul {
@@ -114,14 +108,14 @@ a {
 }
 
 a:hover {
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 /* Footer */
 footer {
   text-align: center;
   padding: 1rem;
-  background: rgba(14, 0, 102, 0.6);
+  background: rgba(14, 0, 102, 0.8);
   font-size: 0.9rem;
   margin-top: 2rem;
 }
