@@ -43,7 +43,6 @@
     .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
-    .highlighted { border: 2px solid #ff6d4d; }
     .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
   </style>
 </head>
@@ -60,8 +59,17 @@
     </ul>
   </nav>
 
-  <div class="forum-container" id="forumContainer">
-    <!-- Posts will be dynamically injected here -->
+  <div class="forum-container">
+    <div class="post-card">
+      <div class="post-title">Welcome to the Forum</div>
+      <div class="post-date">August 22, 2025</div>
+      <div class="post-content">This is the general forum for astrothesis. What’s brewing? Stay tuned for exciting discussions!</div>
+    </div>
+    <div class="post-card">
+      <div class="post-title">Post Placeholder</div>
+      <div class="post-date">---</div>
+      <div class="post-content">No posts yet. Check back soon!</div>
+    </div>
   </div>
 
   <div>
@@ -69,63 +77,46 @@
     <button class="signup-btn">Sign Up</button>
   </div>
 
+  <!-- Firebase Integration Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
 
-    const forumContainer = document.getElementById('forumContainer');
+    const loginBtn = document.querySelector('.login-btn');
+    const signupBtn = document.querySelector('.signup-btn');
 
-    async function loadPosts() {
-      const postsCol = collection(db, 'posts');
-      // Order by highlight first, then by date descending
-      const postsQuery = query(postsCol, orderBy('highlight', 'desc'), orderBy('date', 'desc'));
-      const postsSnapshot = await getDocs(postsQuery);
-      forumContainer.innerHTML = ''; // Clear container
-
-      postsSnapshot.forEach(doc => {
-        const post = doc.data();
-        const card = document.createElement('div');
-        card.classList.add('post-card');
-        if(post.highlight) card.classList.add('highlighted');
-
-        card.innerHTML = `
-          <div class="post-title">${post.title}</div>
-          <div class="post-date">${post.date}</div>
-          <div class="post-content">${post.content}</div>
-        `;
-        forumContainer.appendChild(card);
-      });
-
-      // If no posts exist, show placeholder
-      if(postsSnapshot.empty) {
-        const placeholder = document.createElement('div');
-        placeholder.classList.add('post-card');
-        placeholder.innerHTML = `
-          <div class="post-title">No posts yet</div>
-          <div class="post-date">---</div>
-          <div class="post-content">Check back soon!</div>
-        `;
-        forumContainer.appendChild(placeholder);
-      }
-    }
-
-    loadPosts();
-
-    // Placeholder buttons for login/signup functionality
-    document.querySelector('.login-btn').addEventListener('click', () => {
-      alert('Login functionality coming soon!');
-    });
-    document.querySelector('.signup-btn').addEventListener('click', () => {
-      alert('Signup functionality coming soon!');
+    // Login
+    loginBtn.addEventListener('click', () => {
+      const email = prompt('Enter your email:');
+      const password = prompt('Enter your password:');
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert('Logged in as ' + userCredential.user.email);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     });
 
+    // Sign Up
+    signupBtn.addEventListener('click', () => {
+      const email = prompt('Enter your email:');
+      const password = prompt('Enter your password:');
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert('Account created for ' + userCredential.user.email);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    });
   </script>
 
 </body>
 </html>
-
