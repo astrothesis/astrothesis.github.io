@@ -33,11 +33,6 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    #newPostContainer {
-      margin-bottom: 2rem; 
-      max-width: 900px; 
-      width: 100%;
-    }
     .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
     .post-card {
       border: 1px solid #ddd;
@@ -49,7 +44,14 @@
     .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
     .post-content { font-size: 1rem; }
     .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #ff6d4d; color: white; border: none; border-radius: 4px; }
-    textarea { font-family: 'Yeseva One', serif; resize: vertical; }
+
+    /* Modal styles */
+    #auth-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
+    #auth-modal div { background:white; padding:2rem; border-radius:8px; text-align:center; }
+    #auth-modal input { margin:0.5rem; padding:0.5rem; width:80%; }
+    #auth-modal button { padding:0.5rem 1rem; border:none; border-radius:4px; }
+    #auth-submit { background:#ff6d4d; color:white; }
+    #auth-switch { margin-top:1rem; cursor:pointer; color:#ff6d4d; }
   </style>
 </head>
 <body>
@@ -65,14 +67,8 @@
     </ul>
   </nav>
 
-  <!-- New Post Interface -->
-  <div id="newPostContainer">
-    <textarea id="newPostContent" placeholder="Write your post here..."></textarea>
-    <button id="postBtn">Post</button>
-  </div>
-
-  <!-- Forum Posts -->
-  <div class="forum-container" id="forumContainer">
+  <div class="forum-container">
+    <!-- Example post cards -->
     <div class="post-card">
       <div class="post-title">Welcome to the Forum</div>
       <div class="post-date">August 22, 2025</div>
@@ -90,38 +86,101 @@
     <button class="signup-btn">Sign Up</button>
   </div>
 
+  <!-- Login/Signup Modal -->
+  <div id="auth-modal">
+    <div>
+      <h2 id="modal-title">Login</h2>
+      <input type="email" id="auth-email" placeholder="Email">
+      <input type="password" id="auth-password" placeholder="Password">
+      <div>
+        <button id="auth-submit">Submit</button>
+        <button id="auth-cancel">Cancel</button>
+      </div>
+      <p id="auth-switch">Don't have an account? Sign Up</p>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
+    const auth = getAuth(app);
 
-    // Placeholder buttons for login/signup functionality
-    document.querySelector('.login-btn').addEventListener('click', () => {
-      alert('Login functionality coming soon!');
-    });
-    document.querySelector('.signup-btn').addEventListener('click', () => {
-      alert('Signup functionality coming soon!');
+    const loginBtn = document.querySelector('.login-btn');
+    const signupBtn = document.querySelector('.signup-btn');
+    const modal = document.getElementById('auth-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const authEmail = document.getElementById('auth-email');
+    const authPassword = document.getElementById('auth-password');
+    const authSubmit = document.getElementById('auth-submit');
+    const authCancel = document.getElementById('auth-cancel');
+    const authSwitch = document.getElementById('auth-switch');
+
+    let isLogin = true;
+
+    loginBtn.addEventListener('click', () => {
+      isLogin = true;
+      modalTitle.textContent = "Login";
+      authSwitch.textContent = "Don't have an account? Sign Up";
+      modal.style.display = "flex";
     });
 
-    // Placeholder Post Button
-    document.getElementById('postBtn').addEventListener('click', () => {
-      const content = document.getElementById('newPostContent').value.trim();
-      if(!content) return alert('Please write something first!');
-      const forumContainer = document.getElementById('forumContainer');
-      const postCard = document.createElement('div');
-      postCard.classList.add('post-card');
-      postCard.innerHTML = `
-        <div class="post-title">New Post</div>
-        <div class="post-date">${new Date().toLocaleDateString()}</div>
-        <div class="post-content">${content}</div>
-      `;
-      forumContainer.prepend(postCard);
-      document.getElementById('newPostContent').value = '';
+    signupBtn.addEventListener('click', () => {
+      isLogin = false;
+      modalTitle.textContent = "Sign Up";
+      authSwitch.textContent = "Already have an account? Login";
+      modal.style.display = "flex";
+    });
+
+    authSwitch.addEventListener('click', () => {
+      isLogin = !isLogin;
+      if(isLogin){
+        modalTitle.textContent = "Login";
+        authSwitch.textContent = "Don't have an account? Sign Up";
+      } else {
+        modalTitle.textContent = "Sign Up";
+        authSwitch.textContent = "Already have an account? Login";
+      }
+    });
+
+    authCancel.addEventListener('click', () => {
+      modal.style.display = "none";
+      authEmail.value = "";
+      authPassword.value = "";
+    });
+
+    authSubmit.addEventListener('click', () => {
+      const email = authEmail.value;
+      const password = authPassword.value;
+
+      if(isLogin){
+        signInWithEmailAndPassword(auth, email, password)
+          .then(userCredential => {
+            alert("Logged in!");
+            modal.style.display = "none";
+          })
+          .catch(error => alert(error.message));
+      } else {
+        createUserWithEmailAndPassword(auth, email, password)
+          .then(userCredential => {
+            alert("Account created!");
+            modal.style.display = "none";
+          })
+          .catch(error => alert(error.message));
+      }
+    });
+
+    onAuthStateChanged(auth, user => {
+      if(user){
+        console.log("User logged in:", user.email);
+      } else {
+        console.log("No user logged in");
+      }
     });
   </script>
-
 </body>
 </html>
