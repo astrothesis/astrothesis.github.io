@@ -6,11 +6,10 @@
 <title>astrothesis</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
 <style>
-  /* General Reset */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; font-family: 'Yeseva One', serif; background-color: #fffaf0; color: #000; overflow-x: hidden; }
-  
-  /* Top Navigation Bar */
+
+  /* Navbar */
   .navbar {
     width: 100%;
     background-color: #fffaf0;
@@ -20,7 +19,6 @@
     position: fixed;
     top: 0;
     padding: 10px 50px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 1000;
   }
   .navbar-left {
@@ -40,38 +38,21 @@
   .navbar-right a {
     margin-left: 30px;
     text-decoration: none;
-    color: #FF6D4D;
+    color: #000; /* black links */
     font-weight: bold;
     text-transform: capitalize;
   }
-  
-  /* Main Content */
+
+  /* Main content */
   .container {
     max-width: 900px;
-    margin: 150px auto 50px auto; /* leaves space for navbar */
+    margin: 150px auto 50px auto;
     text-align: center;
   }
-  h1 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 60px;
-    margin-bottom: 30px;
-    text-transform: lowercase;
-  }
-  h2 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 36px;
-    margin: 50px 0 20px 0;
-  }
-  p {
-    font-size: 20px;
-    line-height: 1.8;
-    margin-bottom: 50px;
-  }
-  .emoji-list {
-    font-size: 20px;
-    line-height: 2;
-    margin-bottom: 40px;
-  }
+  h1 { font-family: 'DM Serif Text', serif; font-size: 60px; margin-bottom: 30px; text-transform: lowercase; }
+  h2 { font-family: 'DM Serif Text', serif; font-size: 36px; margin: 50px 0 20px 0; }
+  p { font-size: 20px; line-height: 2; margin-bottom: 50px; }
+  .emoji-list { font-size: 20px; line-height: 2; margin-bottom: 40px; }
 
   /* Star background */
   canvas {
@@ -84,13 +65,12 @@
 </head>
 <body>
 
-<!-- Canvas for stars -->
 <canvas id="stars"></canvas>
 
-<!-- Navigation -->
+<!-- Navbar -->
 <div class="navbar">
   <div class="navbar-left">
-    <img src="logo.png" alt="logo"> <!-- replace logo.png with your logo -->
+    <img src="logo.png" alt="logo">
     <span>astrothesis</span>
   </div>
   <div class="navbar-right">
@@ -132,7 +112,7 @@
   let h = canvas.height = window.innerHeight;
 
   const stars = [];
-  const numStars = 150;
+  const numStars = 200;
 
   for(let i = 0; i < numStars; i++) {
     stars.push({
@@ -151,7 +131,7 @@
       ctx.arc(s.x, s.y, s.radius, 0, 2 * Math.PI);
       ctx.fillStyle = `rgba(0,0,0,${s.alpha})`;
       ctx.fill();
-      s.alpha += (Math.random() - 0.5) * 0.02;
+      s.alpha += (Math.random() - 0.5) * 0.05; // flicker faster
       if(s.alpha < 0) s.alpha = 0;
       if(s.alpha > 1) s.alpha = 1;
     }
@@ -167,3 +147,4 @@
 
 </body>
 </html>
+    
