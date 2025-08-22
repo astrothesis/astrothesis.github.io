@@ -1,188 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>astrothesis</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - home</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&display=swap" rel="stylesheet">
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4; /* cream/ivory background */
+      color: black;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-<style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    background-color: #fefcf3; /* cream/ivory */
-    font-family: sans-serif;
-    overflow-x: hidden;
-    height: 100%;
-  }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
 
-  canvas#starsCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  }
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.8);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
 
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 40px;
-    position: fixed;
-    width: 100%;
-    background-color: #fefcf3;
-    box-sizing: border-box;
-    z-index: 100;
-  }
+    nav .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color: black;
+    }
 
-  nav .logo {
-    display: flex;
-    align-items: center;
-  }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
 
-  nav .logo img {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
-  }
+    nav a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
 
-  nav a {
-    text-decoration: none;
-    color: black;
-    margin-left: 20px;
-    font-weight: bold;
-  }
+    nav a:hover { color: #ff6d4d; }
 
-  main {
-    margin-top: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+    .content {
+      margin-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
 
-  h1 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 60px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
+    .section {
+      max-width: 800px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
 
-  h2 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 36px;
-    margin-top: 60px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
+    h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
 
-  p, li {
-    font-size: 18px;
-    line-height: 1.8;
-    text-align: center;
-    color: black;
-  }
+    h2 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
 
-  .discover li {
-    list-style: none;
-    margin-bottom: 15px;
-  }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
 
-  .discover li::before {
-    content: "🌌 ";
-  }
+    .discover p {
+      text-align: center;
+    }
 
-  .links a {
-    display: block;
-    margin-top: 10px;
-    color: black;
-    text-decoration: none;
-  }
-</style>
+    .discover span {
+      display: block;
+      margin: 0.5rem 0;
+    }
+
+    .follow a {
+      display: block;
+      margin: 0.3rem 0;
+      color: black;
+      text-decoration: none;
+    }
+
+    .follow a:hover { color: #ff6d4d; }
+  </style>
 </head>
 <body>
+  <canvas id="stars"></canvas>
 
-<canvas id="starsCanvas"></canvas>
+  <nav>
+    <div class="logo">astrothesis</div>
+    <ul>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+  </nav>
 
-<nav>
-  <div class="logo">
-    <img src="logo.png" alt="astrothesis logo"> <!-- replace with your logo file name -->
-    <span>astrothesis</span>
+  <div class="content">
+    <div class="section">
+      <h1>astrothesis</h1>
+      <p>astrothesis is a creative science space where physics and astronomy ideas come together. our goal is to allow aspiring scientists to have a platform to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
+    </div>
+
+    <div class="section discover">
+      <h2>What You’ll Discover Here</h2>
+      <p>🌌 Explore galaxies, stars and black holes.</p>
+      <p>🌌 Uncover the science behind cosmic phenomena.</p>
+      <p>🌌 Dive into fun space facts and mind blowing mysteries.</p>
+      <p>🌌 Read exclusive essays to satisfy your curiosity.</p>
+      <p>Become a member of the Navigators community where you can share questions and interest with like minded individuals!</p>
+    </div>
+
+    <div class="section follow">
+      <h2>Follow Us Across The Universe</h2>
+      <a href="https://www.instagram.com/astrothesis" target="_blank">Instagram: astrothesis</a>
+      <a href="https://www.tiktok.com/@astro.thesis" target="_blank">TikTok: astro.thesis</a>
+      <a href="mailto:astrothesis@outlook.com">Email: astrothesis@outlook.com</a>
+    </div>
   </div>
-  <div class="menu">
-    <a href="index.html">home</a>
-    <a href="about.html">about</a>
-    <a href="contact.html">contact</a>
-    <a href="blog.html">blog</a>
-    <a href="forum.html">forum</a>
-  </div>
-</nav>
 
-<main>
-  <h1>astrothesis</h1>
-  <p>astrothesis is a creative science space where physics and astronomy ideas come together. Our goal is to allow aspiring scientists to connect with each other. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery — are you ready to explore?</p>
+  <script>
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let shootingStars = [];
 
-  <h2>What You’ll Discover Here</h2>
-  <ul class="discover">
-    <li>Explore galaxies, stars and black holes.</li>
-    <li>Uncover the science behind cosmic phenomena.</li>
-    <li>Dive into fun space facts and mind-blowing mysteries.</li>
-    <li>Read exclusive essays to satisfy your curiosity.</li>
-  </ul>
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
 
-  <p>Become a member of the Navigators community where you can share questions and interest with like-minded individuals!</p>
-
-  <h2>Follow Us Across The Universe</h2>
-  <div class="links">
-    <a href="https://instagram.com/astrothesis" target="_blank">Instagram: astrothesis</a>
-    <a href="https://www.tiktok.com/@astro.thesis" target="_blank">TikTok: astro.thesis</a>
-    <a href="mailto:astrothesis@outlook.com">Email: astrothesis@outlook.com</a>
-  </div>
-</main>
-
-<script>
-  const canvas = document.getElementById('starsCanvas');
-  const ctx = canvas.getContext('2d');
-  let w = canvas.width = window.innerWidth;
-  let h = canvas.height = window.innerHeight;
-
-  const stars = [];
-  const numStars = 300;
-  for (let i = 0; i < numStars; i++) {
-    stars.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      radius: Math.random() * 1.5 + 0.5,
-      alpha: Math.random()
-    });
-  }
-
-  function drawStars() {
-    ctx.clearRect(0, 0, w, h);
-    for (let i = 0; i < stars.length; i++) {
-      const s = stars[i];
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0,0,0,${s.alpha})`;
-      ctx.fill();
-      s.alpha += (Math.random() - 0.5) * 0.02;
-      if (s.alpha < 0) s.alpha = 0;
-      if (s.alpha > 1) s.alpha = 1;
+    function createStars(count) {
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, size: Math.random()*2+0.5, speed: Math.random()*0.05 });
+      }
     }
-    requestAnimationFrame(drawStars);
-  }
-  drawStars();
 
-  window.addEventListener('resize', () => {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  });
-</script>
+    function createShootingStar() {
+      shootingStars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height/2, length: Math.random()*80+20, speed: Math.random()*6+4 });
+    }
 
+    function animate() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      // static stars
+      stars.forEach(star=>{
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI*2);
+        ctx.fillStyle='black';
+        ctx.fill();
+        star.x += star.speed;
+        if(star.x > canvas.width) star.x = 0;
+      });
+
+      // shooting stars
+      shootingStars.forEach((shoot, i)=>{
+        ctx.beginPath();
+        ctx.moveTo(shoot.x, shoot.y);
+        ctx.lineTo(shoot.x - shoot.length, shoot.y + shoot.length);
+        ctx.strokeStyle = 'black';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        shoot.x += shoot.speed;
+        shoot.y += shoot.speed;
+        if(shoot.x > canvas.width || shoot.y > canvas.height) shootingStars.splice(i,1);
+      });
+
+      if(Math.random() < 0.02) createShootingStar();
+
+      requestAnimationFrame(animate);
+    }
+
+    createStars(150);
+    animate();
+  </script>
 </body>
 </html>
