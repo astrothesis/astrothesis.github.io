@@ -33,7 +33,7 @@
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
     nav a:hover { color: #ff6d4d; }
-    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; }
+    .forum-container { max-width: 900px; width: 100%; display: flex; flex-direction: column; gap: 2rem; margin-bottom: 2rem; }
     .post-card {
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -59,7 +59,7 @@
     </ul>
   </nav>
 
-  <div class="forum-container">
+  <div class="forum-container" id="forumContainer">
     <!-- Example post cards -->
     <div class="post-card">
       <div class="post-title">Welcome to the Forum</div>
@@ -81,17 +81,42 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-analytics.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
     import { firebaseConfig } from './firebaseConfig.js';
 
+    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
+    const auth = getAuth();
 
-    // Placeholder buttons for login/signup functionality
+    // Login
     document.querySelector('.login-btn').addEventListener('click', () => {
-      alert('Login functionality coming soon!');
+      const email = prompt("Enter your email:");
+      const password = prompt("Enter your password:");
+      
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          alert(`Welcome back, ${user.email}!`);
+        })
+        .catch((error) => {
+          alert(`Login failed: ${error.message}`);
+        });
     });
+
+    // Signup
     document.querySelector('.signup-btn').addEventListener('click', () => {
-      alert('Signup functionality coming soon!');
+      const email = prompt("Enter your email:");
+      const password = prompt("Enter your password (6+ characters):");
+      
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          alert(`Account created! Welcome, ${user.email}!`);
+        })
+        .catch((error) => {
+          alert(`Signup failed: ${error.message}`);
+        });
     });
   </script>
 
