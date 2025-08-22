@@ -1,69 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>about - astrothesis</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - about</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
   <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    section {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;  /* aligns content closer to top */
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
-      padding: 100px 40px;          /* space from top */
-    }
-    section h1 {
-      font-family: 'DM Serif Text', serif;
-      font-size: 3em;
-      margin-bottom: 30px;
-    }
-    section p {
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
       font-family: 'Yeseva One', serif;
-      font-size: 1.2em;
-      line-height: 1.6;
-      margin-bottom: 20px;
-      max-width: 800px;
-    }
-    nav ul {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      padding: 20px;
-      margin: 0;
-      background: transparent;
-    }
-    nav ul li {
-      margin: 0 15px;
-    }
-    nav ul li a {
-      text-decoration: none;
+      background: #fef9f4;
       color: black;
-      font-family: 'Yeseva One', serif;
-      font-size: 1.1em;
+      overflow-x: hidden;
+      position: relative;
     }
-    #starfield {
+
+    canvas {
       position: fixed;
       top: 0;
       left: 0;
       z-index: -1;
     }
+
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    nav .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color: black;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: #555; } /* subtle dark hover effect */
+
+    .content {
+      margin-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .section {
+      max-width: 800px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-family: 'DM Serif Text', serif;
+      margin-bottom: 1rem;
+    }
+
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2rem; }
+    p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 1rem; }
   </style>
 </head>
 <body>
-  <!-- Starfield Canvas -->
-  <canvas id="starfield"></canvas>
+  <canvas id="stars"></canvas>
 
-  <!-- Navigation -->
   <nav>
+    <div class="logo">astrothesis</div>
     <ul>
       <li><a href="index.html">home</a></li>
       <li><a href="about.html">about</a></li>
@@ -73,52 +96,62 @@
     </ul>
   </nav>
 
-  <!-- About Section -->
-  <section>
-    <h1>about</h1>
-    <p>astrothesis is a creative science space where physics, astronomy and cosmic ideas come together. our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. every post is a new discovery - are you ready to explore?</p>
-    <p>I’m Taseefah, a student passionate about astrophysics. Science can often feel inaccessible, and this website was created to provide more information about astrophysics online, so students can find direction and scientists can collaborate. Astrophysics is, after all, the future.</p>
-    <p>As a student myself, I hope to bring science to the community. While this starts as a humble website, I aim to introduce it to schools in the near future, using it as a platform to publish my own discoveries and highlight other exciting new scientific developments.</p>
-  </section>
+  <div class="content">
+    <div class="section">
+      <h1>about astrothesis</h1>
+      <p>astrothesis is a creative science space where astronomy and physics ideas come alive. here, curious minds can explore the wonders of the universe, from swirling galaxies to mysterious black holes. our platform is designed to spark curiosity, encourage learning, and connect aspiring scientists, students, and enthusiasts from all around the world. whether you’re looking to dive into detailed cosmic phenomena or enjoy fun space facts, astrothesis offers a gateway to the stars and the science behind them.</p>
+    </div>
 
-  <!-- Starfield JS -->
+    <div class="section">
+      <h2>mission & vision</h2>
+      <p>our mission at astrothesis is to make the mysteries of the cosmos accessible and exciting for everyone. we aim to break down complex scientific concepts into engaging, easy-to-understand insights that ignite curiosity and inspire discovery. through articles, essays, and interactive discussions, we hope to cultivate a community of passionate explorers who ask questions, share ideas, and grow together. by combining education with creativity, astrothesis aspires to be the launchpad for your journey through the universe—where every post is a new adventure waiting to be discovered.</p>
+    </div>
+
+    <div class="section">
+      <h2>about the founder</h2>
+      <p>founded by taseefah, astrothesis reflects a deep passion for astrophysics and a desire to make the universe more accessible to curious minds. at eighteen, taseefah has already faced the challenges of limited resources, scarce work experience, and a competitive job landscape that make pursuing astrophysics seem difficult. despite these obstacles, she is determined to share her journey, build a supportive network, and inspire a future generation of dreamers who dare to reach for the stars.</p>
+    </div>
+  </div>
+
   <script>
-    const canvas = document.getElementById('starfield');
+    const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
+    let stars = [];
 
-    function resizeCanvas() {
+    function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('resize', resize);
+    resize();
 
-    class Star {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.radius = Math.random() * 1.5;
-        this.alpha = Math.random();
-        this.alphaChange = 0.002 + Math.random() * 0.003;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(0,0,0,${this.alpha})`;
-        ctx.fill();
-        this.alpha += this.alphaChange;
-        if (this.alpha <= 0 || this.alpha >= 1) this.alphaChange = -this.alphaChange;
+    function createStars(count) {
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5 + 0.5,
+          alpha: Math.random(),
+          alphaChange: Math.random() * 0.02 + 0.01
+        });
       }
     }
-
-    const stars = Array.from({length: 150}, () => new Star());
 
     function animate() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      stars.forEach(star => star.draw());
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        star.alpha += star.alphaChange;
+        if (star.alpha <= 0 || star.alpha >= 1) star.alphaChange = -star.alphaChange;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        ctx.fill();
+      });
       requestAnimationFrame(animate);
     }
+
+    createStars(200);
     animate();
   </script>
 </body>
