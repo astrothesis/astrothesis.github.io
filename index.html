@@ -3,38 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Astrothesis</title>
+  <title>astrothesis</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Starfield Canvas Background -->
-  <canvas id="starfield"></canvas>
-
   <!-- Navigation -->
   <nav>
-    <h2>astrothesis 🌌</h2>
+    <h2>astrothesis</h2>
     <ul>
       <li><a href="#home">home</a></li>
       <li><a href="#about">about</a></li>
       <li><a href="#contact">contact</a></li>
+      <li><a href="#blog">blog</a></li>
+      <li><a href="#forum">forum</a></li>
     </ul>
   </nav>
 
   <!-- Hero Section -->
   <section id="home" class="hero">
-    <h1>welcome to astrothesis</h1>
-    <p>exploring physics and the cosmos, one thought at a time.</p>
+    <h1>astrothesis</h1>
+    <p>physics. astronomy. cosmic ideas.</p>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="content">
+  <section id="about">
     <h2>about</h2>
-    <p>astrothesis is a creative science space where physics, astronomy and cosmic ideas come together. our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. every post is a new discovery - are you ready to explore?</p>
+    <p>astrothesis is a creative science space where physics, astronomy and cosmic ideas come together. Our goal is to allow aspiring scientists to have a platform to connect and feed curiosity. Navigate the galaxy, unravel cosmic mysteries, and traverse the science behind the stars. Every post is a new discovery - are you ready to explore?</p>
   </section>
 
-  <!-- What You’ll Discover Here Section -->
-  <section id="discover" class="content">
+  <!-- What You’ll Discover Section -->
+  <section id="discover">
     <h2>what you’ll discover here</h2>
     <ul>
       <li>explore galaxies, stars and black holes</li>
@@ -46,62 +48,28 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="content">
+  <section id="contact">
     <h2>follow me across the universe</h2>
     <p>Instagram: <a href="https://www.instagram.com/astrothesis" target="_blank">astrothesis</a></p>
     <p>TikTok: <a href="https://www.tiktok.com/@astro.thesis" target="_blank">astro.thesis</a></p>
     <p>Email: <a href="mailto:astrothesis@outlook.com">astrothesis@outlook.com</a></p>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 astrothesis. Made with 💫 on Earth.</p>
-  </footer>
+  <!-- Blog Section -->
+  <section id="blog">
+    <h2>blog</h2>
+    <p>Coming soon!</p>
+  </section>
 
-  <!-- Starfield Script -->
-  <script>
-    const canvas = document.getElementById("starfield");
-    const ctx = canvas.getContext("2d");
+  <!-- Forum Section -->
+  <section id="forum">
+    <h2>forum</h2>
+    <p>Login required. Coming soon!</p>
+  </section>
 
-    let stars = [];
-    const numStars = 200;
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
-
-    for (let i = 0; i < numStars; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 2,
-        speed: Math.random() * 0.5 + 0.2
-      });
-    }
-
-    function animate() {
-      ctx.fillStyle = "#0E0066";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      ctx.fillStyle = "#FFFFFF";
-      for (let star of stars) {
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
-        ctx.fill();
-
-        star.y += star.speed;
-        if (star.y > canvas.height) {
-          star.y = 0;
-          star.x = Math.random() * canvas.width;
-        }
-      }
-      requestAnimationFrame(animate);
-    }
-    animate();
-  </script>
+  <!-- Starfield Background -->
+  <canvas id="stars"></canvas>
+  <script src="stars.js"></script>
 
 </body>
 </html>
