@@ -1,181 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mock Forum</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #fef9f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    min-height: 100vh;
-  }
-  .sidebar {
-    width: 200px;
-    background: #0E0066;
-    color: white;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .sidebar h2 { margin-bottom: 1rem; font-size: 1.2rem; }
-  .sidebar button {
-    background: white; color: #0E0066; border: none; padding: 0.5rem; cursor: pointer; border-radius: 4px;
-  }
-  .main {
-    flex: 1;
-    padding: 2rem;
-  }
-  .nav {
-    display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;
-  }
-  .profile {
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .profile img { width: 40px; height: 40px; border-radius: 50%; display: none; }
-  .post-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background: white;
-  }
-  .post-card.pinned { background: #ffeedd; border: 2px solid #0E0066; }
-  .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
-  .post-date { font-size: 0.8rem; color: #555; margin-bottom: 0.5rem; }
-  .post-content { font-size: 1rem; margin-bottom: 0.5rem; }
-  .interact button { margin-right: 0.5rem; }
-  #login-section button { margin-right: 0.5rem; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - Forum</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4;
+      color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 6rem;
+    }
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+    nav .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav a { text-decoration: none; font-size: 1rem; color: black; transition: color 0.3s; }
+    nav a:hover { color: #ff6d4d; }
+    .forum-wrapper { display: flex; max-width: 1200px; width: 100%; gap: 2rem; margin-top: 2rem; }
+    .sidebar {
+      flex: 0 0 200px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      background: white;
+      height: fit-content;
+    }
+    .sidebar h3 { margin-bottom: 1rem; font-size: 1.2rem; }
+    .sidebar ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .sidebar li a { text-decoration: none; color: #0E0066; font-weight: bold; }
+    .forum-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .post-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      background: white;
+    }
+    .post-title { font-weight: bold; font-size: 1.2rem; margin-bottom: 0.3rem; }
+    .post-date { font-size: 0.9rem; color: #555; margin-bottom: 0.5rem; }
+    .post-content { font-size: 1rem; margin-bottom: 0.5rem; }
+    .post-actions { display: flex; gap: 1rem; }
+    .like-btn, .comment-btn { cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; padding: 0.3rem 0.6rem; }
+    .login-btn, .signup-btn { margin: 0.5rem; padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #0E0066; color: white; border: none; border-radius: 4px; }
+    .profile-pic { width: 40px; height: 40px; border-radius: 50%; margin-left: 1rem; }
+    .top-right { display: flex; align-items: center; }
+  </style>
 </head>
 <body>
 
-<div class="sidebar">
-  <h2>Forums</h2>
-  <button onclick="switchForum('general')">General</button>
-  <button onclick="switchForum('questions')">Questions</button>
-</div>
-
-<div class="main">
-  <div class="nav">
-    <div id="login-section">
-      <button onclick="fakeLogin()">Login</button>
-      <button onclick="fakeSignup()">Sign Up</button>
+  <nav>
+    <div class="logo">astrothesis</div>
+    <ul>
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+    <div class="top-right">
+      <button class="login-btn">Login</button>
+      <button class="signup-btn">Sign Up</button>
+      <img class="profile-pic" src="" alt="Profile" style="display:none;">
     </div>
-    <div class="profile">
-      <span id="username"></span>
-      <img id="profile-pic" src="https://via.placeholder.com/40">
+  </nav>
+
+  <div class="forum-wrapper">
+    <div class="sidebar">
+      <h3>Forums</h3>
+      <ul>
+        <li><a href="#">General</a></li>
+        <li><a href="#">Questions</a></li>
+      </ul>
+    </div>
+
+    <div class="forum-container">
+      <div class="post-card">
+        <div class="post-title">Welcome to the Forum</div>
+        <div class="post-date">August 22, 2025</div>
+        <div class="post-content">This is the general forum for astrothesis. Explore and enjoy!</div>
+        <div class="post-actions">
+          <button class="like-btn">Like</button>
+          <button class="comment-btn">Comment</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-title">Post Placeholder</div>
+        <div class="post-date">---</div>
+        <div class="post-content">No posts yet. Check back soon!</div>
+        <div class="post-actions">
+          <button class="like-btn">Like</button>
+          <button class="comment-btn">Comment</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div id="posts-container"></div>
-</div>
-
-<script>
-  let currentUser = null;
-  let currentForum = 'general';
-
-  const fakePosts = {
-    general: [
-      { title: "Welcome to the General Forum", content: "This is a place to chat about anything!", date: "2025-08-22", likes: 2, comments: [], pinned: true, author: "admin" },
-      { title: "General Discussion Post", content: "Feel free to post your thoughts here.", date: "2025-08-21", likes: 1, comments: [], pinned: false, author: "user" }
-    ],
-    questions: [
-      { title: "How do I start with JavaScript?", content: "I am new to programming. Any tips?", date: "2025-08-22", likes: 3, comments: [], pinned: false, author: "user" }
-    ]
-  };
-
-  const verifiedStars = ["starUser"]; // Example of verified users whose posts get pinned
-
-  function renderPosts() {
-    const container = document.getElementById('posts-container');
-    container.innerHTML = '';
-
-    // Sort pinned posts to the top
-    const sortedPosts = [...fakePosts[currentForum]].sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
-
-    sortedPosts.forEach((post, index) => {
-      const card = document.createElement('div');
-      card.className = 'post-card' + (post.pinned ? ' pinned' : '');
-      card.innerHTML = `
-        <div class="post-title">${post.title} ${post.pinned ? '⭐' : ''}</div>
-        <div class="post-date">${post.date} | by ${post.author}</div>
-        <div class="post-content">${post.content}</div>
-        <div class="interact">
-          Likes: <span>${post.likes}</span>
-          <button onclick="likePost(${index})">Like</button>
-          <button onclick="commentPost(${index})">Comment</button>
-        </div>
-        <div class="comments">
-          ${post.comments.map(c => `<div>${c.user}: ${c.text}</div>`).join('')}
-        </div>
-      `;
-      container.appendChild(card);
+  <script>
+    // Mock interactions
+    document.querySelectorAll('.like-btn').forEach(btn => {
+      btn.addEventListener('click', () => alert('You liked this post!'));
     });
-  }
+    document.querySelectorAll('.comment-btn').forEach(btn => {
+      btn.addEventListener('click', () => alert('Comment functionality coming soon!'));
+    });
 
-  function likePost(index) {
-    if(!currentUser) return alert('Login to like posts');
-    fakePosts[currentForum][index].likes++;
-    renderPosts();
-  }
+    // Mock login toggle
+    const loginBtn = document.querySelector('.login-btn');
+    const signupBtn = document.querySelector('.signup-btn');
+    const profilePic = document.querySelector('.profile-pic');
 
-  function commentPost(index) {
-    if(!currentUser) return alert('Login to comment');
-    const text = prompt('Enter your comment:');
-    if(text) {
-      fakePosts[currentForum][index].comments.push({ user: currentUser.name, text });
-      renderPosts();
+    function loginMock() {
+      profilePic.src = 'https://i.pravatar.cc/150?img=3';
+      profilePic.style.display = 'block';
+      loginBtn.style.display = 'none';
+      signupBtn.style.display = 'none';
     }
-  }
 
-  function fakeLogin() {
-    const name = prompt('Enter your name to login');
-    if(name) {
-      currentUser = { name, pic: 'https://via.placeholder.com/40' };
-      updateProfileUI();
-    }
-  }
-
-  function fakeSignup() {
-    const name = prompt('Enter your name to sign up');
-    if(name) {
-      currentUser = { name, pic: 'https://via.placeholder.com/40' };
-
-      // Auto pin posts if verified star
-      if(verifiedStars.includes(name)) {
-        fakePosts[currentForum].forEach(post => {
-          if(post.author === name) post.pinned = true;
-        });
-      }
-
-      updateProfileUI();
-    }
-  }
-
-  function updateProfileUI() {
-    document.getElementById('username').textContent = currentUser ? currentUser.name : '';
-    const pic = document.getElementById('profile-pic');
-    if(currentUser) {
-      pic.style.display = 'block';
-    } else {
-      pic.style.display = 'none';
-    }
-    document.getElementById('login-section').style.display = currentUser ? 'none' : 'block';
-    renderPosts();
-  }
-
-  function switchForum(forum) {
-    currentForum = forum;
-    renderPosts();
-  }
-
-  renderPosts();
-</script>
+    loginBtn.addEventListener('click', loginMock);
+    signupBtn.addEventListener('click', loginMock);
+  </script>
 
 </body>
 </html>
