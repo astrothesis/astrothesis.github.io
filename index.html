@@ -57,16 +57,17 @@
   h1 { font-family: 'DM Serif Text', serif; font-size: 2.5rem; margin-bottom: 1rem; }
   h2 { font-family: 'DM Serif Text', serif; font-size: 1.8rem; margin-bottom: 1rem; }
   p { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
-  .follow a { display: block; margin: 0.3rem 0; text-decoration: none; color: black; }
-  .follow a:hover { color: #ff6d4d; }
 
-  /* Keep email on one line + centered */
-  .follow a[href^="mailto"] {
-    white-space: nowrap;
-    display: inline-block;
-    text-align: center;
-    margin: 0 auto;
+  /* Follow links */
+  .follow a {
+    display: block;
+    margin: 0.3rem auto;
+    text-decoration: none;
+    color: black;
+    white-space: nowrap;  /* prevents breaking into 2 lines */
+    text-align: center;   /* centers text properly */
   }
+  .follow a:hover { color: #ff6d4d; }
 
   /* Mobile styles */
   @media (max-width: 768px) {
