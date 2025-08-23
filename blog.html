@@ -16,7 +16,6 @@
       padding: 2rem;
     }
 
-    /* Nav */
     nav {
       width: 100%;
       display: flex;
@@ -47,11 +46,11 @@
       font-size: 1rem;
       color: black;
       transition: color 0.3s;
+      text-transform: lowercase;
     }
 
     .nav-links a:hover { color: #555; }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -66,7 +65,6 @@
       transition: all 0.3s;
     }
 
-    /* Content */
     .content {
       margin-top: 6rem;
       display: flex;
@@ -81,32 +79,35 @@
     h1 {
       font-family: 'DM Serif Text', serif;
       font-size: 3rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      text-transform: lowercase;
     }
 
-    /* Categories */
-    .categories {
+    .category-buttons {
       display: flex;
-      justify-content: center;
       gap: 1rem;
       margin-bottom: 2rem;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
-    .categories a {
-      text-decoration: none;
-      font-family: 'DM Serif Text', serif;
-      background: #fff;
+    .category-buttons a {
       padding: 0.5rem 1rem;
-      border-radius: 1rem;
+      background: #fff;
       border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      text-decoration: none;
       color: black;
-      transition: all 0.3s;
+      font-family: 'Yeseva One', serif;
+      transition: background 0.3s, color 0.3s;
+      text-transform: lowercase;
     }
 
-    .categories a:hover { background: #eee; }
+    .category-buttons a:hover {
+      background: #ddd;
+      color: black;
+    }
 
-    /* Cards */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -122,6 +123,7 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       transition: transform 0.3s, box-shadow 0.3s;
       cursor: pointer;
+      text-align: left;
     }
 
     .card:hover {
@@ -129,21 +131,33 @@
       box-shadow: 0 8px 12px rgba(0,0,0,0.1);
     }
 
-    .card-image { background: #eee; height: 200px; }
+    .card-image {
+      background: #eee;
+      height: 200px;
+    }
 
-    .card-content { padding: 1rem; text-align: left; }
+    .card-content {
+      padding: 1rem;
+    }
 
     .card-content h2 {
       font-family: 'DM Serif Text', serif;
       font-size: 1.4rem;
       margin-bottom: 0.5rem;
+      text-transform: lowercase;
     }
 
-    .card-content p { font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem; }
+    .card-content p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
 
-    .card-content .date { font-size: 0.9rem; color: #555; }
+    .card-content .date {
+      font-size: 0.9rem;
+      color: #555;
+    }
 
-    /* Responsive */
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
@@ -154,6 +168,7 @@
         background: rgba(255,255,255,0.95);
         display: none;
       }
+
       .nav-links li { text-align: center; padding: 1rem 0; }
       .hamburger { display: flex; }
     }
@@ -181,49 +196,41 @@
   <div class="content">
     <h1>blog</h1>
 
-    <!-- Categories -->
-    <div class="categories">
-      <a href="newHorizons.html">New Horizons</a>
-      <a href="celestialCalendar.html">Celestial Calendar</a>
-      <a href="inquisitiveInsights.html">Inquisitive Insights</a>
+    <div class="category-buttons">
+      <a href="blog.html">all</a>
+      <a href="newHorizons.html">new horizons</a>
+      <a href="celestialCalendar.html">celestial calendar</a>
+      <a href="inquisitiveInsights.html">inquisitive insights</a>
     </div>
 
-    <!-- Blog Cards -->
     <div class="cards">
       <!-- First Blog Post -->
-      <div class="card" onclick="window.location.href='introBlog.html'">
-        <div class="card-image"></div>
-        <div class="card-content">
-          <h2>Hello, Navigators!</h2>
-          <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
-          <div class="date">posted: 23/08/2025</div>
+      <a href="introBlog.html" style="text-decoration:none; color:inherit;">
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-content">
+            <h2>curiosities of the cosmos</h2>
+            <p>Welcome to the first post on astrothesis! Explore ideas, questions, and mysteries about the universe in this introductory blog.</p>
+            <div class="date">posted: 22/08/2025</div>
+          </div>
         </div>
-      </div>
+      </a>
 
-      <!-- Placeholder 1 -->
-      <div class="card">
-        <div class="card-image"></div>
-        <div class="card-content">
-          <h2>Coming Soon</h2>
-          <p>Stay tuned for more exciting posts!</p>
-        </div>
-      </div>
+      <!-- Empty Placeholder 1 -->
+      <div class="card"></div>
 
-      <!-- Placeholder 2 -->
-      <div class="card">
-        <div class="card-image"></div>
-        <div class="card-content">
-          <h2>Coming Soon</h2>
-          <p>New discoveries and insights are on the way!</p>
-        </div>
-      </div>
+      <!-- Empty Placeholder 2 -->
+      <div class="card"></div>
     </div>
   </div>
 
   <script>
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-    hamburger.addEventListener('click', () => { navLinks.classList.toggle('nav-active'); });
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+    });
   </script>
 </body>
 </html>
