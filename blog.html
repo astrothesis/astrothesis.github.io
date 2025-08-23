@@ -46,7 +46,6 @@
       font-size: 1rem;
       color: black;
       transition: color 0.3s;
-      text-transform: lowercase;
     }
 
     .nav-links a:hover { color: #555; }
@@ -80,7 +79,6 @@
       font-family: 'DM Serif Text', serif;
       font-size: 3rem;
       margin-bottom: 2rem;
-      text-transform: lowercase;
     }
 
     .category-buttons {
@@ -93,20 +91,16 @@
 
     .category-buttons a {
       padding: 0.5rem 1rem;
-      background: #fff;
-      border: 1px solid #ddd;
+      background: #ddd;
       border-radius: 0.5rem;
       text-decoration: none;
       color: black;
-      font-family: 'Yeseva One', serif;
-      transition: background 0.3s, color 0.3s;
+      font-weight: bold;
       text-transform: lowercase;
+      transition: background 0.3s;
     }
 
-    .category-buttons a:hover {
-      background: #ddd;
-      color: black;
-    }
+    .category-buttons a:hover { background: #bbb; }
 
     .cards {
       display: grid;
@@ -117,13 +111,10 @@
 
     .card {
       background: #fff;
-      border: 1px solid #ddd;
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
       transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-      text-align: left;
     }
 
     .card:hover {
@@ -133,11 +124,13 @@
 
     .card-image {
       background: #eee;
-      height: 200px;
+      height: 150px;
     }
 
     .card-content {
       padding: 1rem;
+      text-align: left;
+      background: #fff;
     }
 
     .card-content h2 {
@@ -195,7 +188,6 @@
 
   <div class="content">
     <h1>blog</h1>
-
     <div class="category-buttons">
       <a href="blog.html">all</a>
       <a href="newHorizons.html">new horizons</a>
@@ -205,22 +197,28 @@
 
     <div class="cards">
       <!-- First Blog Post -->
-      <a href="introBlog.html" style="text-decoration:none; color:inherit;">
-        <div class="card">
-          <div class="card-image"></div>
-          <div class="card-content">
-            <h2>curiosities of the cosmos</h2>
-            <p>Welcome to the first post on astrothesis! Explore ideas, questions, and mysteries about the universe in this introductory blog.</p>
-            <div class="date">posted: 22/08/2025</div>
-          </div>
+      <a href="helloNavigators.html" class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+          <h2>hello, navigators!</h2>
+          <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
+          <div class="date">posted: 23/08/2025</div>
         </div>
       </a>
 
-      <!-- Empty Placeholder 1 -->
-      <div class="card"></div>
+      <!-- Placeholder 1 -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+        </div>
+      </div>
 
-      <!-- Empty Placeholder 2 -->
-      <div class="card"></div>
+      <!-- Placeholder 2 -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+        </div>
+      </div>
     </div>
   </div>
 
