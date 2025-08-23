@@ -58,16 +58,25 @@
   h2 { font-family: 'DM Serif Text', serif; font-size: 1.8rem; margin-bottom: 1rem; }
   p { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
 
-  /* Follow links */
-  .follow a {
-    display: block;
-    margin: 0.3rem auto;
+  /* Follow section */
+  .follow-links {
+    display: flex;
+    justify-content: center;   /* centers links horizontally */
+    gap: 2rem;                 /* space between links */
+    flex-wrap: wrap;           /* wraps to next line if screen too small */
+    margin-top: 1rem;
+  }
+  .follow-links a {
     text-decoration: none;
     color: black;
-    white-space: nowrap;  /* prevents breaking into 2 lines */
-    text-align: center;   /* centers text properly */
+    white-space: nowrap;
+    text-align: center;
+    font-weight: 500;
+    transition: color 0.3s;
   }
-  .follow a:hover { color: #ff6d4d; }
+  .follow-links a:hover {
+    color: #ff6d4d;
+  }
 
   /* Mobile styles */
   @media (max-width: 768px) {
@@ -78,7 +87,7 @@
       width: 100%;
       flex-direction: column;
       background: rgba(255,255,255,0.95);
-      display: none; /* hidden by default */
+      display: none;
     }
     .nav-links li { text-align: center; padding: 1rem 0; }
     .hamburger { display: flex; }
@@ -121,9 +130,11 @@
 
   <div class="section follow">
     <h2>Follow Us Across The Universe</h2>
-    <a href="https://www.instagram.com/astrothesis" target="_blank">Instagram: astrothesis</a>
-    <a href="https://www.tiktok.com/@astro.thesis" target="_blank">TikTok: astro.thesis</a>
-    <a href="mailto:astrothesis@outlook.com">Email: astrothesis@outlook.com</a>
+    <div class="follow-links">
+      <a href="https://www.instagram.com/astrothesis" target="_blank">Instagram: astrothesis</a>
+      <a href="https://www.tiktok.com/@astro.thesis" target="_blank">TikTok: astro.thesis</a>
+      <a href="mailto:astrothesis@outlook.com">Email: astrothesis@outlook.com</a>
+    </div>
   </div>
 </div>
 
