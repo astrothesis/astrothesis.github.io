@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - Celestial Calendar</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4;
+      color: black;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color: black;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: #555; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: black;
+      transition: all 0.3s;
+    }
+
+    .content {
+      margin-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+    }
+
+    .card-image {
+      background: #eee;
+      height: 200px;
+    }
+
+    .card-content {
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .card-content h2 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-content p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-content .date {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(255,255,255,0.95);
+        display: none;
+      }
+
+      .nav-links li { text-align: center; padding: 1rem 0; }
+      .hamburger { display: flex; }
+    }
+
+    .nav-active { display: flex !important; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">astrothesis</div>
+    <ul class="nav-links">
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <div class="content">
+    <h1>Celestial Calendar</h1>
+    <div class="cards">
+      <!-- First Blog Post -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+          <h2>something stellar is on the horizon</h2>
+          <p>There’s lots to come on astrothesis — soon you’ll find posts exploring cosmic mysteries, ideas, and discoveries.</p>
+          <div class="date">posted: 22/08/2025</div>
+        </div>
+      </div>
+
+      <!-- Empty Placeholder 1 -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+          <h2>coming soon</h2>
+          <p>More posts are on their way — stay tuned for new content from the Navigators community!</p>
+        </div>
+      </div>
+
+      <!-- Empty Placeholder 2 -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+          <h2>coming soon</h2>
+          <p>Keep an eye out for upcoming blog posts exploring discoveries and cosmic curiosities.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+    });
+  </script>
+</body>
+</html>
