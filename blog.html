@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>astrothesis - blog</title>
+  <title>astrothesis - inquisitive insights</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -101,7 +102,9 @@
       transition: all 0.3s;
     }
 
-    .categories a:hover { background: #eee; }
+    .categories a:hover {
+      background: #eee;
+    }
 
     .cards {
       display: grid;
@@ -153,13 +156,6 @@
       color: #555;
     }
 
-    /* Make the blog card link look like normal text */
-    .card-link {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
@@ -196,7 +192,7 @@
   </nav>
 
   <div class="content">
-    <h1>blog</h1>
+    <h1>inquisitive insights</h1>
 
     <div class="categories">
       <a href="blog.html">all</a>
@@ -206,27 +202,25 @@
     </div>
 
     <div class="cards">
-      <!-- First Blog Post (Fully functional with image) -->
-      <a href="helloNavigators.html" class="card-link">
-        <div class="card">
-          <div class="card-image" style="background-image: url('images/nasa-Yj1M5riCKk4-unsplash.jpg');"></div>
-          <div class="card-content">
-            <h2>hello, navigators!</h2>
-            <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
-            <div class="date">posted: 23/08/2025</div>
-          </div>
-        </div>
-      </a>
-
-      <!-- Placeholder Card 1 -->
+      <!-- First Card with image -->
       <div class="card">
-        <div class="card-image" style="background: linear-gradient(to bottom, #eee 50%, #fff 50%);"></div>
+        <div class="card-image" style="background-image: url('images/nasa-Yj1M5riCKk4-unsplash.jpg');"></div>
+        <div class="card-content">
+          <h2>navigators' notes</h2>
+          <p>A collection of upcoming posts sharing everyday experiences, tips, and practical insights—soon you’ll be able to explore how-tos and personal stories from life on and off mission control.</p>
+          <div class="date">posted: 22/08/2025</div>
+        </div>
+      </div>
+
+      <!-- Second Card (Empty Placeholder) -->
+      <div class="card">
+        <div class="card-image"></div>
         <div class="card-content"></div>
       </div>
 
-      <!-- Placeholder Card 2 -->
+      <!-- Third Card (Empty Placeholder) -->
       <div class="card">
-        <div class="card-image" style="background: linear-gradient(to bottom, #eee 50%, #fff 50%);"></div>
+        <div class="card-image"></div>
         <div class="card-content"></div>
       </div>
     </div>
@@ -242,5 +236,3 @@
   </script>
 </body>
 </html>
-
-  
