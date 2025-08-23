@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>astrothesis - New Horizons</title>
+  <title>astrothesis - new horizons</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,6 +16,7 @@
       padding: 2rem;
     }
 
+    /* Nav */
     nav {
       width: 100%;
       display: flex;
@@ -64,6 +65,7 @@
       transition: all 0.3s;
     }
 
+    /* Content */
     .content {
       margin-top: 6rem;
       display: flex;
@@ -78,10 +80,11 @@
     h1 {
       font-family: 'DM Serif Text', serif;
       font-size: 3rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      text-transform: lowercase;
     }
 
-    /* Category Buttons */
+    /* Categories */
     .categories {
       display: flex;
       justify-content: center;
@@ -101,10 +104,9 @@
       transition: all 0.3s;
     }
 
-    .categories a:hover {
-      background: #eee;
-    }
+    .categories a:hover { background: #eee; }
 
+    /* Cards */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -127,15 +129,9 @@
       box-shadow: 0 8px 12px rgba(0,0,0,0.1);
     }
 
-    .card-image {
-      background: #eee;
-      height: 200px;
-    }
+    .card-image { background: #eee; height: 200px; }
 
-    .card-content {
-      padding: 1rem;
-      text-align: left;
-    }
+    .card-content { padding: 1rem; text-align: left; }
 
     .card-content h2 {
       font-family: 'DM Serif Text', serif;
@@ -143,17 +139,11 @@
       margin-bottom: 0.5rem;
     }
 
-    .card-content p {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 0.5rem;
-    }
+    .card-content p { font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem; }
 
-    .card-content .date {
-      font-size: 0.9rem;
-      color: #555;
-    }
+    .card-content .date { font-size: 0.9rem; color: #555; }
 
+    /* Responsive */
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
@@ -164,7 +154,6 @@
         background: rgba(255,255,255,0.95);
         display: none;
       }
-
       .nav-links li { text-align: center; padding: 1rem 0; }
       .hamburger { display: flex; }
     }
@@ -190,42 +179,42 @@
   </nav>
 
   <div class="content">
-    <h1>New Horizons</h1>
+    <h1>new horizons</h1>
 
-    <!-- Category Buttons -->
+    <!-- Categories -->
     <div class="categories">
-      <a href="allBlog.html">All</a>
       <a href="newHorizons.html">New Horizons</a>
       <a href="celestialCalendar.html">Celestial Calendar</a>
       <a href="inquisitiveInsights.html">Inquisitive Insights</a>
     </div>
 
+    <!-- Blog Cards -->
     <div class="cards">
       <!-- First Blog Post -->
-      <div class="card">
+      <div class="card" onclick="window.location.href='introBlog.html'">
         <div class="card-image"></div>
         <div class="card-content">
-          <h2>something stellar is on the horizon</h2>
-          <p>There’s lots to come on astrothesis — soon you’ll find posts exploring cosmic mysteries, ideas, and discoveries.</p>
-          <div class="date">posted: 22/08/2025</div>
+          <h2>Hello, Navigators!</h2>
+          <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
+          <div class="date">posted: 23/08/2025</div>
         </div>
       </div>
 
-      <!-- Empty Placeholder 1 -->
+      <!-- Placeholder 1 -->
       <div class="card">
         <div class="card-image"></div>
         <div class="card-content">
-          <h2>coming soon</h2>
-          <p>More posts are on their way — stay tuned for new content from the Navigators community!</p>
+          <h2>Coming Soon</h2>
+          <p>Stay tuned for more exciting posts!</p>
         </div>
       </div>
 
-      <!-- Empty Placeholder 2 -->
+      <!-- Placeholder 2 -->
       <div class="card">
         <div class="card-image"></div>
         <div class="card-content">
-          <h2>coming soon</h2>
-          <p>Keep an eye out for upcoming blog posts exploring discoveries and cosmic curiosities.</p>
+          <h2>Coming Soon</h2>
+          <p>New discoveries and insights are on the way!</p>
         </div>
       </div>
     </div>
@@ -234,10 +223,7 @@
   <script>
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('nav-active');
-    });
+    hamburger.addEventListener('click', () => { navLinks.classList.toggle('nav-active'); });
   </script>
 </body>
 </html>
