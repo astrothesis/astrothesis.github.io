@@ -34,6 +34,13 @@
       font-family: 'DM Serif Text', serif;
       font-size: 1.5rem;
       color: black;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
     }
 
     .nav-links {
@@ -181,7 +188,10 @@
 </head>
 <body>
   <nav>
-    <div class="logo">astrothesis</div>
+    <div class="logo">
+      <img src="logo.png" alt="astrothesis logo">
+      astrothesis
+    </div>
     <ul class="nav-links">
       <li><a href="index.html">home</a></li>
       <li><a href="about.html">about</a></li>
@@ -214,36 +224,4 @@
           <div class="card-content">
             <h2>hello, navigators!</h2>
             <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
-            <div class="date">posted: 23/08/2025</div>
-          </div>
-        </div>
-      </a>
-
-      <!-- Placeholder Card 1 -->
-      <div class="card">
-        <div class="card-image" style="background: #eee;"></div>
-        <div class="card-content">
-          <h2>Coming Soon</h2>
-        </div>
-      </div>
-
-      <!-- Placeholder Card 2 -->
-      <div class="card">
-        <div class="card-image" style="background: #eee;"></div>
-        <div class="card-content">
-          <h2>Coming Soon</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('nav-active');
-    });
-  </script>
-</body>
-</html>
+            <div
