@@ -68,7 +68,7 @@
 
     /* Content */
     .content {
-      margin-top: 6rem; /* space for navbar */
+      margin-top: 6rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -129,15 +129,9 @@
       box-shadow: 0 8px 12px rgba(0,0,0,0.1);
     }
 
-    .card-image {
-      background: #eee;
-      height: 200px;
-    }
+    .card-image { background: #eee; height: 200px; }
 
-    .card-content {
-      padding: 1rem;
-      text-align: left;
-    }
+    .card-content { padding: 1rem; text-align: left; }
 
     .card-content h2 {
       font-family: 'DM Serif Text', serif;
@@ -145,16 +139,9 @@
       margin-bottom: 0.5rem;
     }
 
-    .card-content p {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 0.5rem;
-    }
+    .card-content p { font-size: 1rem; line-height: 1.5; margin-bottom: 0.5rem; }
 
-    .card-content .date {
-      font-size: 0.9rem;
-      color: #555;
-    }
+    .card-content .date { font-size: 0.9rem; color: #555; }
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -167,7 +154,6 @@
         background: rgba(255,255,255,0.95);
         display: none;
       }
-
       .nav-links li { text-align: center; padding: 1rem 0; }
       .hamburger { display: flex; }
     }
@@ -197,7 +183,7 @@
 
     <!-- Categories -->
     <div class="categories">
-      <a href="allBlog.html">All</a>
+      <a href="blog.html">All</a>
       <a href="newHorizons.html">New Horizons</a>
       <a href="celestialCalendar.html">Celestial Calendar</a>
       <a href="inquisitiveInsights.html">Inquisitive Insights</a>
@@ -205,12 +191,12 @@
 
     <!-- Blog Cards -->
     <div class="cards">
-      <!-- Intro Blog -->
+      <!-- First Blog Post -->
       <div class="card" onclick="window.location.href='introBlog.html'">
         <div class="card-image"></div>
         <div class="card-content">
-          <h2>Hello, fellow Navigators!</h2>
-          <p>An introduction to me, the Navigators community, and what’s coming soon in space and science.</p>
+          <h2>Hello, Navigators!</h2>
+          <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
           <div class="date">posted: 23/08/2025</div>
         </div>
       </div>
@@ -238,10 +224,7 @@
   <script>
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('nav-active');
-    });
+    hamburger.addEventListener('click', () => { navLinks.classList.toggle('nav-active'); });
   </script>
 </body>
 </html>
