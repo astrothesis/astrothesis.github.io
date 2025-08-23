@@ -39,6 +39,7 @@
       list-style: none;
       display: flex;
       gap: 1.5rem;
+      transition: max-height 0.3s ease;
     }
 
     nav a {
@@ -50,6 +51,22 @@
 
     nav a:hover { color: #555; }
 
+    /* Hamburger Button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: black;
+      transition: all 0.3s;
+    }
+
+    /* Content */
     .content {
       margin-top: 6rem; /* space for navbar */
       display: flex;
@@ -58,6 +75,7 @@
       max-width: 1000px;
       margin-left: auto;
       margin-right: auto;
+      padding: 0 1rem;
     }
 
     h1 {
@@ -113,12 +131,40 @@
       font-size: 0.9rem;
       color: #555;
     }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: rgba(255,255,255,0.95);
+        width: 200px;
+        max-height: 0;
+        overflow: hidden;
+        border-radius: 0 0 0.5rem 0.5rem;
+      }
+
+      nav ul.show {
+        max-height: 500px; /* enough to show all links */
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
   <nav>
     <div class="logo">astrothesis</div>
-    <ul>
+    <div class="hamburger" id="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <ul id="nav-links">
       <li><a href="index.html">home</a></li>
       <li><a href="about.html">about</a></li>
       <li><a href="contact.html">contact</a></li>
@@ -152,5 +198,14 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+  </script>
 </body>
 </html>
