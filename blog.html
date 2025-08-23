@@ -79,28 +79,29 @@
       font-family: 'DM Serif Text', serif;
       font-size: 3rem;
       margin-bottom: 2rem;
+      text-transform: lowercase;
     }
 
-    .category-buttons {
+    .categories {
       display: flex;
+      justify-content: center;
       gap: 1rem;
       margin-bottom: 2rem;
       flex-wrap: wrap;
-      justify-content: center;
     }
 
-    .category-buttons a {
-      padding: 0.5rem 1rem;
-      background: #ddd;
-      border-radius: 0.5rem;
+    .categories a {
       text-decoration: none;
+      font-family: 'DM Serif Text', serif;
+      background: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      border: 1px solid #ddd;
       color: black;
-      font-weight: bold;
-      text-transform: lowercase;
-      transition: background 0.3s;
+      transition: all 0.3s;
     }
 
-    .category-buttons a:hover { background: #bbb; }
+    .categories a:hover { background: #eee; }
 
     .cards {
       display: grid;
@@ -111,6 +112,7 @@
 
     .card {
       background: #fff;
+      border: 1px solid #ddd;
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -124,20 +126,18 @@
 
     .card-image {
       background: #eee;
-      height: 150px;
+      height: 200px;
     }
 
     .card-content {
       padding: 1rem;
       text-align: left;
-      background: #fff;
     }
 
     .card-content h2 {
       font-family: 'DM Serif Text', serif;
       font-size: 1.4rem;
       margin-bottom: 0.5rem;
-      text-transform: lowercase;
     }
 
     .card-content p {
@@ -149,6 +149,13 @@
     .card-content .date {
       font-size: 0.9rem;
       color: #555;
+    }
+
+    /* Make the blog card link look like normal text */
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
     @media (max-width: 768px) {
@@ -188,7 +195,8 @@
 
   <div class="content">
     <h1>blog</h1>
-    <div class="category-buttons">
+
+    <div class="categories">
       <a href="blog.html">all</a>
       <a href="newHorizons.html">new horizons</a>
       <a href="celestialCalendar.html">celestial calendar</a>
@@ -196,28 +204,28 @@
     </div>
 
     <div class="cards">
-      <!-- First Blog Post -->
-      <a href="helloNavigators.html" class="card">
-        <div class="card-image"></div>
-        <div class="card-content">
-          <h2>hello, navigators!</h2>
-          <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
-          <div class="date">posted: 23/08/2025</div>
+      <!-- First Blog Post (Link Card) -->
+      <a href="helloNavigators.html" class="card-link">
+        <div class="card">
+          <div class="card-image"></div>
+          <div class="card-content">
+            <h2>hello, navigators!</h2>
+            <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
+            <div class="date">posted: 23/08/2025</div>
+          </div>
         </div>
       </a>
 
-      <!-- Placeholder 1 -->
+      <!-- Placeholder Card -->
       <div class="card">
         <div class="card-image"></div>
-        <div class="card-content">
-        </div>
+        <div class="card-content"></div>
       </div>
 
-      <!-- Placeholder 2 -->
+      <!-- Placeholder Card -->
       <div class="card">
         <div class="card-image"></div>
-        <div class="card-content">
-        </div>
+        <div class="card-content"></div>
       </div>
     </div>
   </div>
