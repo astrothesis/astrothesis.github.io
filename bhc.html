@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>astrothesis - Black Hole Café</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Yeseva One', serif;
+    background: #fef9f4;
+    color: black;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Navbar */
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255,255,255,0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+  .nav-links { list-style: none; display: flex; gap: 1.5rem; }
+  .nav-links a { text-decoration: none; color: black; transition: color 0.3s; }
+  .nav-links a:hover { color: #ff6d4d; }
+
+  /* Hamburger */
+  .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+  .hamburger div { width: 25px; height: 3px; background-color: black; }
+
+  /* Content */
+  .content { margin-top: 6rem; display: flex; flex-direction: row; gap: 2rem; padding: 2rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .main { flex: 3; display: flex; flex-direction: column; gap: 2rem; }
+  .sidebar { flex: 1; background: #fff; border-radius: 1rem; padding: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  .sidebar h2 { font-family: 'DM Serif Text', serif; font-size: 1.2rem; margin-bottom: 1rem; }
+  .sidebar ul { list-style: none; }
+  .sidebar li { margin-bottom: 0.5rem; }
+  .sidebar a { text-decoration: none; color: black; transition: color 0.3s; }
+  .sidebar a:hover { color: #ff6d4d; }
+
+  .post { background: #fff; border-radius: 1rem; padding: 1rem 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: left; }
+  .post h3 { font-family: 'DM Serif Text', serif; font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .post .meta { font-size: 0.85rem; color: #555; margin-bottom: 0.8rem; }
+  .post p { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; }
+  .post .actions { display: flex; gap: 1rem; font-size: 0.9rem; color: #777; }
+
+  /* Buttons */
+  .auth-buttons { display: flex; gap: 1rem; justify-content: flex-end; margin-bottom: 1rem; }
+  .auth-buttons button { padding: 0.4rem 0.8rem; border: 1px solid black; background: transparent; cursor: pointer; border-radius: 0.3rem; transition: all 0.3s; }
+  .auth-buttons button:hover { background: black; color: white; }
+
+  /* Responsive */
+  @media (max-width: 900px) { .content { flex-direction: column; } }
+  @media (max-width: 768px) {
+    .nav-links { 
+      position: absolute; top: 100%; left: 0; width: 100%; flex-direction: column; background: rgba(255,255,255,0.95); display: none; 
+    }
+    .nav-links li { text-align: center; padding: 1rem 0; }
+    .nav-active { display: flex !important; }
+    .hamburger { display: flex; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">astrothesis</div>
+  <ul class="nav-links">
+    <li><a href="index.html">home</a></li>
+    <li><a href="about.html">about</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="blog.html">blog</a></li>
+    <li><a href="forum.html">forum</a></li>
+  </ul>
+  <div class="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</nav>
+
+<div class="content">
+  <div class="main">
+    <div class="auth-buttons">
+      <button>Sign Up</button>
+      <button>Log In</button>
+    </div>
+
+    <!-- Pinned Coming Soon Post -->
+    <div class="post">
+      <h3>Black Hole Café: Brewing Soon!</h3>
+      <div class="meta">By AstroThesis Team | 23/08/2025 | Pinned</div>
+      <p>Welcome, cosmic coffee lovers! ☕🌌 This forum is still percolating. Soon you’ll gather here to discuss black holes, relativity, and everything that bends light and minds alike. Hold tight — the gravitational pull is strong, and our café will open shortly!</p>
+      <div class="actions">Likes: 0 | Comments: 0</div>
+    </div>
+
+    <!-- Placeholder Posts -->
+    <div class="post">
+      <h3>Event Horizon Watch</h3>
+      <div class="meta">By SingularitySeeker | 22/08/2025</div>
+      <p>Placeholder discussion for future black hole observations and ideas.</p>
+      <div class="actions">Likes: 1 | Comments: 0</div>
+    </div>
+
+    <div class="post">
+      <h3>Black Hole Cafeteria Menu?</h3>
+      <div class="meta">By CosmicBrew | 21/08/2025</div>
+      <p>Another placeholder for fun discussions. Real debates and cosmic chats coming soon!</p>
+      <div class="actions">Likes: 0 | Comments: 0</div>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <h2>Forum Sections</h2>
+    <ul>
+      <li><a href="dark-matter.html">Dark Matter Debates</a></li>
+      <li><a href="exoplanet-watch.html">Exoplanet Watch</a></li>
+      <li><a href="black-hole-cafe.html">Black Hole Café</a></li>
+      <li><a href="astronomy-101.html">Astronomy 101</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Hamburger menu toggle
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('nav-active');
+  });
+</script>
+
+</body>
+</html>
