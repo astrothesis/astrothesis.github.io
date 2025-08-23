@@ -14,6 +14,9 @@
       color: black;
       text-align: center;
       padding: 2rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* NAVBAR */
@@ -65,7 +68,7 @@
 
     /* CONTENT */
     .content {
-      margin-top: 6rem; /* space for navbar */
+      margin-top: 6rem; /* space for navbar on mobile */
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
@@ -111,6 +114,18 @@
     }
 
     .nav-active { display: flex !important; }
+
+    /* Center content on desktop */
+    @media (min-width: 1024px) {
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* vertical centering */
+        margin-top: 0;           /* remove fixed offset */
+        padding-top: 6rem;       /* still leave space for navbar */
+      }
+    }
   </style>
 </head>
 <body>
