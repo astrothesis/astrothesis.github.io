@@ -28,7 +28,16 @@
     left: 0;
     z-index: 10;
   }
-  .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+  .logo {
+    font-family: 'DM Serif Text', serif;
+    font-size: 1.5rem;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .logo img { height: 40px; width: auto; }
+
   .nav-links { list-style: none; display: flex; gap: 1.5rem; }
   .nav-links a { text-decoration: none; color: black; transition: color 0.3s; }
   .nav-links a:hover { color: #ff6d4d; }
@@ -73,7 +82,10 @@
 <body>
 
 <nav>
-  <div class="logo">astrothesis</div>
+  <div class="logo">
+    <img src="astrothesis.png" alt="astrothesis logo">
+    astrothesis
+  </div>
   <ul class="nav-links">
     <li><a href="index.html">home</a></li>
     <li><a href="about.html">about</a></li>
