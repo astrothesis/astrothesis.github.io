@@ -42,7 +42,7 @@
   }
 
   .nav-links { list-style: none; display: flex; gap: 1.5rem; }
-  .nav-links a { text-decoration: none; color: black; transition: color 0.3s; }
+  .nav-links a { text-decoration: none; color: black; transition: color 0.3s; text-transform: lowercase; }
   .nav-links a:hover { color: #ff6d4d; }
 
   /* Hamburger */
@@ -79,6 +79,7 @@
     .nav-links li { text-align: center; padding: 1rem 0; }
     .nav-active { display: flex !important; }
     .hamburger { display: flex; }
+    .logo img { height: 35px; } /* slightly smaller logo on mobile */
   }
 </style>
 </head>
@@ -86,7 +87,7 @@
 
 <nav>
   <div class="logo">
-    <img src="logo.png" alt="Astrothesis Logo">
+    <img src="astrothesis.png" alt="Astrothesis Logo">
     astrothesis
   </div>
   <ul class="nav-links">
