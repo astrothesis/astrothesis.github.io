@@ -31,9 +31,17 @@
     }
 
     .logo {
+      display: flex;
+      align-items: center;
       font-family: 'DM Serif Text', serif;
       font-size: 1.5rem;
       color: black;
+      gap: 0.5rem;
+    }
+
+    .logo img {
+      height: 40px; /* adjust size of logo */
+      width: auto;
     }
 
     .nav-links {
@@ -102,9 +110,7 @@
       transition: all 0.3s;
     }
 
-    .categories a:hover {
-      background: #eee;
-    }
+    .categories a:hover { background: #eee; }
 
     .cards {
       display: grid;
@@ -174,7 +180,10 @@
 </head>
 <body>
   <nav>
-    <div class="logo">astrothesis</div>
+    <div class="logo">
+      <img src="astrothesis.png" alt="Astrothesis Logo">
+      astrothesis
+    </div>
     <ul class="nav-links">
       <li><a href="index.html">home</a></li>
       <li><a href="about.html">about</a></li>
