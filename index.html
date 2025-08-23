@@ -58,22 +58,23 @@
   h2 { font-family: 'DM Serif Text', serif; font-size: 1.8rem; margin-bottom: 1rem; }
   p { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
 
-  /* Follow links */
+  /* Follow Section */
   .follow-links {
-    text-align: center;  /* centers all links */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
     margin-top: 1rem;
   }
   .follow-links a {
-    display: inline-block; /* prevents skew on mobile */
-    margin: 0.3rem 0;      /* vertical spacing between links */
     text-decoration: none;
     color: black;
-    white-space: nowrap;
+    font-size: 1rem;
     text-align: center;
+    width: max-content;
   }
-  .follow-links a:hover {
-    color: #ff6d4d;
-  }
+  .follow-links a:hover { color: #ff6d4d; }
 
   /* Mobile styles */
   @media (max-width: 768px) {
@@ -84,12 +85,16 @@
       width: 100%;
       flex-direction: column;
       background: rgba(255,255,255,0.95);
-      display: none; /* hidden by default */
+      display: none;
     }
     .nav-links li { text-align: center; padding: 1rem 0; }
     .hamburger { display: flex; }
   }
   .nav-active { display: flex !important; }
+
+  @media (max-width: 480px) {
+    .follow-links a { font-size: 0.95rem; }
+  }
 </style>
 </head>
 <body>
