@@ -6,11 +6,8 @@
 <title>astrothesis - home</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
 
-<!-- Favicon for all browsers -->
-<link rel="icon" type="image/png" sizes="32x32" href="astrothesis.png">
-<link rel="icon" type="image/png" sizes="16x16" href="astrothesis.png">
-<link rel="shortcut icon" href="astrothesis.png" type="image/png">
-<link rel="apple-touch-icon" sizes="180x180" href="astrothesis.png">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="astrothesis.png">
 
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -104,7 +101,7 @@
   }
 </style>
 
-<!-- Load additional header content -->
+<!-- Load favicon dynamically from header.html -->
 <script>
   fetch('header.html')
     .then(response => response.text())
