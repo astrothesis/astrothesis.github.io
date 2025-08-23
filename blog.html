@@ -133,7 +133,7 @@
     }
 
     .card-image {
-      background: #eee; /* grey image area by default */
+      background: #eee; 
       height: 200px;
       background-size: cover;
       background-position: center;
@@ -142,7 +142,7 @@
     .card-content {
       padding: 1rem;
       text-align: left;
-      background: #fff; /* white content area */
+      background: #fff;
     }
 
     .card-content h2 {
@@ -171,25 +171,25 @@
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
-        top: 100%;
-        left: 0;
+        top: 60px;
+        left: -100%;
         width: 100%;
         flex-direction: column;
         background: rgba(255,255,255,0.95);
-        display: none;
+        transition: left 0.3s;
       }
 
       .nav-links li { text-align: center; padding: 1rem 0; }
       .hamburger { display: flex; }
     }
 
-    .nav-active { display: flex !important; }
+    .nav-active { left: 0 !important; }
   </style>
 </head>
 <body>
   <nav>
     <div class="logo">
-      <img src="logo.png" alt="astrothesis logo">
+      <img src="astrothesis.png" alt="astrothesis logo">
       astrothesis
     </div>
     <ul class="nav-links">
@@ -217,11 +217,43 @@
     </div>
 
     <div class="cards">
-      <!-- First Blog Post (Functional with image) -->
+      <!-- First Blog Post -->
       <a href="helloNavigators.html" class="card-link">
         <div class="card">
           <div class="card-image" style="background-image: url('nasa-Yj1M5riCKk4-unsplash.jpg');"></div>
           <div class="card-content">
             <h2>hello, navigators!</h2>
             <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
-            <div
+            <div class="date">posted: 22/08/2025</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Second Blog Post (Coming Soon) -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+          <h2>Coming Soon</h2>
+        </div>
+      </div>
+
+      <!-- Third Blog Post (Coming Soon) -->
+      <div class="card">
+        <div class="card-image"></div>
+        <div class="card-content">
+          <h2>Coming Soon</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+    });
+  </script>
+</body>
+</html>
