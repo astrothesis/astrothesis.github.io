@@ -7,7 +7,6 @@
   <link rel="icon" href="astrothesis.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
-    /* --- Reset and global styles --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -18,7 +17,6 @@
       padding: 2rem;
     }
 
-    /* --- Navigation --- */
     nav {
       width: 100%;
       display: flex;
@@ -67,7 +65,6 @@
       transition: all 0.3s;
     }
 
-    /* --- Main Content --- */
     .content {
       margin-top: 6rem;
       display: flex;
@@ -86,7 +83,6 @@
       text-transform: lowercase;
     }
 
-    /* --- Categories --- */
     .categories {
       display: flex;
       justify-content: center;
@@ -108,7 +104,6 @@
 
     .categories a:hover { background: #eee; }
 
-    /* --- Cards --- */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -117,7 +112,7 @@
     }
 
     .card {
-      background: #d9d9d9; /* grey card background */
+      background: #fff;
       border: 1px solid #ddd;
       border-radius: 1rem;
       overflow: hidden;
@@ -131,7 +126,7 @@
     }
 
     .card-image {
-      background: #eee;
+      background: #eee; /* grey image area by default */
       height: 200px;
       background-size: cover;
       background-position: center;
@@ -140,7 +135,7 @@
     .card-content {
       padding: 1rem;
       text-align: left;
-      background: #fff; /* white inside for text */
+      background: #fff; /* white content area */
     }
 
     .card-content h2 {
@@ -166,7 +161,6 @@
       display: block;
     }
 
-    /* --- Responsive Nav --- */
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
@@ -183,7 +177,6 @@
     }
 
     .nav-active { display: flex !important; }
-
   </style>
 </head>
 <body>
@@ -214,10 +207,10 @@
     </div>
 
     <div class="cards">
-      <!-- First Blog Post (Fully functional with image) -->
+      <!-- First Blog Post (Functional with image) -->
       <a href="helloNavigators.html" class="card-link">
         <div class="card">
-          <div class="card-image" style="background-image: url('images/nasa-Yj1M5riCKk4-unsplash.jpg');"></div>
+          <div class="card-image" style="background-image: url('nasa-Yj1M5riCKk4-unsplash.jpg');"></div>
           <div class="card-content">
             <h2>hello, navigators!</h2>
             <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
@@ -228,13 +221,13 @@
 
       <!-- Placeholder Card 1 -->
       <div class="card">
-        <div class="card-image" style="background: #fef9f4;"></div>
+        <div class="card-image" style="background: #eee;"></div>
         <div class="card-content"></div>
       </div>
 
       <!-- Placeholder Card 2 -->
       <div class="card">
-        <div class="card-image" style="background: #fef9f4;"></div>
+        <div class="card-image" style="background: #eee;"></div>
         <div class="card-content"></div>
       </div>
     </div>
