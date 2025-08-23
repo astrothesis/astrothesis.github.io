@@ -16,6 +16,7 @@
     position: relative;
   }
 
+  /* Navbar */
   nav {
     width: 100%;
     display: flex;
@@ -28,13 +29,28 @@
     left: 0;
     z-index: 10;
   }
-  .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+  .logo {
+    font-family: 'DM Serif Text', serif;
+    font-size: 1.5rem;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .logo img {
+    height: 40px;
+    width: auto;
+  }
+
   .nav-links { list-style: none; display: flex; gap: 1.5rem; }
   .nav-links a { text-decoration: none; color: black; transition: color 0.3s; }
   .nav-links a:hover { color: #ff6d4d; }
-  .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-  .hamburger div { width: 25px; height: 3px; background-color: black; }
 
+  /* Hamburger */
+  .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+  .hamburger div { width: 25px; height: 3px; background-color: black; transition: all 0.3s; }
+
+  /* Content */
   .content { margin-top: 6rem; display: flex; flex-direction: row; gap: 2rem; padding: 2rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
   .main { flex: 3; display: flex; flex-direction: column; gap: 2rem; }
   .sidebar { flex: 1; background: #fff; border-radius: 1rem; padding: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
@@ -50,10 +66,12 @@
   .post p { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; }
   .post .actions { display: flex; gap: 1rem; font-size: 0.9rem; color: #777; }
 
+  /* Buttons */
   .auth-buttons { display: flex; gap: 1rem; justify-content: flex-end; margin-bottom: 1rem; }
   .auth-buttons button { padding: 0.4rem 0.8rem; border: 1px solid black; background: transparent; cursor: pointer; border-radius: 0.3rem; transition: all 0.3s; }
   .auth-buttons button:hover { background: black; color: white; }
 
+  /* Responsive */
   @media (max-width: 900px) { .content { flex-direction: column; } }
   @media (max-width: 768px) {
     .nav-links { 
@@ -68,7 +86,10 @@
 <body>
 
 <nav>
-  <div class="logo">astrothesis</div>
+  <div class="logo">
+    <img src="astrothesis.png" alt="Astrothesis Logo">
+    astrothesis
+  </div>
   <ul class="nav-links">
     <li><a href="index.html">home</a></li>
     <li><a href="about.html">about</a></li>
