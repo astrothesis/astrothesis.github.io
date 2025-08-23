@@ -16,6 +16,7 @@
       padding: 2rem;
     }
 
+    /* Nav */
     nav {
       width: 100%;
       display: flex;
@@ -29,29 +30,28 @@
       z-index: 10;
     }
 
-    nav .logo {
+    .logo {
       font-family: 'DM Serif Text', serif;
       font-size: 1.5rem;
       color: black;
     }
 
-    nav ul {
+    .nav-links {
       list-style: none;
       display: flex;
       gap: 1.5rem;
-      transition: max-height 0.3s ease;
     }
 
-    nav a {
+    .nav-links a {
       text-decoration: none;
       font-size: 1rem;
       color: black;
       transition: color 0.3s;
     }
 
-    nav a:hover { color: #555; }
+    .nav-links a:hover { color: #555; }
 
-    /* Hamburger Button */
+    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -132,45 +132,40 @@
       color: #555;
     }
 
-    /* Responsive Styles */
+    /* Responsive (consistent with other pages) */
     @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
+      .nav-links {
         position: absolute;
-        top: 60px;
-        right: 0;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
         background: rgba(255,255,255,0.95);
-        width: 200px;
-        max-height: 0;
-        overflow: hidden;
-        border-radius: 0 0 0.5rem 0.5rem;
+        display: none;
       }
 
-      nav ul.show {
-        max-height: 500px; /* enough to show all links */
-      }
-
-      .hamburger {
-        display: flex;
-      }
+      .nav-links li { text-align: center; padding: 1rem 0; }
+      .hamburger { display: flex; }
     }
+
+    .nav-active { display: flex !important; }
   </style>
 </head>
 <body>
   <nav>
     <div class="logo">astrothesis</div>
-    <div class="hamburger" id="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-    <ul id="nav-links">
+    <ul class="nav-links">
       <li><a href="index.html">home</a></li>
       <li><a href="about.html">about</a></li>
       <li><a href="contact.html">contact</a></li>
       <li><a href="blog.html">blog</a></li>
       <li><a href="forum.html">forum</a></li>
     </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </nav>
 
   <div class="content">
@@ -200,11 +195,11 @@
   </div>
 
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
 
     hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
+      navLinks.classList.toggle('nav-active');
     });
   </script>
 </body>
