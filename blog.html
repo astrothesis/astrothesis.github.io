@@ -7,6 +7,7 @@
   <link rel="icon" href="astrothesis.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
+    /* --- Reset and global styles --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -17,6 +18,7 @@
       padding: 2rem;
     }
 
+    /* --- Navigation --- */
     nav {
       width: 100%;
       display: flex;
@@ -65,6 +67,7 @@
       transition: all 0.3s;
     }
 
+    /* --- Main Content --- */
     .content {
       margin-top: 6rem;
       display: flex;
@@ -83,6 +86,7 @@
       text-transform: lowercase;
     }
 
+    /* --- Categories --- */
     .categories {
       display: flex;
       justify-content: center;
@@ -104,6 +108,7 @@
 
     .categories a:hover { background: #eee; }
 
+    /* --- Cards --- */
     .cards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -112,7 +117,7 @@
     }
 
     .card {
-      background: #fff;
+      background: #d9d9d9; /* grey card background */
       border: 1px solid #ddd;
       border-radius: 1rem;
       overflow: hidden;
@@ -126,7 +131,7 @@
     }
 
     .card-image {
-      background: #eee; /* grey image area */
+      background: #eee;
       height: 200px;
       background-size: cover;
       background-position: center;
@@ -135,7 +140,7 @@
     .card-content {
       padding: 1rem;
       text-align: left;
-      background: #fff; /* white content area */
+      background: #fff; /* white inside for text */
     }
 
     .card-content h2 {
@@ -161,6 +166,7 @@
       display: block;
     }
 
+    /* --- Responsive Nav --- */
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
@@ -177,6 +183,7 @@
     }
 
     .nav-active { display: flex !important; }
+
   </style>
 </head>
 <body>
@@ -221,13 +228,13 @@
 
       <!-- Placeholder Card 1 -->
       <div class="card">
-        <div class="card-image" style="background: #eee;"></div>
+        <div class="card-image" style="background: #fef9f4;"></div>
         <div class="card-content"></div>
       </div>
 
       <!-- Placeholder Card 2 -->
       <div class="card">
-        <div class="card-image" style="background: #eee;"></div>
+        <div class="card-image" style="background: #fef9f4;"></div>
         <div class="card-content"></div>
       </div>
     </div>
