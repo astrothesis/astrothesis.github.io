@@ -1,248 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>astrothesis - forum</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>astrothesis - Astrophysics Q&A</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Yeseva One', serif;
+    background: #fef9f4;
+    color: black;
+    overflow-x: hidden;
+  }
 
-    body {
-      font-family: 'Yeseva One', serif;
-      background: #fef9f4;
-      color: black;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+  /* Navbar */
+  nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255,255,255,0.9);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  .logo { font-family: 'DM Serif Text', serif; font-size: 1.5rem; color: black; }
+  .nav-links { list-style: none; display: flex; gap: 1.5rem; }
+  .nav-links a { text-decoration: none; color: black; transition: color 0.3s; }
+  .nav-links a:hover { color: #ff6d4d; }
 
-    /* NAVBAR */
-    nav {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(255,255,255,0.9);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-    }
+  /* Hamburger */
+  .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+  .hamburger div { width: 25px; height: 3px; background-color: black; }
 
-    .logo {
-      font-family: 'DM Serif Text', serif;
-      font-size: 1.5rem;
-      color: black;
-    }
+  /* Content */
+  .content { margin-top: 6rem; display: flex; flex-direction: row; gap: 2rem; padding: 2rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .main { flex: 3; display: flex; flex-direction: column; gap: 2rem; }
+  .sidebar { flex: 1; background: #fff; border-radius: 1rem; padding: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  .sidebar h2 { font-family: 'DM Serif Text', serif; font-size: 1.2rem; margin-bottom: 1rem; }
+  .sidebar ul { list-style: none; }
+  .sidebar li { margin-bottom: 0.5rem; }
+  .sidebar a { text-decoration: none; color: black; transition: color 0.3s; }
+  .sidebar a:hover { color: #ff6d4d; }
 
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
+  .post { background: #fff; border-radius: 1rem; padding: 1rem 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: left; }
+  .post h3 { font-family: 'DM Serif Text', serif; font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .post .meta { font-size: 0.85rem; color: #555; margin-bottom: 0.8rem; }
+  .post p { font-size: 1rem; margin-bottom: 0.5rem; line-height: 1.5; }
+  .post .actions { display: flex; gap: 1rem; font-size: 0.9rem; color: #777; }
 
-    .nav-links a {
-      text-decoration: none;
-      font-size: 1rem;
-      color: black;
-      transition: color 0.3s;
-    }
-    .nav-links a:hover { color: #555; }
+  /* Buttons */
+  .auth-buttons { display: flex; gap: 1rem; justify-content: flex-end; margin-bottom: 1rem; }
+  .auth-buttons button, .post button { padding: 0.4rem 0.8rem; border: 1px solid black; background: transparent; cursor: pointer; border-radius: 0.3rem; transition: all 0.3s; }
+  .auth-buttons button:hover, .post button:hover { background: black; color: white; }
 
-    /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 5px;
+  /* Responsive */
+  @media (max-width: 900px) { .content { flex-direction: column; } }
+  @media (max-width: 768px) {
+    .nav-links { 
+      position: absolute; top: 100%; left: 0; width: 100%; flex-direction: column; background: rgba(255,255,255,0.95); display: none; 
     }
-    .hamburger div {
-      width: 25px;
-      height: 3px;
-      background-color: black;
-    }
-
-    /* MAIN LAYOUT */
-    .forum-container {
-      margin-top: 6rem;
-      display: flex;
-      gap: 2rem;
-      padding: 2rem;
-      flex: 1;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: 200px;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      padding: 1rem;
-      height: fit-content;
-    }
-    .sidebar h2 {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-    .sidebar ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-    .sidebar ul li {
-      cursor: default;
-      color: #333;
-    }
-
-    /* MAIN CONTENT */
-    .forum-main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .forum-header {
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-    }
-
-    .forum-header button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 8px;
-      background: black;
-      color: white;
-      font-family: 'Yeseva One', serif;
-      cursor: default;
-    }
-
-    /* POST CARD */
-    .post {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
-
-    .post-date {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 0.5rem;
-    }
-
-    .post h2 {
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .post p {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-      color: #333;
-    }
-
-    .post-actions {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .post-actions button {
-      background: none;
-      border: none;
-      cursor: default;
-      font-size: 1rem;
-      color: #555;
-    }
-
-    /* Responsive */
-    @media (max-width: 900px) {
-      .forum-container { flex-direction: column; }
-      .sidebar { width: 100%; }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        flex-direction: column;
-        background: rgba(255,255,255,0.95);
-        display: none;
-      }
-      .nav-links li {
-        text-align: center;
-        padding: 1rem 0;
-      }
-      .hamburger { display: flex; }
-    }
-
+    .nav-links li { text-align: center; padding: 1rem 0; }
     .nav-active { display: flex !important; }
-  </style>
+    .hamburger { display: flex; }
+  }
+</style>
 </head>
 <body>
-  <nav>
-    <div class="logo">astrothesis</div>
-    <ul class="nav-links">
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
-    </ul>
-    <div class="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
+
+<nav>
+  <div class="logo">astrothesis</div>
+  <ul class="nav-links">
+    <li><a href="index.html">home</a></li>
+    <li><a href="about.html">about</a></li>
+    <li><a href="contact.html">contact</a></li>
+    <li><a href="blog.html">blog</a></li>
+    <li><a href="forum.html">forum</a></li>
+  </ul>
+  <div class="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</nav>
+
+<div class="content">
+  <div class="main">
+    <div class="auth-buttons">
+      <button>Sign Up</button>
+      <button>Log In</button>
     </div>
-  </nav>
 
-  <div class="forum-container">
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <h2>Categories</h2>
-      <ul>
-        <li>🌌 Dark Matter Debates</li>
-        <li>🪐 Exoplanet Watch</li>
-        <li>☕ Black Hole Café</li>
-        <li>✨ Cosmic Theories</li>
-        <li>🚀 Astrophysics Q&A</li>
-      </ul>
-    </aside>
+    <!-- Pinned Coming Soon Post -->
+    <div class="post">
+      <h3>Astrophysics Q&A: Coming Soon!</h3>
+      <div class="meta">By AstroThesis Team | 23/08/2025 | Pinned</div>
+      <p>Welcome, curious minds! 🌌 This forum is under construction. Soon, you’ll be able to ask questions, share answers, and explore astrophysics topics with fellow space enthusiasts. Prepare for questions that are out of this world!</p>
+      <div class="actions">Likes: 0 | Comments: 0</div>
+    </div>
 
-    <!-- MAIN FORUM CONTENT -->
-    <main class="forum-main">
-      <div class="forum-header">
-        <button>Sign Up</button>
-        <button>Log In</button>
-      </div>
+    <!-- Category Posts with Buttons -->
+    <div class="post">
+      <h3>Dark Matter Debates</h3>
+      <div class="meta">By AstroThesis Team | 23/08/2025</div>
+      <p>Explore the mysteries of dark matter, join discussions, and share your thoughts with fellow enthusiasts.</p>
+      <div class="actions">Likes: 0 | Comments: 0</div>
+      <a href="dark-matter.html"><button style="margin-top:0.5rem;">Go to Forum</button></a>
+    </div>
 
-      <!-- Example Post -->
-      <div class="post">
-        <div class="post-date">August 23, 2025</div>
-        <h2>🪐 The Forum is Under Construction...</h2>
-        <p>Welcome, star traveler! Our cosmic forum is still being built. Soon, you’ll be able to discuss dark matter, trade theories, and share discoveries with fellow explorers. For now, sit tight — the universe is expanding, and so is astrothesis 🌌</p>
-        <div class="post-actions">
-          <button>👍 Like</button>
-          <button>💬 Comment</button>
-        </div>
-      </div>
-    </main>
+    <div class="post">
+      <h3>Exoplanet Watch</h3>
+      <div class="meta">By AstroThesis Team | 23/08/2025</div>
+      <p>Track discoveries of exoplanets and join conversations about distant worlds.</p>
+      <div class="actions">Likes: 0 | Comments: 0</div>
+      <a href="exoplanet-watch.html"><button style="margin-top:0.5rem;">Go to Forum</button></a>
+    </div>
+
+    <div class="post">
+      <h3>Black Hole Café</h3>
+      <div class="meta">By AstroThesis Team | 23/08/2025</div>
+      <p>Grab a virtual coffee and chat about black holes, singularities, and cosmic mysteries.</p>
+      <div class="actions">Likes: 0 | Comments: 0</div>
+      <a href="black-hole-cafe.html"><button style="margin-top:0.5rem;">Go to Forum</button></a>
+    </div>
+
+    <div class="post">
+      <h3>Cosmic Theories</h3>
+      <div class="meta">By AstroThesis Team | 23/08/2025</div>
+      <p>Discuss theoretical ideas about the universe, from multiverses to quantum gravity.</p>
+      <div class="actions">Likes: 0 | Comments: 0</div>
+      <a href="cosmic-theories.html"><button style="margin-top:0.5rem;">Go to Forum</button></a>
+    </div>
+
+    <div class="post">
+      <h3>Astrophysics Q&A</h3>
+      <div class="meta">By AstroThesis Team | 23/08/2025 | Pinned</div>
+      <p>Ask and answer questions about astrophysics in this upcoming forum section.</p>
+      <div class="actions">Likes: 0 | Comments: 0</div>
+      <a href="astrophysics-qa.html"><button style="margin-top:0.5rem;">Go to Forum</button></a>
+    </div>
   </div>
 
-  <script>
-    // Toggle hamburger menu
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('nav-active');
-    });
-  </script>
+  <div class="sidebar">
+    <h2>Forum Sections</h2>
+    <ul>
+      <li><a href="dark-matter.html">Dark Matter Debates</a></li>
+      <li><a href="exoplanet-watch.html">Exoplanet Watch</a></li>
+      <li><a href="black-hole-cafe.html">Black Hole Café</a></li>
+      <li><a href="cosmic-theories.html">Cosmic Theories</a></li>
+      <li><a href="astrophysics-qa.html">Astrophysics Q&A</a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  // Hamburger menu toggle
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('nav-active');
+  });
+</script>
+
 </body>
 </html>
