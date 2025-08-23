@@ -58,21 +58,18 @@
   h2 { font-family: 'DM Serif Text', serif; font-size: 1.8rem; margin-bottom: 1rem; }
   p { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
 
-  /* Follow section */
+  /* Follow links */
   .follow-links {
-    display: flex;
-    justify-content: center;   /* centers links horizontally */
-    gap: 2rem;                 /* space between links */
-    flex-wrap: wrap;           /* wraps to next line if screen too small */
+    text-align: center;  /* centers all links */
     margin-top: 1rem;
   }
   .follow-links a {
+    display: inline-block; /* prevents skew on mobile */
+    margin: 0.3rem 0;      /* vertical spacing between links */
     text-decoration: none;
     color: black;
     white-space: nowrap;
     text-align: center;
-    font-weight: 500;
-    transition: color 0.3s;
   }
   .follow-links a:hover {
     color: #ff6d4d;
@@ -87,7 +84,7 @@
       width: 100%;
       flex-direction: column;
       background: rgba(255,255,255,0.95);
-      display: none;
+      display: none; /* hidden by default */
     }
     .nav-links li { text-align: center; padding: 1rem 0; }
     .hamburger { display: flex; }
