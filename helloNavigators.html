@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - curiosities of the cosmos</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4;
+      color: black;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color: black;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: #555; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: black;
+      transition: all 0.3s;
+    }
+
+    .content {
+      margin-top: 6rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .date {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .blog-content {
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(255,255,255,0.95);
+        display: none;
+      }
+
+      .nav-links li { text-align: center; padding: 1rem 0; }
+      .hamburger { display: flex; }
+    }
+
+    .nav-active { display: flex !important; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">astrothesis</div>
+    <ul class="nav-links">
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
+
+  <div class="content">
+    <h1>curiosities of the cosmos</h1>
+    <div class="date">posted: 22/08/2025</div>
+
+    <div class="blog-content">
+      <p>Welcome to the first post on Astrothesis! In this blog, we'll explore thought-provoking ideas and questions that challenge our understanding of the universe, science, and cosmic wonders. Each post aims to inspire curiosity, foster learning, and ignite the imagination of anyone fascinated by the mysteries of space.</p>
+
+      <p>Whether you're a casual stargazer or a budding astrophysicist, inquisitive insights are here to guide you through the fascinating stories hidden in the cosmos. Expect a blend of scientific discoveries, mind-bending theories, and philosophical musings about the universe we inhabit.</p>
+
+      <p>Stay tuned for upcoming posts as we dive deeper into the cosmic frontier, uncovering the unknown, and celebrating the awe-inspiring wonders of the universe.</p>
+    </div>
+  </div>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+    });
+  </script>
+</body>
+</html>
