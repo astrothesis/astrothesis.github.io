@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>astrothesis - home</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+
+<!-- Favicon for all browsers -->
+<link rel="icon" type="image/png" sizes="32x32" href="astrothesis.png">
+<link rel="icon" type="image/png" sizes="16x16" href="astrothesis.png">
+<link rel="shortcut icon" href="astrothesis.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="astrothesis.png">
+
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -35,12 +42,8 @@
     display: flex;
     gap: 1.5rem;
   }
-  .nav-links a {
-    text-decoration: none;
-    color: black;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: #555; } /* updated hover to match about page */
+  .nav-links a { text-decoration: none; color: black; transition: color 0.3s; }
+  .nav-links a:hover { color: #ff6d4d; }
 
   /* Hamburger */
   .hamburger {
@@ -78,7 +81,7 @@
     text-align: center;
     width: max-content;
   }
-  .follow-links a:hover { color: #555; } /* match hover */
+  .follow-links a:hover { color: #ff6d4d; }
 
   /* Mobile styles */
   @media (max-width: 768px) {
@@ -101,7 +104,7 @@
   }
 </style>
 
-<!-- Load favicon dynamically from header.html -->
+<!-- Load additional header content -->
 <script>
   fetch('header.html')
     .then(response => response.text())
@@ -141,7 +144,7 @@
     <p>Uncover the science behind cosmic phenomena.</p>
     <p>Dive into fun space facts and mind blowing mysteries.</p>
     <p>Read exclusive essays to satisfy your curiosity.</p>
-    <p>Become a member of the Navigators community where you can share questions and interests with like-minded individuals!</p>
+    <p>Become a member of the Navigators community where you can share questions and interest with like-minded individuals!</p>
   </div>
 
   <div class="section follow">
