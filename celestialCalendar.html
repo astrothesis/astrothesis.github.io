@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>astrothesis - Celestial Calendar</title>
+  <title>astrothesis - celestial calendar</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -79,6 +79,30 @@
       font-family: 'DM Serif Text', serif;
       font-size: 3rem;
       margin-bottom: 2rem;
+      text-transform: lowercase;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .categories a {
+      text-decoration: none;
+      font-family: 'DM Serif Text', serif;
+      background: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      border: 1px solid #ddd;
+      color: black;
+      transition: all 0.3s;
+    }
+
+    .categories a:hover {
+      background: #eee;
     }
 
     .cards {
@@ -165,34 +189,36 @@
   </nav>
 
   <div class="content">
-    <h1>Celestial Calendar</h1>
+    <h1>celestial calendar</h1>
+
+    <div class="categories">
+      <a href="blog.html">all</a>
+      <a href="newHorizons.html">new horizons</a>
+      <a href="celestialCalendar.html">celestial calendar</a>
+      <a href="inquisitiveInsights.html">inquisitive insights</a>
+    </div>
+
     <div class="cards">
-      <!-- First Blog Post -->
+      <!-- First Card -->
       <div class="card">
         <div class="card-image"></div>
         <div class="card-content">
-          <h2>something stellar is on the horizon</h2>
-          <p>There’s lots to come on astrothesis — soon you’ll find posts exploring cosmic mysteries, ideas, and discoveries.</p>
+          <h2>upcoming cosmic events</h2>
+          <p>Stay tuned for posts highlighting key astronomical events, celestial alignments, and fascinating dates in the cosmos.</p>
           <div class="date">posted: 22/08/2025</div>
         </div>
       </div>
 
-      <!-- Empty Placeholder 1 -->
+      <!-- Second Card (Empty) -->
       <div class="card">
         <div class="card-image"></div>
-        <div class="card-content">
-          <h2>coming soon</h2>
-          <p>More posts are on their way — stay tuned for new content from the Navigators community!</p>
-        </div>
+        <div class="card-content"></div>
       </div>
 
-      <!-- Empty Placeholder 2 -->
+      <!-- Third Card (Empty) -->
       <div class="card">
         <div class="card-image"></div>
-        <div class="card-content">
-          <h2>coming soon</h2>
-          <p>Keep an eye out for upcoming blog posts exploring discoveries and cosmic curiosities.</p>
-        </div>
+        <div class="card-content"></div>
       </div>
     </div>
   </div>
