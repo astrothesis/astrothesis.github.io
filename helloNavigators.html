@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>astrothesis - navigators' notes</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <title>hello, Navigators!</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,8 +15,6 @@
       color: black;
       text-align: center;
       padding: 2rem;
-      line-height: 1.8;
-      font-size: 1.2rem;
     }
 
     nav {
@@ -49,7 +47,6 @@
       font-size: 1rem;
       color: black;
       transition: color 0.3s;
-      text-transform: lowercase;
     }
 
     .nav-links a:hover { color: #555; }
@@ -68,41 +65,77 @@
       transition: all 0.3s;
     }
 
+    .content {
+      margin-top: 6rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 1rem;
+    }
+
     h1 {
       font-family: 'DM Serif Text', serif;
       font-size: 3rem;
-      margin-bottom: 0.5rem;
-      text-transform: lowercase;
-      margin-top: 2rem; /* space under image */
-    }
-
-    .meta {
-      font-size: 1rem;
-      color: #555;
       margin-bottom: 2rem;
+      text-transform: lowercase;
     }
 
-    h2 {
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+    }
+
+    .card-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-content {
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .card-content h2 {
       font-family: 'DM Serif Text', serif;
-      font-size: 1.5rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
     }
 
-    p {
-      max-width: 800px;
-      margin: 0 auto 1.5rem auto;
-      text-align: center;
+    .card-content p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
     }
 
-    .highlight {
-      margin-bottom: 1.5rem;
-      font-size: 1.2rem;
+    .card-content .date {
+      font-size: 0.9rem;
+      color: #555;
     }
 
-    .highlight span {
-      font-size: 1.3rem;
-      margin-right: 0.5rem;
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
     @media (max-width: 768px) {
@@ -140,33 +173,22 @@
     </div>
   </nav>
 
-  <!-- Blog image at the top -->
-  <img src="nasa-Yj1M5riCKk4-unsplash.jpg" alt="Space Image" style="width:100%; max-width:800px; margin:6rem auto 2rem auto; display:block; border-radius:10px;">
+  <div class="content">
+    <h1>hello, navigators!</h1>
 
-  <h1>hello, navigators!</h1>
-  <div class="meta">posted: 23/08/2025 | author: taseefah</div>
-
-  <p>I’m Taseefah, and I’m thrilled to finally welcome you to the official Astrothesis website. This space is where curiosity meets conversation, and where science, space, and imagination collide. Here, I hope to share my passion for exploring the universe, uncovering the mysteries of the cosmos, and embracing the joy of learning. Whether you’re a lifelong stargazer, an aspiring scientist, or just someone who loves to wonder about the world around us, there’s a place for you here in the Navigators community. Together, we’ll embark on journeys through galaxies, dive into fascinating science, and spark conversations that broaden our horizons.</p>
-
-  <p>One of the things I’m most excited about is the upcoming forum where the Navigators community will be able to converse and share ideas. Soon, you’ll be able to post questions, discuss recent breakthroughs, and share your own insights. Think of it as your personal mission control—only with more conversation and less rocket fuel.</p>
-
-  <p>As for me, my journey with science has always been fueled by curiosity and a love for discovery. I want this blog to be a space where I can share my thoughts, observations, and the occasional personal story. And yes, there will be a few interesting things happening along the way!</p>
-
-  <h2>🛰️ Navigator’s Bulletin: Three Cosmic Highlights</h2>
-
-  <p class="highlight"><span>🌌</span> <strong>Black Hole ‘Heartbeat’ Challenges Theories:</strong> NASA’s IXPE mission has observed a unique X-ray flickering pattern from the black hole GRS 1915+105, located nearly 28,000 light-years away. This “heartbeat” occurs at a frequency of around 70 times per second during the black hole’s high-brightness phases, offering new insights into the dynamics of black hole coronas.</p>
-
-  <p class="highlight"><span>🌌</span> <strong>New Exoplanet Discovered in Triple Star System:</strong> Astronomers using NASA’s James Webb Space Telescope have found strong evidence of a giant planet orbiting a star in the Alpha Centauri triple star system, located just 4 light-years from Earth. This discovery brings us closer to understanding the potential for habitable worlds in our cosmic neighborhood.</p>
-
-  <p class="highlight"><span>🌌</span> <strong>Perseid Meteor Shower Peaks August 12-13:</strong> The Perseid meteor shower, one of the most popular annual celestial events, peaked on August 12-13, 2025. Despite the challenge posed by a nearly full moon, skywatchers reported up to 100 meteors per hour under optimal conditions, offering a spectacular display in the night sky.</p>
-
-  <p>And this is just the beginning! Coming soon, I’ll be sharing my first essay exploring the fascinating mathematics behind Schwarzschild black holes—a deep dive into how these cosmic giants warp space and time.</p>
-
-  <p>So, whether you’re here to learn, to explore, or just to satisfy your curiosity, I hope you’ll join me on this journey. Keep your telescopes ready, your questions handy, and let’s see what mysteries we can unravel together.</p>
-
-  <p>Welcome aboard, Navigators. The universe is vast—and our adventure is just beginning.</p>
-
-  <p>Over and out from mission control,<br>Taseefah 🚀</p>
+    <div class="cards">
+      <a href="helloNavigators.html" class="card-link">
+        <div class="card">
+          <div class="card-image" style="background-image: url('images/nasa-Yj1M5riCKk4-unsplash.jpg');"></div>
+          <div class="card-content">
+            <h2>hello, navigators!</h2>
+            <p>Join me on this first post as we set sail into the cosmos, exploring what astrothesis is all about and what’s to come.</p>
+            <div class="date">posted: 23/08/2025</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
 
   <script>
     const hamburger = document.querySelector('.hamburger');
