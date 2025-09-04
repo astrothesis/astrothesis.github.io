@@ -1,64 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Mathematics Behind Schwarzschild Black Holes</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>astrothesis - the mathematics behind schwarzschild black holes</title>
+  <link rel="icon" href="astrothesis.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  body {
-    font-family: 'Yeseva One', serif;
-    background: #fef9f4;
-    color: black;
-    line-height: 1.7;
-    text-align: center;
-    padding: 4rem 1rem;
-  }
+    body {
+      font-family: 'Yeseva One', serif;
+      background: #fef9f4;
+      color: black;
+      line-height: 1.7;
+    }
 
-  h1 {
-    font-family: 'DM Serif Text', serif;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
+    nav {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(255,255,255,0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
 
-  p {
-    font-size: 1.05rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
+    .logo {
+      font-family: 'DM Serif Text', serif;
+      font-size: 1.5rem;
+      color: black;
+      display: flex;
+      align-items: center;
+    }
 
-  img.post-image {
-    width: 100%;
-    max-width: 800px;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 1rem;
-    display: block;
-    margin: 2rem auto;
-  }
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
 
-  .note {
-    font-size: 1rem;
-    color: #555;
-    margin-top: 2rem;
-  }
-</style>
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: black;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: #555; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: black;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 8rem auto 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Text', serif;
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      text-transform: lowercase;
+      text-align: center;
+    }
+
+    .meta {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    img.post-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      margin-bottom: 2rem;
+      border-radius: 1rem;
+    }
+
+    p {
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+
+    a.inline-link {
+      color: #1a0dab;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(255,255,255,0.95);
+        display: none;
+      }
+
+      .nav-links li { text-align: center; padding: 1rem 0; }
+      .hamburger { display: flex; }
+    }
+
+    .nav-active { display: flex !important; }
+  </style>
 </head>
 <body>
+  <nav>
+    <div class="logo">
+      <img src="astrothesis.png" alt="astrothesis logo">
+      astrothesis
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">home</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="blog.html">blog</a></li>
+      <li><a href="forum.html">forum</a></li>
+    </ul>
+    <div class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </nav>
 
-<h1>The Mathematics Behind Schwarzschild Black Holes</h1>
+  <div class="content">
+    <h1>the mathematics behind schwarzschild black holes</h1>
+    <img src="IMG_6534.jpeg" alt="black hole illustration" class="post-image">
 
-<img src="your-image.jpg" alt="Black Hole Image" class="post-image">
+    <p>Something exciting is on the horizon: a new essay is taking shape, exploring ideas that weave together curiosity, creativity, and discovery. Every paragraph is like a small voyage into the unknown, teasing the imagination and inviting readers to think differently.</p>
 
-<p>
-Maths is of no use to us when it exists as pen on paper or chalk upon a board. It is in its application that it becomes a fundamental tool—transforming imagination into reality. Physics allows us to apply maths to matter, to predict the behaviour and motion of particles through space and time, and to turn this knowledge into something we can think with, create with, and progress with as a species. Maths is deeply embedded in astrophysics, where it is used to build theories we cannot yet explore because of the limits of space travel and the enormity of the Universe itself. The Schwarzschild black hole owes its name to Karl Schwarzschild, a German physicist born in the late 1800s. Alongside Einstein’s newly emergent theory of general relativity, Schwarzschild was able to mathematically describe the “perfect” black hole. The Schwarzschild solution is often spoken of as an elegant entity—“compact, exact, and beautiful”.
-</p>
+    <p>The essay will venture into concepts that challenge conventional understanding, sparking questions and connecting seemingly unrelated ideas. It’s a journey of ideas that promises depth, inspiration, and unexpected twists.</p>
 
-<p class="note">
-Exclusive essay coming soon—stay tuned for the full exploration!
-</p>
+    <p>Each section has been carefully planned, though the final draft is still evolving. What begins as a simple notion gradually blossoms into a full tapestry of thought, revealing connections and insights that may surprise even the author.</p>
 
+    <p>Visuals, equations, or anecdotes may appear along the way, each chosen to illustrate a point or evoke wonder. The essay is both a product and a process, showcasing the excitement of crafting ideas from the spark of curiosity to their final form.</p>
+
+    <p>By the time this essay is finished, it aims not only to inform but to transport its readers to new perspectives, inviting them to engage, reflect, and imagine. Stay tuned for its arrival; the journey is just beginning.</p>
+  </div>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('nav-active');
+    });
+  </script>
 </body>
 </html>
