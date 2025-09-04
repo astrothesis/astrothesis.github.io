@@ -14,6 +14,7 @@
       background: #fef9f4;
       color: black;
       line-height: 1.7;
+      text-align: center; /* center all text by default */
     }
 
     nav {
@@ -74,100 +75,4 @@
       max-width: 900px;
       margin: 8rem auto 2rem auto;
       padding: 0 1rem;
-    }
-
-    h1 {
-      font-family: 'DM Serif Text', serif;
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      text-transform: lowercase;
-      text-align: center;
-    }
-
-    .meta {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #555;
-      margin-bottom: 2rem;
-    }
-
-    img.post-image {
-      width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      margin-bottom: 2rem;
-      border-radius: 1rem;
-    }
-
-    p {
-      margin-bottom: 1.2rem;
-      font-size: 1.05rem;
-    }
-
-    a.inline-link {
-      color: #1a0dab;
-      text-decoration: underline;
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        flex-direction: column;
-        background: rgba(255,255,255,0.95);
-        display: none;
-      }
-
-      .nav-links li { text-align: center; padding: 1rem 0; }
-      .hamburger { display: flex; }
-    }
-
-    .nav-active { display: flex !important; }
-  </style>
-</head>
-<body>
-  <nav>
-    <div class="logo">
-      <img src="astrothesis.png" alt="astrothesis logo">
-      astrothesis
-    </div>
-    <ul class="nav-links">
-      <li><a href="index.html">home</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-      <li><a href="blog.html">blog</a></li>
-      <li><a href="forum.html">forum</a></li>
-    </ul>
-    <div class="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </nav>
-
-  <div class="content">
-    <h1>the mathematics behind schwarzschild black holes</h1>
-    <img src="IMG_6534.jpeg" alt="black hole illustration" class="post-image">
-
-    <p>Something exciting is on the horizon: a new essay is taking shape, exploring ideas that weave together curiosity, creativity, and discovery. Every paragraph is like a small voyage into the unknown, teasing the imagination and inviting readers to think differently.</p>
-
-    <p>The essay will venture into concepts that challenge conventional understanding, sparking questions and connecting seemingly unrelated ideas. It’s a journey of ideas that promises depth, inspiration, and unexpected twists.</p>
-
-    <p>Each section has been carefully planned, though the final draft is still evolving. What begins as a simple notion gradually blossoms into a full tapestry of thought, revealing connections and insights that may surprise even the author.</p>
-
-    <p>Visuals, equations, or anecdotes may appear along the way, each chosen to illustrate a point or evoke wonder. The essay is both a product and a process, showcasing the excitement of crafting ideas from the spark of curiosity to their final form.</p>
-
-    <p>By the time this essay is finished, it aims not only to inform but to transport its readers to new perspectives, inviting them to engage, reflect, and imagine. Stay tuned for its arrival; the journey is just beginning.</p>
-  </div>
-
-  <script>
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('nav-active');
-    });
-  </script>
-</body>
-</html>
+      text-align: center; /* center content text */
