@@ -4,8 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>astrothesis - the mathematics behind schwarzschild black holes</title>
-  <link rel="icon" href="astrothesis.png" type="image/png">
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="astrothesis.png">
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -13,7 +18,10 @@
       font-family: 'Yeseva One', serif;
       background: #fef9f4;
       color: black;
-      line-height: 1.7;
+      text-align: center;
+      padding: 2rem;
+      line-height: 1.8;
+      font-size: 1.2rem;
     }
 
     nav {
@@ -53,6 +61,7 @@
       font-size: 1rem;
       color: black;
       transition: color 0.3s;
+      text-transform: lowercase;
     }
 
     .nav-links a:hover { color: #555; }
@@ -68,46 +77,35 @@
       width: 25px;
       height: 3px;
       background: black;
-    }
-
-    .content {
-      max-width: 900px;
-      margin: 8rem auto 2rem auto;
-      padding: 0 1rem;
-      text-align: center; /* Centered all text */
+      transition: all 0.3s;
     }
 
     h1 {
       font-family: 'DM Serif Text', serif;
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
       text-transform: lowercase;
-      text-align: center;
+      margin-top: 6rem; /* clears the fixed nav */
     }
 
     .meta {
-      text-align: center;
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: #555;
       margin-bottom: 2rem;
     }
 
     img.post-image {
       width: 100%;
-      max-height: 400px;
-      object-fit: cover;
-      margin-bottom: 2rem;
-      border-radius: 1rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      display: block;
+      border-radius: 10px;
     }
 
     p {
-      margin-bottom: 1.2rem;
-      font-size: 1.05rem;
-    }
-
-    a.inline-link {
-      color: #1a0dab;
-      text-decoration: underline;
+      max-width: 800px;
+      margin: 0 auto 1.5rem auto;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
@@ -148,16 +146,20 @@
     </div>
   </nav>
 
-  <div class="content">
-    <h1>the mathematics behind schwarzschild black holes</h1>
-    <img src="IMG_6534.jpeg" alt="black hole illustration" class="post-image">
+  <!-- Title above the image -->
+  <h1>the mathematics behind schwarzschild black holes</h1>
 
-    <p>Mathematics is of no use to us when it exists as pen on paper or chalk upon a board. It is in its application that it becomes a fundamental tool—transforming imagination into reality. Physics allows us to apply mathematics to matter, to predict the behaviour and motion of particles through space and time, and to turn this knowledge into something we can think with, create with, and progress with as a species.</p>
+  <!-- Post image -->
+  <img src="IMG_6534.jpeg" alt="black hole illustration" class="post-image">
 
-    <p>Mathematics is deeply embedded in astrophysics, where it is used to build theories, we cannot yet explore because of the limits of space travel and the enormity of the Universe itself. The Schwarzschild black hole owes its name to Karl Schwarzschild, a German physicist born in the late 1800s. Alongside Einstein’s newly emergent theory of general relativity, Schwarzschild was able to mathematically describe the “perfect” black hole. The Schwarzschild solution is often spoken of as an elegant entity—“compact, exact, and beautiful”.</p>
+  <!-- Meta -->
+  <div class="meta">posted: 25/08/2025 | author: taseefah</div>
 
-    <p>Exclusive essay coming soon, stay tuned Navigators!</p>
-  </div>
+  <p>Mathematics is of no use to us when it exists as pen on paper or chalk upon a board. It is in its application that it becomes a fundamental tool—transforming imagination into reality. Physics allows us to apply mathematics to matter, to predict the behaviour and motion of particles through space and time, and to turn this knowledge into something we can think with, create with, and progress with as a species.</p>
+
+  <p>Mathematics is deeply embedded in astrophysics, where it is used to build theories we cannot yet explore because of the limits of space travel and the enormity of the Universe itself. The Schwarzschild black hole owes its name to Karl Schwarzschild, a German physicist born in the late 1800s. Alongside Einstein’s newly emergent theory of general relativity, Schwarzschild was able to mathematically describe the “perfect” black hole. The Schwarzschild solution is often spoken of as an elegant entity—“compact, exact, and beautiful”.</p>
+
+  <p>Exclusive essay coming soon, stay tuned Navigators!</p>
 
   <script>
     const hamburger = document.querySelector('.hamburger');
