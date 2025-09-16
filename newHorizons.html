@@ -133,7 +133,12 @@
       box-shadow: 0 8px 12px rgba(0,0,0,0.1);
     }
 
-    .card-image { background: #eee; height: 200px; }
+    .card-image {
+      background: #eee;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
 
     .card-content {
       padding: 1rem;
@@ -144,6 +149,7 @@
       font-family: 'DM Serif Text', serif;
       font-size: 1.4rem;
       margin-bottom: 0.5rem;
+      text-transform: lowercase;
     }
 
     .card-content p {
@@ -202,15 +208,16 @@
     </div>
 
     <div class="cards">
-      <!-- First Card -->
-      <div class="card">
-        <div class="card-image"></div>
-        <div class="card-content">
-          <h2>something stellar is on the horizon</h2>
-          <p>There’s lots to come on astrothesis — soon you’ll find posts exploring cosmic mysteries, ideas, and discoveries.</p>
-          <div class="date">posted: 22/08/2025</div>
+      <!-- First Card (Updated) -->
+      <a href="schwarzschildBlackHoles.html" class="card-link">
+        <div class="card">
+          <div class="card-image" style="background-image: url('nasa-Yj1M5riCKk4-unsplash.jpg');"></div>
+          <div class="card-content">
+            <h2>the mathematics behind schwarzschild black holes</h2>
+            <p>Discover the mathematics behind these amazing celestial bodies</p>
+          </div>
         </div>
-      </div>
+      </a>
 
       <!-- Second Card (Coming Soon) -->
       <div class="card">
@@ -224,7 +231,7 @@
       <div class="card">
         <div class="card-image"></div>
         <div class="card-content">
-          <h2>Coming soon </h2>
+          <h2>Coming soon</h2>
         </div>
       </div>
     </div>
@@ -240,3 +247,4 @@
   </script>
 </body>
 </html>
+      
