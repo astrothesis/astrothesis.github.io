@@ -11,6 +11,29 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="astrothesis.png">
 
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text&family=Yeseva+One&display=swap" rel="stylesheet">
+
+  <!-- MathJax: configuration + loader -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        packages: {'[+]': ['ams']}
+      },
+      options: {
+        skipHtmlTags: ['script','noscript','style','textarea','pre']
+      }
+    };
+  </script>
+  <script async id="MathJax-script" 
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+
+  <style>
+    ...
+  </style>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -166,6 +189,8 @@
   <p>But when a star of great mass reaches its end, the balance falters. The fuel that fed its core runs out, the outward pressure fades, and gravity takes hold. Some stars collapse into neutron stars, but if the star is massive enough, no force in the Universe can halt the fall. What remains is a singularity—an infinitely dense point where spacetime itself breaks down. For a long time, many scientists believed that such things, though mathematically possible, could never truly form. Even Albert Einstein doubted that black holes could exist in the Universe.</p>
 
   <p>Escape velocity helps us glimpse why. It is the speed required to escape a body’s gravitational pull. As mass is crushed into smaller and smaller spaces, escape velocity climbs. When the required speed surpasses the speed of light, not even light can break free. What cannot release light cannot be seen, and so the object becomes dark—a black hole. The escape velocity of any body is given by:</p>
+
+  <p>$$ v_e = \sqrt{\frac{2GM}{r}} $$</p>
 
   <script>
     const hamburger = document.querySelector('.hamburger');
